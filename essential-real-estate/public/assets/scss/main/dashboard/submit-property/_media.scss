@@ -1,0 +1,48 @@
+.ere-property-multi-step {
+  .property-media {
+    .media-thumb
+    {
+      text-align: center;
+      img {
+        width: 100%;
+      }
+    }
+    .media-item-actions {
+      text-align: center;
+      font-size: 20px;
+      > * {
+        margin-right: 5px;
+      }
+      .icon-featured {
+        color: var(--ere-color-accent);
+      }
+    }
+  }
+
+  .media-drag-drop {
+    background-color: #efefef;
+    border: 2px dashed #dfdfdf;
+    text-align: center;
+    padding: 30px;
+  }
+
+  .remove {
+    cursor: pointer;
+  }
+
+  .media-drag-drop,
+  .property-video-url,
+  .property-image-360{
+    margin-bottom: 20px;
+  }
+
+  .media-thumb-wrap > span {
+    width: 16.666666667%;
+    float: left;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+  }
+
+
+}

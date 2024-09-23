@@ -1,0 +1,20 @@
+.ere-property.ere-property-slider {
+  .ere__lpb-status {
+    position: static;
+    @include d-inline-flex();
+    .ere__loop-property-badge-item {
+      margin-right: 5px;
+      margin-bottom: 0;
+      &:last-child {
+        margin-right: 0;
+      }
+      .ere__lpbi-inner {
+        padding: 5px 15px;
+        font-size: 16px;
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+}

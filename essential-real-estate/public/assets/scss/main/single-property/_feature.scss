@@ -1,0 +1,13 @@
+.ere__single-property-feature {
+  .property-feature-wrap {
+    a {
+      color: inherit;
+      @include transition(all .3s);
+      &:hover,
+      &:active,
+      &:focus {
+        color: var(--ere-color-accent);
+      }
+    }
+  }
+}

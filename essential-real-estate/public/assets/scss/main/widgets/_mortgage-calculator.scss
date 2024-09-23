@@ -1,0 +1,14 @@
+.ere__mc-form {
+  label {
+    font-weight: 400;
+  }
+  .ere__mc-result {
+    color: var(--ere-color-heading);
+    strong {
+      font-weight: 600;
+    }
+  }
+  .form-group:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,35 @@
+.ere__single-property-map {
+  .ere-property-element {
+    position: relative;
+  }
+}
+
+.ere__single-property-map-directions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  @include d-flex();
+  @include align-items-stretch();
+  .ere__spmd-input {
+    background-color: #fff;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .ere__spmd-total {
+    background-color: #fff;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: var(--ere-color-heading);
+    @include d-flex();
+    @include align-items-center();
+    @include flex-shrink-0();
+  }
+}
+
+@media (max-width: 575px) {
+  .ere__spmd-total {
+    width: 100%;
+  }
+}

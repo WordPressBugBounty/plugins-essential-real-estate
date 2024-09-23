@@ -1,0 +1,45 @@
+.ere__single-property-contact-agent {
+  .ere__agent-name {
+    font-size: 21px;
+    margin-bottom: 3px;
+    a {
+      color: inherit;
+      @include transition(all .3s);
+      &:hover,
+      &:focus {
+        color: var(--ere-color-accent);
+      }
+    }
+  }
+  .ere__agent-position {
+    font-weight: 500;
+    color: #8f8f8f;
+  }
+
+  .ere__single-agent-social {
+    margin-top: 14px;
+  }
+
+  .ere__single-agent-contact-info {
+    margin: 25px 0;
+  }
+
+  .ere__single-agent-contact-form {
+    margin-top: 15px;
+  }
+
+  @media (min-width: 576px) {
+    .ere__has-captcha {
+      .ere__agent-contact-btn-wrap {
+        text-align: right;
+      }
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .ere__agent-image {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+  }
+}

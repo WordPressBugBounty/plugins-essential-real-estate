@@ -1,0 +1,30 @@
+.ere__start-rating {
+  position: absolute;
+  top: -10000em;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.rating-container {
+  line-height: 1;
+  .empty-stars {
+    color: var(--ere-rating-color);
+    display: inline-block;
+  }
+  .filled-stars {
+    color: var(--ere-rating-color);
+    -webkit-text-stroke: 1px var(--ere-rating-color);
+    text-shadow: 1px 1px var(--ere-rating-color);
+  }
+  .rating-stars:focus {
+    outline: none;
+  }
+}
+
+
+

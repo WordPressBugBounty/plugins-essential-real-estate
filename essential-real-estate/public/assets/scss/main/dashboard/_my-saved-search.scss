@@ -1,0 +1,11 @@
+.ere-my-saved-search-item
+{
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  &:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}

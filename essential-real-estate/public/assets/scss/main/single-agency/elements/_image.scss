@@ -1,0 +1,8 @@
+.ere__single-agency-avatar {
+  border: 1px solid #ededed;
+  background-color: #fafafa;
+  height: 250px;
+  @include d-flex();
+  @include align-items-center();
+  @include justify-content-center();
+}

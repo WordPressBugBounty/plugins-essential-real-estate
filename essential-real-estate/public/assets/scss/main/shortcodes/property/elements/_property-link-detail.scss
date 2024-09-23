@@ -1,0 +1,21 @@
+.ere-property {
+  .property-link-detail {
+    font-weight: 500;
+    margin-top: 6px;
+    i {
+      color: var(--ere-color-accent);
+      margin-left: 5px;
+      @include transition(all .3s);
+      font-size: 16px;
+    }
+    a {
+      color: var(--ere-color-heading);
+      &:hover {
+        color: var(--ere-color-accent);
+        i {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}

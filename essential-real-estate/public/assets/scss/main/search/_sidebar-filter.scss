@@ -1,0 +1,40 @@
+.form-search-wrap.form-search-wrap {
+  .ui-slider-horizontal {
+    position: relative;
+    height: 4px;
+    @include border-radius(0);
+    border: none;
+    background: #e5e5e5;
+    margin: 15px 4px 10px 8px;
+    .ui-slider-handle {
+      position: absolute;
+      z-index: 4;
+      height: 14px;
+      width: 14px;
+      background: var(--ere-color-accent);
+      top: -5px;
+      cursor: ew-resize;
+      border: none;
+      @include border-radius(50%);
+
+      &:active,
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .ui-slider-range {
+      position: absolute;
+      z-index: 3;
+      background: var(--ere-color-accent);
+      @include border-radius(0);
+      border: none;
+    }
+  }
+
+  .title-slider-filter {
+    span {
+      display: inline-block;
+    }
+  }
+}

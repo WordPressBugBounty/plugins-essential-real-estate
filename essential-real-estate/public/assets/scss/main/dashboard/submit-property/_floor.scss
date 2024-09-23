@@ -1,0 +1,38 @@
+.ere-property-multi-step {
+  #ere_floors {
+    tr {
+      td {
+        vertical-align: middle;
+        &:first-of-type {
+          span {
+            cursor: all-scroll;
+          }
+        }
+        &:last-of-type {
+          span {
+            cursor: pointer;
+          }
+        }
+
+        &:first-of-type,
+        &:last-of-type {
+          span:hover {
+            color: var(--ere-color-accent);
+          }
+        }
+      }
+    }
+    .row-sort,
+    .row-remove {
+      width: 30px;
+      text-align: center;
+    }
+  }
+
+  .add-sort-table {
+    .row-sort {
+      width: 30px;
+      text-align: center;
+    }
+  }
+}

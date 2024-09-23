@@ -1,0 +1,17 @@
+.no-js .ere-property-multi-step,
+.ere-property-multi-step.edit-form {
+  fieldset {
+    display: block !important;
+  }
+  .ere-steps {
+    display: none;
+  }
+  .ere-step-nav {
+    border-top: 0;
+    .ere-btn-edit,
+    .ere-btn-next,
+    .ere-btn-prev {
+      display: none;
+    }
+  }
+}

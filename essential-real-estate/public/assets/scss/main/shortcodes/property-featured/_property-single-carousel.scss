@@ -1,0 +1,115 @@
+.ere-property-featured.property-single-carousel {
+  .property-inner {
+    @include d-flex();
+  }
+
+  .property-image {
+    max-width: var(--ere-sc-property-featured-layout-property-single-carousel-image-width);
+    @include flex-shrink-0();
+    margin-right: var(--ere-sc-property-featured-layout-property-single-carousel-image-spacing);
+    @include align-self-start();
+    &:before {
+      display: none;
+    }
+  }
+
+  .property-item-content {
+    @include flex-fill();
+    width: 1px;
+  }
+
+  .property-title {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .property-price {
+    font-size: 24px;
+    margin-right: 20px;
+  }
+
+  .property-location {
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+
+  .property-info {
+    margin-top: 30px;
+  }
+
+  .property-heading-inner {
+    @include d-flex();
+    margin-bottom: 3px;
+  }
+
+  .ere-heading {
+    margin-bottom: 60px;
+  }
+
+
+  @media (max-width: 1199px) {
+    .property-inner {
+      @include flex-wrap();
+    }
+
+    .property-image {
+      width: 100% !important;
+      max-width: 100%;
+      margin-right: 0 !important;
+      margin-bottom: 22px;
+    }
+
+    .property-title {
+      white-space: normal;
+    }
+
+    .ere-heading {
+      margin-bottom: 40px;
+    }
+
+  }
+
+  @media (min-width: 1200px) {
+    .property-excerpt {
+      max-height: calc(var(--ere-body-line-height) * var(--ere-sc-property-featured-layout-property-single-carousel-property-except-max-height));
+      overflow: hidden;
+    }
+
+    .property-item-content {
+      @include d-flex();
+      @include flex-column();
+    }
+
+    .property-info {
+      margin-top: auto;
+    }
+  }
+
+
+  .owl-dots {
+    padding-top: 55px;
+  }
+
+  --ere-owl-dot-bg-color: rgba(0,0,0,.1);
+  --ere-owl-dot-width: 24px;
+  --ere-owl-dot-height: 4px;
+  --ere-owl-dot-radius: 0px;
+
+  &.color-light {
+    --ere-owl-dot-bg-color: rgba(255,255,255,.1);
+    --ere-loop-property-info-value-text-color: var(--ere-color-light-heading-color);
+    .property-price,
+    .property-title {
+      color: var(--ere-color-light-heading-color);
+    }
+    .property-excerpt,
+    .property-location {
+      color: var(--ere-color-light-text-color);
+    }
+
+    .property-info.ere__single-property-info {
+      color: var(--ere-color-light-text-color);
+    }
+  }
+
+}

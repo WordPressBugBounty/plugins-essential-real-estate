@@ -1,0 +1,44 @@
+.ere-property-multi-step {
+  .ere-steps {
+    button.ere-btn-arrow {
+      padding: 0 25px 0 10px;
+      margin: 0 0 5px 5px;
+      &:after {
+        border-right: calc(var(--ere-btn-step-height) * 0.5) solid var(--ere-btn-step-bg-color);
+        border-left: none;
+        left: 0;
+        right: auto;
+        @include transform(translateX(-100%));
+      }
+      &:before {
+        border-right: calc(var(--ere-btn-step-height) * 0.5) solid white;
+        border-left: none;
+        right: 0;
+        left: auto;
+      }
+      &:first-child {
+        padding-right: 10px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      &:last-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-left: 0;
+      }
+
+      &.active,
+      &:hover,
+      &:active,
+      &:focus {
+        &:after {
+          border-right-color: var(--ere-btn-step-active-bg-color);
+        }
+      }
+    }
+  }
+}

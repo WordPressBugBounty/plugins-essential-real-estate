@@ -1,0 +1,22 @@
+.list-property-result-ajax {
+  .title-result {
+    margin-bottom: 30px;
+    h2 {
+      font-weight: 600;
+      line-height: 1;
+      font-size: 26px;
+    }
+
+    .text-no-result {
+      display: none;
+    }
+  }
+
+  .owl-carousel .owl-nav {
+    --ere-owl-nav-width: 40px;
+    --ere-owl-nav-height: 45px;
+    --ere-owl-nav-icon-font-size: 24px;
+    --ere-owl-nav-inline-spacing: 15px;
+    top: -70px;
+  }
+}

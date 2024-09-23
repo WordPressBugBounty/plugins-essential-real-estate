@@ -1,0 +1,32 @@
+.ere__loop-property-badge-item {
+  .ere__lpbi-inner {
+    padding: 0 10px 0 5px;
+    &:after {
+      right: 100%;
+      left: auto;
+      border-right: 7px solid currentColor;
+      border-left: none;
+    }
+  }
+}
+
+.ere__loop-property-badge {
+  position: absolute;
+  right: 0;
+  left: auto;
+  &.ere__lpb-status {
+    left: 0;
+    right: auto;
+    .ere__loop-property-badge-item {
+      .ere__lpbi-inner {
+        padding: 0 5px 0 10px;
+        &:after {
+          left: 100%;
+          right: auto;
+          border-left: 7px solid currentColor;
+          border-right: none;
+        }
+      }
+    }
+  }
+}

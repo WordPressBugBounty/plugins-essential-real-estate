@@ -1,0 +1,25 @@
+.ere__loop-property-price {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ere-color-heading);
+  display: block;
+  .price-per-unit {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 1.5px 5px;
+    background-color: var(--ere-color-accent);
+    color: var(--ere-color-accent-foreground);
+    margin-left: 5px;
+    position: relative;
+    top: -2px;
+  }
+
+  .property-price-prefix,
+  .property-price-postfix
+  {
+    font-size: 12px;
+    color: var(--ere-color-accent);
+  }
+}
+
+

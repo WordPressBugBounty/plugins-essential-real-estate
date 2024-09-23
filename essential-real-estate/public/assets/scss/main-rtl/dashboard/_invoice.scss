@@ -1,0 +1,10 @@
+.ere__single-invoice-action {
+  text-align: left;
+  a {
+    margin-left: 6px;
+    margin-right: 0;
+    &:last-of-type {
+      margin-left: 0;
+    }
+  }
+}

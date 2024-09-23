@@ -1,0 +1,33 @@
+.ere-property-gallery.ere-property-gallery {
+  .filter-wrap {
+    margin-bottom: 30px;
+  }
+  .filter-inner {
+    @include d-flex();
+    @include flex-wrap();
+    @include align-items-end();
+    @include justify-content-between();
+  }
+  .property-filter-content {
+    margin-bottom: 30px;
+    @include d-flex();
+    @include flex-wrap();
+    @include align-items-center();
+    a {
+      font-size: 16px;
+      color: #8f8f8f;
+      @include transition(all .3s);
+      padding: 13px 20px;
+      cursor: pointer;
+      &:hover,
+      &.active-filter {
+        background-color: var(--ere-color-accent);
+        color: var(--ere-color-accent-foreground);
+      }
+    }
+  }
+
+  .property-filter-mb {
+    width: 100%;
+  }
+}

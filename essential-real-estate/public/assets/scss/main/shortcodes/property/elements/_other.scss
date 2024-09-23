@@ -1,0 +1,38 @@
+.ere-property {
+  .view-all-link {
+    text-align: center;
+  }
+
+  a {
+    @include transition(all .3s);
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .block-center-inner {
+    z-index: 11;
+  }
+
+
+  .property-type,
+  .property-agent,
+  .property-date,
+  .property-type-list {
+    font-size: 12px;
+    font-weight: 400;
+
+    i {
+      font-size: 14px;
+      margin-right: 5px;
+      color: var(--ere-color-accent);
+    }
+  }
+
+  @media ( max-width: 1199px ) {
+    .hidden-md {
+      display: none;
+    }
+  }
+}

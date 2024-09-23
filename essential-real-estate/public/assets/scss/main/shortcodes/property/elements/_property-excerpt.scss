@@ -1,0 +1,8 @@
+.ere-property {
+  .property-excerpt {
+    line-height: var(--ere-body-line-height);
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

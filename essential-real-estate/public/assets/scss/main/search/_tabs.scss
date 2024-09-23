@@ -1,0 +1,19 @@
+.ere-search-status-tab {
+  margin-bottom: 30px;
+  background-color: var(--ere-search-status-tab-bg-color);
+  button {
+    vertical-align: top;
+    height: 44px;
+    line-height: 1;
+    border: 0;
+    background-color: transparent;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: var(--ere-search-status-tab-text-color);
+    &:hover,
+    &.active {
+      background-color: var(--ere-color-accent);
+      color: var(--ere-color-accent-foreground);
+    }
+  }
+}

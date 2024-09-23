@@ -1,0 +1,21 @@
+.user-dropdown {
+	.user-dropdown-menu {
+		text-align: right;
+		right: 0;
+		left: auto;
+	}
+
+
+	.user-display-name {
+		padding-left: 15px;
+		padding-right: 0;
+		&:after {
+			left: 0;
+			right: auto;
+		}
+		i {
+			margin-left: 10px;
+			margin-right: 0;
+		}
+	}
+}

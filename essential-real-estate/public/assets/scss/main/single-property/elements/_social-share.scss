@@ -1,0 +1,35 @@
+.ere__social-share {
+  position: relative;
+  cursor: pointer;
+  .social-share-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: -1;
+    visibility: hidden;
+    opacity: 0;
+    @include transition(all .3s);
+    padding: 5px 15px;
+    line-height: 20px;
+    background-color: var(--ere-color-accent);
+    color: var(--ere-color-accent-foreground);
+    @include border-radius(1em);
+    margin-top: 20px;
+    @include d-flex();
+    font-size: 14px;
+    a {
+      color: inherit;
+    }
+    a + a {
+      margin-left: 10px;
+    }
+  }
+  &:hover {
+    .social-share-list {
+      opacity: 1;
+      z-index: 2;
+      margin-top: 0;
+      visibility: visible;
+    }
+  }
+}

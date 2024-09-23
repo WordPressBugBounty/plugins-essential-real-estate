@@ -1,0 +1,27 @@
+.ere-property-multi-step {
+  .ere-step-nav {
+    border-top: 1px solid var(--ere-color-accent);
+    text-align: center;
+    padding-top: 15px;
+
+    &:after {
+      clear: both;
+      content: "";
+      display: table;
+    }
+
+    .ere-btn-prev {
+      float: left;
+    }
+
+    .btn-submit-property,
+    .ere-btn-next {
+      float: right;
+    }
+
+    span {
+      padding: 0 5px;
+    }
+
+  }
+}

@@ -1,0 +1,9 @@
+ul.ere__my-property-filter {
+  li {
+    margin-left: 20px;
+    margin-right: 0;
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}

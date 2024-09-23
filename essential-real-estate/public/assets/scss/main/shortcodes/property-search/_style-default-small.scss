@@ -1,0 +1,10 @@
+.ere-search-properties.style-default-small {
+  &.color-light {
+    --ere-property-search-form-bg-color: var(--ere-property-search-form-light-bg-color);
+    --ere-property-search-form-text-color: var(--ere-property-search-form-light-text-color);
+    --ere-property-search-form-border-color: var(--ere-property-search-form-light-border-color);
+    .form-search-wrap {
+      --ere-color-heading: #fff;
+    }
+  }
+}

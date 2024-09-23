@@ -1,0 +1,48 @@
+.ere-search-map-properties {
+  &.color-light {
+    --ere-property-search-form-bg-color: var(--ere-property-search-form-light-bg-color);
+    --ere-property-search-form-text-color: var(--ere-property-search-form-light-text-color);
+    --ere-property-search-form-border-color: var(--ere-property-search-form-light-border-color);
+    .form-search-wrap {
+      --ere-color-heading: #fff;
+      padding: 15px;
+      background-color: var(--ere-property-search-form-bg-color);
+      &.has-status-tab {
+        padding-top: 0;
+      }
+    }
+  }
+
+  .property-result-wrap {
+    margin-top: 25px;
+  }
+
+  .list-property-result-ajax {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 30px;
+  }
+
+  .property-search-map-paging-wrap {
+    margin-top: 20px;
+  }
+
+}
+
+@media (max-width: 1199px) {
+  .ere-search-map-properties {
+    .ere-map-search,
+    .col-scroll-vertical {
+      height: inherit !important;
+      overflow: inherit !important;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .ere-search-map-properties {
+    .ere-map-result {
+      height: 400px;
+    }
+  }
+}

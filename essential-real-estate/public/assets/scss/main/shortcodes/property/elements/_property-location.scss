@@ -1,0 +1,15 @@
+.ere__loop-property-location {
+  overflow: hidden;
+  padding-left: 1px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 400;
+  i {
+    font-size: 14px;
+    margin-right: 5px;
+  }
+  a {
+    color: inherit;
+  }
+}

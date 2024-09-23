@@ -1,0 +1,24 @@
+.ere-property-slider.navigation-middle {
+
+  .ere__lpb-status {
+    margin-left: 10px;
+    margin-right: 0;
+  }
+
+  .property-location {
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+
+  .property-price {
+    margin-left: 10px;
+    margin-right: 0;
+  }
+
+  @media (max-width: 767px) {
+    .property-location {
+      margin-right: 0;
+    }
+  }
+}

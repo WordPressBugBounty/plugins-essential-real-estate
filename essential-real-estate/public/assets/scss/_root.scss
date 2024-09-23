@@ -1,0 +1,85 @@
+:root {
+	--ere-color-accent: #FE6A00;
+	--ere-color-accent-foreground :  #fff;
+	--ere-color-heading: #222;
+	--ere-color-heading-foreground: #fff;
+	--ere-color-border: #eee;
+
+	--ere-owl-nav-width: 50px;
+	--ere-owl-nav-height: 60px;
+	--ere-owl-nav-bg-color: #f6f6f6;
+	--ere-owl-nav-color: #222;
+	--ere-owl-nav-icon-font-size: 31px;
+	--ere-owl-nav-icon-font-weight: 400;
+	--ere-owl-nav-icon-font-family: 'FontAwesome';
+	--ere-owl-nav-inline-spacing: 20px;
+	--ere-owl-dot-bg-color: #EBEBEB;
+	--ere-owl-dot-width: 10px;
+	--ere-owl-dot-height: 10px;
+	--ere-owl-dot-spacing: 3px;
+	--ere-owl-dot-radius: 50%;
+
+	--ere-property-search-form-bg-color: transparent;
+	--ere-property-search-form-text-color: #8f8f8f;
+	--ere-property-search-form-border-color: #dedede;
+
+	--ere-property-search-form-light-bg-color: #2C2C2C;
+	--ere-property-search-form-light-text-color: #bababa;
+	--ere-property-search-form-light-border-color: #565656;
+
+	--ere-loop-property-badge-color: var(--ere-color-accent-foreground);
+	--ere-loop-property-badge-bg-color: var(--ere-color-accent);
+	--ere-loop-list-two-columns-property-except-max-height: 3em;
+	--ere-loop-zigzac-property-except-max-height: 4em;
+	--ere-property-list-image-width: 330px;
+	--ere-property-list-image-spacing: 30px;
+	--ere-loop-list-property-except-max-height: 2em;
+	--ere-sc-property-carousel-navigation-width: 20%;
+	--ere-archiver-action-height: 34px;
+	--ere-search-status-tab-bg-color: #2c2c2c;
+	--ere-search-status-tab-text-color: #bababa;
+	--ere-property-mini-search-form-width: 870px;
+	--ere-property-mini-search-form-height: 60px;
+	--ere-property-mini-search-form-bg-color: #fff;
+	--ere-sc-property-slider-property-info-bg-color: rgba(255, 255, 255, 0.9);
+	--ere-sc-property-slider-property-info-text-color: var(--ere-color-heading);
+	--ere-loop-property-info-spacing: 15px;
+	--ere-sc-property-slider-property-bg-color: rgba(34, 34, 34, 0.9);
+	--ere-sc-property-slider-property-text-color: #fff;
+	--ere-loop-property-status-color: var(--ere-color-accent-foreground);
+	--ere-loop-property-status-bg-color: var(--ere-color-accent);
+	--ere-sc-property-featured-layout-property-single-carousel-image-width:48%;
+	--ere-sc-property-featured-layout-property-single-carousel-image-spacing: 30px;
+	--ere-sc-property-featured-layout-property-single-carousel-property-except-max-height: 3em;
+
+	--ere-color-light-text-color: #bababa;
+	--ere-color-light-heading-color: #fff;
+
+	--ere-agent-list-image-width: 270px;
+	--ere-agent-list-image-spacing: 30px;
+
+	--ere-agent-social-wide: 35px;
+	--err-agent-social-font-size: 14px;
+	--ere-loop-list-agent-except-max-height: 5em;
+
+	--ere-rating-color: var(--ere-color-accent);
+
+	--ere-map-height: 350px;
+
+	--ere-tabs-bg: #222;
+	--ere-tabs-text-color: #8f8f8f;
+	--ere-tabs-card-header-bg-color: #f8f8f8;
+	--ere-tabs-card-header-text-color: #222;
+	--ere-tabs-card-header-font-size: 16px;
+
+	--ere-agency-image-width: 270px;
+	--ere-agency-image-spacing: 30px;
+	--ere-body-line-height: 1.6;
+	--ere-loop-agency-desc-max-height: 2em;
+
+	--ere-btn-step-height: 34px;
+	--ere-btn-step-bg-color: #222;
+	--ere-btn-step-text-color: #fff;
+	--ere-btn-step-active-bg-color: var(--ere-color-accent);
+	--ere-btn-step-active-text-color: var(--ere-color-accent-foreground);
+}

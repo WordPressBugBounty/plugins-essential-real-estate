@@ -1,0 +1,19 @@
+ul.ere__property-taxonomy-list {
+  li {
+    a {
+      &:hover,
+      &:active,
+      &:focus {
+        padding-right: 5px;
+        padding-left: 0;
+      }
+    }
+    .item-count {
+      left: 0;
+      right: auto;
+    }
+  }
+  .fa-caret-right:before {
+    content: "\f0d9";
+  }
+}

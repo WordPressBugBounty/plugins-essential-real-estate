@@ -1,0 +1,28 @@
+.ere__single-property-gallery {
+  .single-property-image-main {
+    margin-bottom: 8px;
+    .owl-nav {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+    }
+  }
+  .single-property-image-thumb {
+    .owl-item {
+      cursor: pointer;
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        @include transition(all .3s);
+      }
+    }
+    .current:before {
+      background-color: rgba(34, 34, 34, 0.6);
+    }
+  }
+}

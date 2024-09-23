@@ -1,0 +1,13 @@
+.ere__loop-property-status {
+  @include d-flex();
+  @include align-items-center();
+  .ere__loop-property-status-item + .ere__loop-property-status-item {
+    margin-left: 5px;
+  }
+}
+.ere__loop-property-status-item {
+  color: var(--ere-loop-property-status-color);
+  background-color: var(--ere-loop-property-status-bg-color);
+  padding: 2px 15px;
+  line-height: 20px;
+}

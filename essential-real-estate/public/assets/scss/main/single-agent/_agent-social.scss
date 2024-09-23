@@ -1,0 +1,20 @@
+.ere__single-agent-social {
+  a {
+    @include d-inline-flex();
+    @include align-items-center();
+    @include justify-content-center();
+    width: 35px;
+    height: 35px;
+    @include transition(all .3s);
+    @include border-radius(50%);
+    background: var(--ere-color-heading);
+    color: var(--ere-color-heading-foreground);
+    &:hover {
+      background: var(--ere-color-accent);
+      color: var(--ere-color-accent-foreground);
+    }
+  }
+  a + a {
+    margin-left: 5px;
+  }
+}

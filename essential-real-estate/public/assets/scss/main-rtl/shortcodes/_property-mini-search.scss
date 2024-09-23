@@ -1,0 +1,13 @@
+.ere-mini-search-properties {
+
+  .form-group {
+    + .form-group {
+      border-right: 1px solid var(--ere-color-border);
+      border-left: 0;
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}

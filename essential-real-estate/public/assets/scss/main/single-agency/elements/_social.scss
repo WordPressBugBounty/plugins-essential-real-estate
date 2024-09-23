@@ -1,0 +1,29 @@
+ul.ere__single-agency-social {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  @include d-flex();
+  @include flex-wrap();
+  li {
+    a {
+      @include d-flex();
+      @include align-items-center();
+      @include justify-content-center();
+      width: 35px;
+      height: 35px;
+      @include border-radius(50%);
+      @include transition(all .3s);
+      background-color: var(--ere-color-heading);
+      color: var(--ere-color-heading-foreground);
+      &:hover,
+      &:focus {
+        background-color: var(--ere-color-accent);
+        color: var(--ere-color-accent-foreground);
+      }
+    }
+    margin: 5px 10px 5px 0;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

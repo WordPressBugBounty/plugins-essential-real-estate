@@ -1,0 +1,18 @@
+.ere__contact-form {
+  label {
+    display: none;
+  }
+  textarea {
+    min-height: 150px;
+  }
+  .invalid-feedback {
+    font-size: 90%;
+  }
+  .ere__message {
+    text-align: center;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fb6a19;
+  }
+}
+

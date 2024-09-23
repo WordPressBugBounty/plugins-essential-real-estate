@@ -1,0 +1,31 @@
+.ere-property-multi-step {
+  select {
+    width: 100%;
+  }
+
+  label {
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .property-fields-wrap {
+    margin-bottom: 50px;
+  }
+
+  .select2-container
+  {
+    display: block !important;
+    width: 100% !important;
+    input {
+      height: 30px;
+    }
+  }
+
+  fieldset {
+    display: none;
+    &.visible,
+    &:first-child {
+      display: block;
+    }
+  }
+}

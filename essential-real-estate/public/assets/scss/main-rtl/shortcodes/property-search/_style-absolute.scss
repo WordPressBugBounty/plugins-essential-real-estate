@@ -1,0 +1,32 @@
+.ere-search-properties.style-absolute {
+  .form-search-wrap {
+    right: 65%;
+    left: auto;
+  }
+}
+
+@media (max-width: 991px) {
+  .ere-search-properties.style-absolute {
+    .form-search-wrap {
+      right: 58%;
+      left: auto;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .ere-search-properties.style-absolute {
+    .form-search-wrap {
+      right: 50%;
+      left: auto;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .ere-search-properties.style-absolute {
+    .form-search-wrap {
+      right: inherit;
+    }
+  }
+}

@@ -1,0 +1,101 @@
+.ere__loop-property-info {
+  @include transition(all .3s);
+  color: var(--ere-color-accent-foreground);
+  background-color: var(--ere-color-accent);
+  .tooltip {
+    top: -5px !important;
+  }
+  .property-info-inner {
+    @include d-flex();
+    @include flex-wrap();
+    @include justify-content-between();
+    line-height: 20px;
+    padding: 5px 15px;
+  }
+
+  .ere__loop-property-info-item {
+    @include d-inline-flex();
+    @include align-items-center();
+    i {
+      margin-right: 5px;
+      font-size: 16px;
+    }
+    .ere__lpi-content {
+      > span {
+        display: block;
+        + span {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+
+  &.layout-1 {
+    .ere__loop-property-info-item {
+      .ere__lpi-content {
+        font-size: 12px;
+        > span.ere__lpi-label {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &.layout-2 {
+    .tooltip {
+      display: none;
+    }
+    .ere__loop-property-info-item {
+      i {
+        font-size: 24px;
+        margin-right: 10px;
+      }
+      .ere__lpi-content {
+        font-size: 16px;
+        letter-spacing: .03em;
+        line-height: 14px;
+      }
+      .ere__lpi-value {
+        font-weight: 600;
+        color: var(--ere-loop-property-info-value-text-color,inherit);
+      }
+      + .ere__loop-property-info-item {
+        margin-left: var(--ere-loop-property-info-spacing);
+      }
+    }
+  }
+
+  &.ere__single-property-info {
+    background-color: transparent !important;
+    color: var(--ere-color-heading);
+    .property-info-inner {
+      padding: 0;
+      @include justify-content-start();
+    }
+
+    .ere__loop-property-info-item {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      .ere__lpi-content {
+        > span + span {
+          margin-top: 2px;
+        }
+        font-size: 14px;
+      }
+      i {
+        color: var(--ere-color-accent);
+      }
+
+      .ere__lpi-value {
+        color: var(--ere-single-property-info-value-text-color,inherit);
+      }
+    }
+  }
+}
+.ere-property {
+  .property-inner:hover {
+    .ere__loop-property-info {
+      background-color: var(--ere-color-heading);
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.ere__archive-agent-above {
+  margin-bottom: 45px;
+  @include d-flex();
+  @include flex-wrap();
+  @include justify-content-between();
+  @include align-items-end();
+  .ere-heading {
+    margin-bottom: 15px;
+    h2 {
+      margin-bottom: 0 !important;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .ere__apa-search {
+    width: 100%;
+  }
+}

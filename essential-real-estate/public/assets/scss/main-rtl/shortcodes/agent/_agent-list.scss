@@ -1,0 +1,20 @@
+.ere-agent.agent-list {
+
+  .agent-avatar {
+    margin-left: var(--ere-agent-list-image-spacing);
+    margin-right: 0;
+  }
+
+
+  @media (min-width: 600px) {
+    .agent-social a {
+      text-align: right;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .agent-avatar {
+      margin-left: 0 !important;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+ul.ere__single-agency-meta {
+  li {
+    margin-left: 50px;
+    margin-right: 0;
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}

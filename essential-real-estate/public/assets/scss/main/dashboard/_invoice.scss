@@ -1,0 +1,68 @@
+.ere__single-invoice-header {
+  @include d-flex();
+  @include justify-content-between();
+  @include align-items-end();
+  p {
+    margin: 0;
+  }
+}
+
+.ere__single-invoice-agent {
+  @include d-flex();
+  @include justify-content-between();
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  margin-bottom: 40px;
+  span {
+    display: inline-block;
+  }
+}
+
+.ere__single-invoice-billing {
+  table {
+    width: 100%;
+
+    tr {
+      border-bottom: 1px solid #eee;
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+
+    th,
+    td {
+      padding: 15px 0;
+    }
+  }
+}
+
+.ere__single-invoice-action {
+  text-align: right;
+  margin-top: 40px;
+
+  a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: var(--ere-color-heading);
+    color: var(--ere-color-heading-foreground);
+    @include border-radius(50%);
+    margin-right: 6px;
+    font-size: 18px;
+    @include transition(all .3s);
+    text-align: center;
+    i {
+      line-height: 40px;
+    }
+    &:last-of-type {
+      margin-right: 0;
+    }
+    &:hover,
+    &:focus {
+      background-color: var(--ere-color-accent);
+      color: var(--ere-color-accent-foreground);
+    }
+  }
+}

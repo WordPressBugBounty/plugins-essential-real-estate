@@ -1,0 +1,10 @@
+.ere-property-featured.property-list-two-columns {
+  .ere-heading {
+    margin-bottom: 60px;
+  }
+  @media ( max-width: 991px ) {
+    .ere-heading {
+      margin-bottom: 40px;
+    }
+  }
+}

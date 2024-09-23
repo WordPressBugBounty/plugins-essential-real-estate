@@ -1,0 +1,17 @@
+.ere-property {
+  .property-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    a {
+      color: inherit;
+    }
+    &:hover {
+      color: var(--ere-color-accent);
+    }
+  }
+}

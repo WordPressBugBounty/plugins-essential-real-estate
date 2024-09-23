@@ -1,0 +1,29 @@
+.ere__account-login-wrap {
+  max-width: 570px;
+  margin: auto;
+  border: 10px solid rgba(237, 237, 237, 0.7);
+  padding: 35px 30px;
+  .ere_messages {
+    margin-bottom: 1rem;
+  }
+  .ere__show-password {
+    cursor: pointer;
+  }
+
+  .input-group-text {
+    background-color: transparent;
+    border-color: var(--ere-color-border);
+    @include border-radius(0);
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  .input-group-text {
+    color: inherit;
+  }
+}
+

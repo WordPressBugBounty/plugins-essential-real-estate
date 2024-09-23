@@ -1,0 +1,139 @@
+#ere-map-loading {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+
+  i {
+    height: 60px;
+    width: 60px;
+    font-size: 60px;
+    color: var(--ere-color-accent)
+  }
+}
+
+.ere-map-result {
+  position: relative;
+  height: 550px;
+  @include transition(height 0.5s);
+  background-color: rgba(0, 0, 0, .1);
+  .map-notfound {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    height: 50px;
+    max-width: 570px;
+    margin: auto;
+    font-size: 20px;
+  }
+
+  .cluster img {
+    width: 100%;
+  }
+
+  .infoBox {
+    overflow: inherit !important;
+    max-width: 310px;
+
+    > img {
+      z-index: 5;
+      padding: 10px 10px 0 0;
+    }
+
+    &:after {
+      border: solid transparent;
+      content: ' ';
+      height: 0;
+      position: absolute;
+      top: inherit;
+      right: inherit;
+      bottom: -36px;
+      left: 50%;
+      width: 0;
+      border-width: 18px;
+      border-top-color: rgba(0, 0, 0, .05);
+      z-index: 0;
+      @include transform(translate(-50%, 0));
+    }
+  }
+
+  .marker-content {
+    position: relative;
+    border: 5px solid rgba(0, 0, 0, .05);
+    box-shadow: 0 5px 13px rgba(0, 0, 0, 0.22);
+    width: 310px;
+
+    &:after {
+      border: solid transparent;
+      content: ' ';
+      height: 0;
+      position: absolute;
+      top: inherit;
+      right: inherit;
+      bottom: -30px;
+      left: 50%;
+      z-index: 2;
+      width: 0;
+      border-width: 15px;
+      border-top-color: #fff;
+      @include transform(translate(-50%, 0));
+    }
+
+    .marker-content-inner {
+      background-color: #fff;
+      padding: 20px;
+    }
+  }
+
+  .item-thumb {
+    float: left;
+    margin-right: 12px;
+  }
+
+  .item-body {
+    overflow: hidden;
+
+    .title-marker,
+    .price-marker {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0;
+      color: #222;
+      text-transform: capitalize;
+    }
+
+    .title-marker {
+      @include transition(all .3s);
+    }
+
+    .price-marker {
+      font-weight: 600;
+    }
+
+    .address-marker {
+      font-size: 12px;
+      color: #8f8f8f;
+
+      i {
+        margin-right: 10px;
+        color: var(--ere-color-accent);
+        padding-left: 1px;
+      }
+    }
+
+    a:hover {
+      color: var(--ere-color-accent);
+    }
+  }
+
+  .search-map-inner {
+    position: relative;
+  }
+}

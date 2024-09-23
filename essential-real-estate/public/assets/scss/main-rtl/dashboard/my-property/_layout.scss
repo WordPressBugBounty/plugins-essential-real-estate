@@ -1,0 +1,13 @@
+.ere__my-property-list {
+  .ere__property-image {
+    margin-left: 20px;
+    margin-right: 0;
+  }
+}
+@media (max-width: 575px) {
+  .ere__my-property-list {
+    .ere__property-image {
+      margin-left: 0;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.ere-property-featured.property-sync-carousel {
+
+  .property-price {
+    margin-left: 20px;
+    margin-right: 0;
+  }
+
+
+  .owl-nav {
+    right: 20px;
+    left: auto;
+  }
+
+
+  @media (min-width: 1200px) {
+    .main-content-inner {
+      margin-right: auto;
+      margin-left: 0;
+    }
+  }
+}

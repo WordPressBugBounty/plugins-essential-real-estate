@@ -1,0 +1,25 @@
+#ere_save_search i{
+	padding-right: 5px;
+	padding-left: 0;
+}
+
+
+li.dotted-right {
+	float: left;
+}
+
+li.dotted-left + li.dotted-right:before {
+	right: 0;
+	left: auto;
+}
+
+li.dotted-left {
+	padding-left: 10px;
+	padding-right: 0;
+}
+
+
+
+.ere-link-more{
+	text-align: left;
+}

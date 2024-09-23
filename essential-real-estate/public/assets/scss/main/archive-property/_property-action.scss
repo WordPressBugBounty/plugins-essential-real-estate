@@ -1,0 +1,18 @@
+@import "status";
+@import "orderby";
+@import "switch-layout";
+.ere__archive-actions {
+  @include d-flex();
+  @include flex-wrap();
+  @include align-items-center();
+  .ere__apa-item {
+    margin-bottom: 15px;
+    margin-right: 5px;
+    &:last-child {
+      margin-right: 0;
+    }
+    &.ere__apa-status {
+      margin-right: auto;
+    }
+  }
+}

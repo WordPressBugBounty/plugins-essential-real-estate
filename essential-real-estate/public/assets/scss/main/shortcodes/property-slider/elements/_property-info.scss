@@ -1,0 +1,11 @@
+.ere-property.ere-property-slider {
+  .property-info {
+    background-color: transparent !important;
+    .property-info-inner {
+      background-color: var(--ere-sc-property-slider-property-info-bg-color);
+      color: var(--ere-sc-property-slider-property-info-text-color);
+      padding: 16px 20px;
+    }
+
+  }
+}

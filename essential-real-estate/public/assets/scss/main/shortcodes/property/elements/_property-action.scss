@@ -1,0 +1,39 @@
+.ere__loop-property_action-item {
+  @include d-inline-flex();
+  @include align-items-center();
+  @include justify-content-center();
+  width: 34px;
+  height: 34px;
+  background-color: var(--ere-color-accent);
+  color: var(--ere-color-accent-foreground);
+  @include border-radius(50%);
+  font-size: 14px;
+  @include transition(all .3s);
+  &:hover {
+    color: var(--ere-color-accent);
+    background-color: var(--ere-color-accent-foreground);
+  }
+  + .ere__loop-property_action-item {
+    margin-left: 10px;
+  }
+}
+
+.ere__loop-property-action {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  @include transform(translate(-50%,-50%));
+  opacity: 0;
+  @include transition(all .3s);
+  @include d-flex();
+}
+
+
+
+.property-inner:hover,
+.property-active-hover {
+  .ere__loop-property-action {
+    opacity: 1;
+  }
+}

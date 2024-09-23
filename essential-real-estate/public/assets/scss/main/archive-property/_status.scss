@@ -1,0 +1,36 @@
+.ere__apa-status {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    @include d-flex();
+    @include align-items-center();
+    @include flex-wrap();
+    li {
+      a {
+        display: block;
+        text-transform: uppercase;
+        color: #fff;
+        font-weight: 500;
+        font-size: 12px;
+        padding: 0 20px;
+        line-height: var(--ere-archiver-action-height);
+        height: var(--ere-archiver-action-height);
+        background-color: var(--ere-color-heading);
+        @include transition(all .3s);
+      }
+      margin-right: 1px;
+      &:last-child {
+        margin-right: 0;
+      }
+
+    }
+
+    li.active a,
+    li a:hover,
+    li a:focus {
+      background-color: var(--ere-color-accent);
+    }
+
+  }
+}

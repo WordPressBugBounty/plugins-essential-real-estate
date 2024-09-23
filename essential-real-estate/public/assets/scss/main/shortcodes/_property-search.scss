@@ -1,0 +1,52 @@
+@import "property-search/style-default";
+@import "property-search/style-default-small";
+@import "property-search/style-mini-line";
+@import "property-search/style-absolute";
+@import "property-search/style-vertical";
+
+.ere-search-properties {
+  .ui-state-active, .ui-widget-content .ui-state-active {
+    background-color: transparent !important;
+    border-color: transparent !important;
+  }
+}
+
+.bg-img-top-no-repeat {
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+.bg-dark-left {
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    right: -999px;
+    background-color: #2C2C2C;
+  }
+
+}
+
+@media (max-width: 767px) {
+  .ere-search-properties {
+    .search-title {
+      display: none !important;
+    }
+  }
+}
+
+
+
+//search status like tab
+.ere-search-properties:not(.ere-search-properties-map).ere-show-status-tab .form-search-wrap {
+  padding-top: 0 !important;
+}
+
+.ere-property-wrap {
+  .form-search-wrap {
+    padding-top: 0 !important;
+  }
+}

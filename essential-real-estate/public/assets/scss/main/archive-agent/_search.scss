@@ -1,0 +1,10 @@
+.ere__apa-search {
+  input.form-control {
+    height: var(--ere-archiver-action-height);
+  }
+  button.btn {
+    line-height: 1;
+    height: var(--ere-archiver-action-height);
+    padding: 0 15px;
+  }
+}

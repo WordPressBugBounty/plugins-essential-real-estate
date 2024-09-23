@@ -1,0 +1,23 @@
+.ere-heading  {
+	&.text-left {
+		text-align: right !important;
+	}
+	&.text-right {
+		text-align: left !important;
+		span,
+		&:after {
+			margin-right: auto;
+			margin-left: 0;
+		}
+	}
+}
+
+.ere-heading-style2  {
+	h2 {
+		&:after {
+			margin-right: 20px;
+			margin-left: 0;
+		}
+	}
+
+}

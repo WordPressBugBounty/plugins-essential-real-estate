@@ -1,0 +1,50 @@
+.form-search-wrap.form-search-wrap {
+  position: relative;
+  color: var(--ere-property-search-form-text-color);
+
+  input,
+  select,
+  .select2-container .select2-selection--single {
+    border-color: var(--ere-property-search-form-border-color);
+    color: var(--ere-property-search-form-text-color);
+  }
+
+  .select2-container {
+    width: 100% !important;
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: var(--ere-property-search-form-text-color);
+  }
+
+  input {
+    @include input-placeholder {
+      color: var(--ere-property-search-form-text-color);
+    }
+  }
+
+  .btn-other-features {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--ere-color-heading);
+
+    i {
+      background: var(--ere-color-accent);
+      color: var(--ere-color-accent-foreground);
+      margin-right: 5px;
+      padding: 3px;
+    }
+  }
+
+  .other-features-list h4 {
+    color: var(--ere-color-heading);
+  }
+
+
+  .submit-search-form {
+    text-align: right;
+    margin-left: auto;
+  }
+
+
+}

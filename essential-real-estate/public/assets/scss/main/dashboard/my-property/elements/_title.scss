@@ -1,0 +1,11 @@
+.ere__loop-my-property-title {
+  margin-bottom: 5px;
+  a {
+    color: inherit;
+    @include transition(all .3s);
+    &:hover,
+    &:focus {
+      color: var(--ere-color-accent);
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.ere-agent {
+  .agent-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: 0;
+    @include transition(all .3s);
+    a {
+      color: inherit;
+    }
+    &:hover {
+      color: var(--ere-color-accent);
+    }
+  }
+}

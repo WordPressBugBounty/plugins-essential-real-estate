@@ -1,0 +1,9 @@
+.ere-property.ere-property-slider {
+  .property-title {
+    color: var(--ere-sc-property-slider-property-title-text-color,inherit);
+    font-size: 32px;
+    &:hover {
+      color: var(--ere-color-accent);
+    }
+  }
+}

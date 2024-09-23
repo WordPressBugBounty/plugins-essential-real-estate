@@ -1,0 +1,17 @@
+.ere__single-agent-contact-info {
+  line-height: 2;
+  i {
+    color: var(--ere-color-accent);
+    width: 20px;
+  }
+  a {
+    color: inherit;
+    @include transition(all .3s);
+    &:hover,
+    &:active,
+    &:focus {
+      color: var(--ere-color-accent);
+    }
+  }
+}
+

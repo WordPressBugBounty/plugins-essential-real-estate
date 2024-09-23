@@ -1,0 +1,21 @@
+.ere-search-properties.style-mini-line {
+  --ere-property-search-form-bg-color: var(--ere-property-search-form-light-bg-color);
+  --ere-property-search-form-text-color: var(--ere-property-search-form-light-text-color);
+  --ere-property-search-form-border-color: var(--ere-property-search-form-light-border-color);
+}
+
+@media (max-width: 1199px) {
+  .ere-search-properties.style-mini-line {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ere-search-properties.style-mini-line {
+    .search-properties-form {
+      .submit-search-form {
+        clear: both;
+      }
+    }
+  }
+}

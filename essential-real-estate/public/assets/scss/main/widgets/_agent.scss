@@ -1,0 +1,38 @@
+.ere-list-top-agents-wrap {
+  .agent-item {
+    @include d-flex();
+    margin-bottom: 40px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .agent-avatar {
+    @include flex-shrink-0();
+    width: 70px;
+    margin-right: 10px;
+  }
+  .agent-info {
+    @include flex-grow-1();
+    width: 1px;
+    h4.agent-name {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 5px;
+      @include transition(all .3s);
+      &:hover {
+        color: var(--ere-color-accent);
+      }
+      a{
+        color: inherit;
+      }
+    }
+    .agent-position{
+      font-weight: 400;
+      color: #8f8f8f;
+    }
+    .total-properties{
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+}

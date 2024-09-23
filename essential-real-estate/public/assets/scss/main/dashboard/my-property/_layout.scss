@@ -1,0 +1,49 @@
+.ere__my-property-list {
+  .ere__property-item {
+    margin-bottom: 15px;
+  }
+  .ere__property-item-inner {
+    @include d-flex();
+    padding: 10px;
+    border: 1px solid var(--ere-color-border);
+  }
+  .ere__property-image {
+    @include flex-shrink-0();
+    @include align-self-start();
+    margin-right: 20px;
+    position: relative;
+  }
+  .ere__property-content {
+    width: 1px;
+    @include flex-fill();
+    .ere__loop-my-property-title {
+      margin-bottom: 10px;
+    }
+    .ere__loop-my-property-action {
+      margin-top: 10px;
+    }
+  }
+}
+
+.ere__my-property-toolbar {
+  margin-bottom: 20px;
+}
+.ere-user-dashboard {
+  .paging-navigation {
+    margin-top: 15px;
+  }
+}
+
+
+@media (max-width: 575px) {
+  .ere__my-property-list {
+    .ere__property-item-inner {
+      @include flex-wrap();
+    }
+    .ere__property-image {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+}

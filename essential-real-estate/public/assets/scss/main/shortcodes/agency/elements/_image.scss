@@ -1,0 +1,14 @@
+.ere__loop-agency-avatar {
+  background-color: #fafafa;
+  border: 1px solid #ededed;
+  position: relative;
+  min-height: 210px;
+  img {
+    max-height: 130px;
+    width: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @include transform(translate(-50%, -50%));
+  }
+}

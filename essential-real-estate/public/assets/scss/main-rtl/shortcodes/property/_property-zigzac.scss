@@ -1,0 +1,47 @@
+.ere-property.property-zigzac {
+
+  @media (min-width: 768px) {
+
+    .property-item-content {
+      &:before {
+        border-left: 20px solid #fff;
+        border-right: none;
+        left: 100%;
+        right: auto;
+      }
+    }
+  }
+
+
+
+  @media (min-width: 992px) {
+    .ere-item-wrap {
+      &:nth-child(4n),
+      &:nth-child(4n - 1){
+        .property-item-content {
+          &:before {
+            right: 100%;
+            left: auto;
+            border-right: 20px solid #fff;
+            border-left: none;
+          }
+        }
+      }
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 991px) {
+    .ere-item-wrap {
+      &:nth-child(2n) {
+        .property-item-content {
+          &:before {
+            right: 100%;
+            left: auto;
+            border-right: 20px solid #fff;
+            border-left: none;
+          }
+        }
+      }
+    }
+  }
+}

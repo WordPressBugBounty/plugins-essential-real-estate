@@ -1,0 +1,93 @@
+.ere-property-featured.property-cities-filter {
+  .ere-heading {
+    margin-bottom: 60px;
+  }
+  .property-content-wrap {
+    background-color: #f6f6f6;
+  }
+
+  .filter-wrap {
+    border-right: 1px solid #fff;
+    a {
+      display: block;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ere-color-heading);
+      @include transition(all .3s);
+      border-bottom: 1px solid #fff;
+      border-right: 1px solid #fff;
+      padding: 11px 30px;
+      cursor: pointer;
+      line-height: 30px;
+      &:hover, &.active-filter {
+        color: var(--ere-color-accent-foreground);
+        background-color: var(--ere-color-accent);
+      }
+    }
+  }
+
+  .property-content {
+    padding: 30px;
+  }
+
+  .property-price,
+  .property-title {
+    font-size: 21px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .property-heading-inner {
+    @include d-flex();
+    @include align-items-center();
+    @include justify-content-between();
+    @include flex-wrap();
+    margin-bottom: 10px;
+    .property-price {
+      @include flex-shrink-0();
+    }
+    .property-title {
+      @include flex-grow-1();
+    }
+  }
+
+  .property-item {
+    overflow: hidden;
+  }
+
+  .property-info {
+    .property-info-inner {
+      @include justify-content-between();
+    }
+  }
+
+  .property-image {
+    margin-bottom: 16px;
+    &:before {
+      display: none;
+    }
+  }
+
+  .owl-dots {
+    margin-top: 45px;
+  }
+
+  @media (max-width: 991px) {
+    .property-content-wrap {
+      padding: 15px;
+    }
+    .filter-wrap {
+      border: none;
+      margin-bottom: 30px;
+      a {
+        display: inline-block;
+        border: none;
+        padding: 5px 10px;
+        font-size: 16px;
+      }
+    }
+    .property-content {
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.ere-property-multi-step {
+  .property-media {
+    .media-item-actions {
+      > * {
+        margin-left: 5px;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .media-thumb-wrap > span {
+    float: right;
+  }
+
+}

@@ -1,0 +1,29 @@
+.ere__single-property-address {
+  position: relative;
+  .open-on-google-maps {
+    color: var(--ere-color-accent);
+  }
+  @media (min-width: 576px) {
+    .open-on-google-maps {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+.ere__property-address-list {
+  .address {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  a {
+    color: inherit;
+    @include transition(all .3s);
+    &:hover,
+    &:active,
+    &:focus {
+      color: var(--ere-color-accent);
+    }
+  }
+}

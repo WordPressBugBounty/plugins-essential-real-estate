@@ -1,0 +1,22 @@
+ul.ere__loop-agency-social {
+  margin: 0;
+  padding: 0 !important;
+  list-style: none;
+  @include d-flex();
+  @include flex-wrap();
+  color: var(--ere-color-heading);
+  li {
+    a {
+      @include transition(all .3s);
+      color: inherit;
+      &:hover,
+      &:focus {
+        color: var(--ere-color-accent);
+      }
+    }
+    margin-right: 15px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

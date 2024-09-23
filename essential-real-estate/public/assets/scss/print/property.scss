@@ -1,0 +1,76 @@
+@import "../mixin";
+.ere__print-property-logo {
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--ere-color-border);
+}
+
+.ere__print-property-header {
+  @include d-flex();
+  @include justify-content-between();
+  margin-bottom: 20px;
+}
+
+.ere__property-print-wrap {
+  .ere__single-property-feature {
+    .property-feature-wrap {
+      -ms-flex: 0 0 25%;
+      flex: 0 0 25%;
+      max-width: 25%;
+    }
+  }
+  .open-on-google-maps {
+    display: none;
+  }
+  ul.ere__list-2-col {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+  }
+
+  .ere__single-agent-social {
+    line-height: 2;
+    i {
+      color: var(--ere-color-accent);
+      width: 20px;
+    }
+  }
+}
+
+.ere__print-property-summary,
+.ere__print-property-image {
+  margin-top: 30px;
+}
+
+.ere__print-property-floor {
+  margin-bottom: 40px;
+  .ere__ppf-content {
+    @include d-flex();
+    @include justify-content-between();
+    @include align-items-center();
+    margin-bottom: 15px;
+  }
+  .ere__ppf-image {
+    margin-bottom: 15px;
+  }
+  .ere__ppf-info {
+    @include flex-shrink-0();
+    @include d-flex();
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      margin-right: 20px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  .ere__ppf-title {
+    @include flex-fill();
+  }
+}
+
+@media print {
+  a, a:visited { text-decoration: none !important; }
+}

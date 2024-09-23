@@ -1,0 +1,94 @@
+.ere__compare-table-wrap {
+  table.ere__compare-tables {
+    border: none;
+    th,
+    td {
+      border: none;
+    }
+    thead th {
+      background: transparent;
+      padding: 0 15px 15px;
+      vertical-align: top;
+    }
+    tbody {
+      > tr:nth-of-type(even) {
+        background-color: #f6f6f6;
+      }
+      > tr:nth-of-type(odd) {
+        background-color: transparent;
+      }
+    }
+    td {
+      border: none;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 16px;
+      font-weight: normal;
+      color: #8f8f8f;
+    }
+
+    tr {
+      height: 52px;
+    }
+
+    .title-list-check {
+      font-weight: 500;
+      padding-left: 21px;
+      text-align: left;
+      color: var(--ere-color-heading);
+      width: 150px;
+    }
+
+    .check-no {
+      color: #e33f3f;
+    }
+
+    .check-yes {
+      color: #4ede00;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .ere__compare-table-wrap {
+    table.ere__compare-tables {
+      width: 100%;
+      table-layout: fixed;
+    }
+  }
+}
+@media (max-width: 1199px) {
+  .ere__property-compare {
+    width: 360px;
+  }
+}
+
+
+.ere__property-compare {
+  max-width: 360px;
+  padding: 15px;
+  background-color: #f8f8f8;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  &:before {
+    content: '';
+    display: block;
+    width: 25px;
+    height: 25px;
+    background: #f8f8f8;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: -20px;
+    @include transform(translateY(-50%) rotate(45deg));
+  }
+
+  .property-item-content {
+    padding-top: 17px;
+  }
+  .property-title {
+    white-space: normal;
+  }
+}

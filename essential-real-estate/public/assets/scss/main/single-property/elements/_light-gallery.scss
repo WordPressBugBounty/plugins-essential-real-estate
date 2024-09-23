@@ -1,0 +1,47 @@
+.ere-light-gallery {
+  position: relative;
+
+  a.zoomGallery,
+  a.ere-view-video {
+    i {
+      font-size: 20px;
+      height: 40px;
+      width: 40px;
+      text-align: center;
+      line-height: 40px;
+      color: #fff;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+
+  a.ere-view-video,
+  a.zoomGallery {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.4);
+    opacity: 0;
+    @include transition(all .3s);
+    cursor: pointer;
+  }
+  a.ere-view-video {
+    i
+    {
+      font-size: 55px;
+    }
+  }
+  &:hover {
+    a.zoomGallery,
+    a.ere-view-video {
+      opacity: 1;
+    }
+  }
+
+}

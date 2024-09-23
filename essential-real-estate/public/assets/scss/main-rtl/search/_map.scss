@@ -1,0 +1,18 @@
+.ere-map-result {
+  .item-thumb {
+    float: right;
+    margin-left: 12px;
+    margin-right: 0;
+  }
+
+  .item-body {
+    .address-marker {
+      i {
+        margin-left: 10px;
+        margin-right: 0;
+        padding-right: 1px;
+        padding-left: 0;
+      }
+    }
+  }
+}

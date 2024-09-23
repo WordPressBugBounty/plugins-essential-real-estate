@@ -1,0 +1,12 @@
+@import "property-search/style-default";
+@import "property-search/style-absolute";
+@import "property-search/style-vertical";
+
+
+.bg-dark-left {
+  position: relative;
+  &:after {
+    right: 100%;
+    left: -999px;
+  }
+}

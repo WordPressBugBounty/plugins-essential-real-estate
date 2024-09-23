@@ -1,0 +1,23 @@
+.ere__apa-switch-layout {
+  span {
+    &.view-as-list {
+      margin-left: 5px;
+      margin-right: 0;
+      &:before {
+        border-left: solid 6px transparent;
+        border-right: 0;
+        right: 100%;
+        left: auto;
+      }
+    }
+
+    &.view-as-grid {
+      &:before {
+        border-right: solid 6px transparent;
+        border-left: 0;
+        left: 100%;
+        right: auto;
+      }
+    }
+  }
+}

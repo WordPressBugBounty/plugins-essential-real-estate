@@ -1,0 +1,23 @@
+.ere__apa-orderby {
+  min-width: 160px;
+  .dropdown-toggle {
+    background-color: #f6f6f6;
+    display: block;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 0 20px;
+    line-height: var(--ere-archiver-action-height);
+    height: var(--ere-archiver-action-height);
+    position: relative;
+    color: inherit;
+    &:after {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      @include transform(translateY(-50%));
+    }
+  }
+  .dropdown-menu {
+    font-size: 14px;
+  }
+}

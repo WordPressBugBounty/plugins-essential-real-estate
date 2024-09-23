@@ -1,0 +1,16 @@
+ul.ere__single-agency-meta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include d-flex();
+  @include flex-wrap();
+  li {
+    .ere__label {
+      font-weight: 700;
+    }
+    margin-right: 50px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

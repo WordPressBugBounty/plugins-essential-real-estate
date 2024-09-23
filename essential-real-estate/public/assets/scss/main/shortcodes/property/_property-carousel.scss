@@ -1,0 +1,37 @@
+.ere-property.property-carousel {
+  .property-inner {
+    padding: 15px 15px  0 15px;
+    background-color: #f8f8f8;
+  }
+
+  .property-item-content {
+    padding-top: 17px;
+  }
+
+  .property-excerpt {
+    display: none;
+  }
+
+  .property-heading {
+    margin-bottom: 11px;
+  }
+
+  .property-type {
+    margin-bottom: 3px;
+  }
+  .property-info {
+    margin: 15px -15px 0 -15px;
+  }
+
+  .property-element-inline{
+    .property-type-list {
+      width: 100%;
+    }
+  }
+
+  .owl-item:nth-child(2n) .property-inner {
+    .property-info {
+      background-color: var(--ere-color-heading);
+    }
+  }
+}

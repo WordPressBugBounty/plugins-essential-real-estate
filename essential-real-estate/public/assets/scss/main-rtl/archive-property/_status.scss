@@ -1,0 +1,12 @@
+.ere__apa-status {
+  ul {
+    li {
+      margin-left: 1px;
+      margin-right: 0;
+      &:last-child {
+        margin-left: 0;
+      }
+    }
+
+  }
+}

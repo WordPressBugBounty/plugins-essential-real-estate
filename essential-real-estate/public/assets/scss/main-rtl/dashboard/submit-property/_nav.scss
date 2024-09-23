@@ -1,0 +1,21 @@
+.ere-property-multi-step {
+  .ere-step-nav {
+    .ere-btn-prev {
+      float: right;
+      i:before {
+        content: "\f105";
+      }
+    }
+
+    .ere-btn-next {
+      i:before {
+        content: "\f104";
+      }
+    }
+
+    .btn-submit-property,
+    .ere-btn-next {
+      float: left;
+    }
+  }
+}

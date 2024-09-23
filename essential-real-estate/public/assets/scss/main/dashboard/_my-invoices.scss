@@ -1,0 +1,36 @@
+.ere-my-invoices
+{
+  .view {
+    text-align: center;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .ere-my-invoices table {
+    thead {
+      display: none;
+    }
+
+    tr{
+      display: block;
+      border-bottom: 1px solid #ddd;
+      td:not(.view):before{
+        content: attr(data-title) ": ";
+        font-weight: 700;
+        float: left;
+      }
+
+      td {
+        display: block;
+        text-align: right !important;
+      }
+    }
+    tbody {
+      td,
+      th {
+        padding-left: 10px;
+      }
+    }
+  }
+}

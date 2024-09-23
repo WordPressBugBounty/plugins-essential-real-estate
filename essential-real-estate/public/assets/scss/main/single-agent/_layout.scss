@@ -1,0 +1,26 @@
+.agent-content-top {
+  .ere__single-agent-title {
+    margin-bottom: 20px;
+  }
+  .ere__single-agent-social {
+    margin-bottom: 10px;
+  }
+}
+
+.ere__single-agent-contact-info {
+  margin-top: 25px;
+}
+
+.single-agent-element {
+  margin-bottom: 60px;
+  .ere__single-agent-description {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 991px) {
+  .ere__single-agent-contact-info,
+  .ere__single-agent-avatar {
+    margin-bottom: 30px;
+  }
+}

@@ -1,0 +1,13 @@
+.ere-property.property-list {
+  .property-image {
+    margin-left: var(--ere-property-list-image-spacing);
+    margin-right: 0;
+  }
+
+
+  @media (max-width: 767px) {
+    .property-image {
+      margin-left: 0 !important;
+    }
+  }
+}

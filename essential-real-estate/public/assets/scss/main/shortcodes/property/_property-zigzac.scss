@@ -1,0 +1,131 @@
+.ere-property.property-zigzac {
+  .property-inner {
+    @include d-flex();
+  }
+
+  .property-image {
+    width: 50%;
+    @include flex-shrink-0();
+  }
+
+  .property-item-content {
+    @include flex-fill();
+    width: 1px;
+    background-color: #fff;
+    padding: 15px 20px 20px;
+    position: relative;
+  }
+
+  .ere__loop-property-location {
+    margin-top: 3px;
+  }
+
+  .property-element-inline{
+    .property-type-list {
+      width: 100%;
+    }
+  }
+
+
+
+  .property-excerpt {
+    margin-top: 11px;
+  }
+
+  .property-info {
+    margin-top: 13px;
+    background-color: transparent !important;
+    color: var(--ere-color-heading);
+    i {
+      color: var(--ere-color-accent);
+    }
+    .property-info-inner {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .property-excerpt {
+      max-height: calc(var(--ere-body-line-height) * var(--ere-loop-zigzac-property-except-max-height));
+      overflow: hidden;
+    }
+
+    .property-image {
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .property-item-content {
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-right: 20px solid #fff;
+        top: 50%;
+        @include transform(translateY(-50%));
+        right: 100%;
+        z-index: 2;
+      }
+    }
+
+    .property-element-inline {
+      display: none;
+    }
+
+  }
+
+
+
+  @media (min-width: 992px) {
+    .ere-item-wrap {
+      &:nth-child(4n),
+      &:nth-child(4n - 1){
+        .property-item-content {
+          &:before {
+            left: 100%;
+            right: auto;
+            border-left: 20px solid #fff;
+            border-right: none;
+          }
+        }
+        .property-image {
+          order: 1;
+        }
+      }
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 991px) {
+    .ere-item-wrap {
+      &:nth-child(2n) {
+        .property-item-content {
+          &:before {
+            left: 100%;
+            right: auto;
+            border-left: 20px solid #fff;
+            border-right: none;
+          }
+        }
+        .property-image {
+          order: 1;
+        }
+      }
+    }
+  }
+
+  
+  @media (max-width: 767px) {
+    .property-inner {
+      @include flex-wrap();
+    }
+
+    .property-image {
+      width: 100% !important;
+    }
+  }
+}

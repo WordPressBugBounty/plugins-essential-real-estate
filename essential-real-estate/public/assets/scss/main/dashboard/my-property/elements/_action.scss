@@ -1,0 +1,30 @@
+ul.ere__loop-my-property-action {
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+  @include d-flex();
+  @include flex-wrap();
+  li {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+.ere__btn-dashboard-action {
+  text-decoration: none;
+  font-size: 12px;
+  padding: 0 5px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  background: #f7f7f7;
+  display: inline-block;
+  @include transition(all .3s);
+  &:hover {
+    background-color: var(--ere-color-accent);
+    color: var(--ere-color-accent-foreground);
+    border-color: var(--ere-color-accent);
+    text-decoration: none;
+  }
+}

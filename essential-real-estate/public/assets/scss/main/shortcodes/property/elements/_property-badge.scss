@@ -1,0 +1,53 @@
+.ere__loop-property-badge-item {
+  display: block;
+  .ere__lpbi-inner {
+    position: relative;
+    color: var(--ere-loop-property-badge-color);
+    background-color: var(--ere-loop-property-badge-bg-color);
+    font-size: 12px;
+    display: inline-block;
+    line-height: 20px;
+    padding: 0 5px 0 10px;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      color: var(--ere-loop-property-badge-bg-color);
+      left: 100%;
+      top: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 7px solid currentColor;
+    }
+  }
+}
+
+.ere__loop-property-badge {
+  position: absolute;
+  left: 0;
+  top: 15px;
+  z-index: 3;
+  font-size: 0;
+  &.ere__lpb-status {
+    right: 0;
+    left: auto;
+    .ere__loop-property-badge-item {
+      .ere__lpbi-inner {
+        padding: 0 10px 0 5px;
+        &:after {
+          right: 100%;
+          left: auto;
+          border-right: 7px solid currentColor;
+          border-left: none;
+        }
+      }
+    }
+  }
+  .ere__loop-property-badge-item {
+    margin-bottom: 5px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+}

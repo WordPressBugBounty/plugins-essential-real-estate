@@ -1,0 +1,35 @@
+.ere-agent.agent-grid {
+  .agent-content {
+    text-align: center;
+  }
+  .agent-info {
+    padding: 18px 15px 32px 15px;
+    background: #222;
+    color: #bababa;
+  }
+
+  .agent-item {
+    margin-bottom: 43px;
+  }
+
+  .agent-name {
+    color: #fff;
+  }
+
+  .agent-description {
+    display: none;
+  }
+  .agent-social {
+    background: var(--ere-color-accent);
+    margin: 0 35px;
+    position: relative;
+    top: -17.5px;
+    a {
+      @include transition(all .3s);
+      color: #fff;
+      &:hover {
+        color: #222;
+      }
+    }
+  }
+}

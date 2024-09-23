@@ -1,0 +1,39 @@
+.ere__reviews {
+  .ratings-summary {
+    margin-left: 30px;
+    margin-right: 0;
+  }
+
+  .overall-rating {
+    ul.reviews-box {
+      li {
+        .item-list {
+          span {
+            right: 0;
+            left: auto;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    .ratings-summary {
+      margin-left: 0;
+    }
+  }
+
+  ul.reviews-list {
+    .media-left {
+      margin-left: 20px;
+      margin-right: 0;
+    }
+    .review-date {
+      i {
+        margin-left: 5px;
+        margin-right: 0;
+      }
+    }
+
+  }
+}

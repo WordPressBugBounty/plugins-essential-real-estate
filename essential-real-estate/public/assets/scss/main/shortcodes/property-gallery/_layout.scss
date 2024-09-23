@@ -1,0 +1,54 @@
+.ere-property-gallery.ere-property-gallery {
+  .property-item-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 3;
+    padding: 15px;
+    color: #bababa;
+    opacity: 0;
+    @include transition(all .3s);
+  }
+
+  .property-inner {
+    overflow: hidden;
+  }
+
+  .property-image {
+    &:before {
+      opacity: 1;
+      background-color: rgba(0,0,0,.8);
+      top: 100%;
+    }
+  }
+
+  .property-title {
+    color: #fff;
+    white-space: normal;
+    margin-bottom: 3px;
+    &:hover {
+      color: #bababa;
+    }
+  }
+
+  .property-price {
+    color: #bababa;
+    margin-bottom: 5px;
+  }
+
+  .property-location {
+    white-space: normal;
+  }
+
+  .property-inner:hover,
+  .property-active-hover {
+    .property-image:before {
+      top: 0;
+    }
+    .property-item-content {
+      opacity: 1;
+      top: 0;
+    }
+  }
+}

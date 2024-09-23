@@ -1,0 +1,15 @@
+.ere-agent {
+  .agent-social {
+    a {
+      display: inline-block;
+      line-height: var(--ere-agent-social-wide);
+      width: var(--ere-agent-social-wide);
+      height: var(--ere-agent-social-wide);
+      text-align: center;
+      i {
+        font-size: var(--err-agent-social-font-size);
+        line-height: var(--ere-agent-social-wide);
+      }
+    }
+  }
+}

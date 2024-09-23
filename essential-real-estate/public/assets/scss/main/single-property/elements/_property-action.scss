@@ -1,0 +1,14 @@
+.ere__single-property-action {
+  position: relative;
+  .ere__loop-property_action-item {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    background-color: var(--ere-color-heading);
+    color: var(--ere-color-heading-foreground);
+    &:hover {
+      color: var(--ere-color-accent-foreground);
+      background-color: var(--ere-color-accent);
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.ere-dashboard-sidebar {
+  .navbar {
+    margin-right: 0;
+  }
+
+  .ere-dashboard-nav {
+    padding-right: 0 !important;
+    .badge {
+      float: left;
+    }
+
+    li {
+      a {
+        i {
+          margin-left: 8px;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  .navbar-toggle {
+    float: left;
+    margin-left: 15px;
+    margin-right: 0;
+  }
+
+  .navbar-brand {
+    float: right;
+  }
+}
+
+
+

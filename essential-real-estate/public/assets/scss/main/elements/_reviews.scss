@@ -1,0 +1,137 @@
+.ere__reviews {
+  .aggregate-rating {
+    @include d-flex();
+    margin-bottom: 30px;
+  }
+
+  .ratings-summary {
+    background-color: #f8f8f8;
+    color: #222;
+    border: 1px solid #ddd;
+    width: 200px;
+    margin-right: 30px;
+    @include d-flex();
+    @include flex-column();
+    @include align-items-center();
+    @include justify-content-center();
+    .rating-container  {
+      margin: 5px 0;
+      font-size: 18px;
+    }
+  }
+
+  .ratings-average {
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  .overall-rating {
+    width: 280px;
+    ul.reviews-box {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li {
+        @include d-flex();
+        @include align-items-center();
+        line-height: 1.2;
+        margin-bottom: 10px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .item-list {
+          @include flex-grow-1();
+          height: 10px;
+          background-color: #e6e9ee;
+          margin: 0 10px;
+          position: relative;
+          span {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            background-color: var(--ere-color-accent);
+          }
+        }
+
+        .label {
+          font-size: 12px;
+          color: var(--ere-color-heading);
+          width: 10px;
+        }
+
+        .percent {
+          width: 30px;
+        }
+
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    .aggregate-rating {
+      @include flex-column();
+    }
+    .ratings-summary {
+      margin-right: 0;
+      margin-bottom: 20px;
+      width: 280px;
+      padding: 5px 0;
+    }
+  }
+
+  ul.reviews-list {
+    padding: 0;
+    margin: 0 0 30px 0;
+    list-style: none;
+    .media-left {
+      margin-right: 20px;
+      figure {
+        border: 1px solid #dbdfe2;
+        @include border-radius(50%);
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+        margin: 0;
+      }
+    }
+    .review-date-rating {
+      @include d-flex();
+      @include flex-wrap();
+      @include justify-content-between();
+      @include align-items-center();
+      margin-bottom: 20px;
+    }
+
+    .review-date {
+      font-size: 12px;
+      i {
+        margin-right: 5px;
+        color: var(--ere-color-accent);
+      }
+    }
+
+    .rating-container {
+      font-size: 14px;
+    }
+
+    .review-content {
+      margin: 0;
+    }
+
+    .media-body {
+      border-bottom: 1px solid var(--ere-color-border);
+      padding-bottom: 20px;
+    }
+  }
+  .login-for-review
+  {
+    text-decoration: underline;
+    color: var(--ere-color-accent);
+  }
+  .waiting-for-approval
+  {
+    color: var(--ere-color-accent);
+  }
+}

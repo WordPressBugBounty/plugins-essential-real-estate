@@ -1,0 +1,28 @@
+.ere__loop-my-property-badge {
+  color: #fff;
+  background-color: green;
+  padding: 0 5px;
+  font-size: 12px;
+  display: inline-block;
+  position: absolute;
+  &.ere__status {
+    top: 0;
+    left: 0;
+  }
+  &.ere__featured {
+    background-color: var(--ere-color-accent);
+    bottom: 0;
+    right: 0;
+  }
+  &.ere__status-expired {
+    background-color: red;
+  }
+
+  &.ere__status-pending {
+    background-color: darkorange;
+  }
+
+  &.ere__status-hidden {
+    background-color: black;
+  }
+}

@@ -1,0 +1,11 @@
+.ere__loop-agency-title {
+  font-size: 18px;
+  a {
+    @include transition(all .3s);
+    color: inherit;
+    &:hover,
+    &:focus {
+      color: var(--ere-color-accent);
+    }
+  }
+}

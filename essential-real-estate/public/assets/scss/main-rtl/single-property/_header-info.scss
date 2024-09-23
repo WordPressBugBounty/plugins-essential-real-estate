@@ -1,0 +1,23 @@
+.ere__single-property-header-price-location {
+  .ere__single-property-price {
+    margin-left: 15px;
+    margin-right: 0;
+  }
+  .ere__single-property-status {
+    margin-left: 15px;
+    margin-right: 0;
+  }
+  .ere__loop-property-location {
+    margin-right: auto;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .ere__single-property-header-price-location {
+    .ere__single-property-status {
+      margin-left: 0;
+    }
+  }
+}
+

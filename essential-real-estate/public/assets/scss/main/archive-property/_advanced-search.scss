@@ -1,0 +1,14 @@
+.advanced-saved-searches {
+  margin-bottom: 30px;
+  border-top: 2px solid var(--ere-color-accent);
+  text-align: center;
+}
+.ere-advanced-search-wrap {
+  .above-archive-property {
+    @include d-flex();
+    @include flex-wrap();
+    @include align-items-center();
+    @include justify-content-between();
+
+  }
+}

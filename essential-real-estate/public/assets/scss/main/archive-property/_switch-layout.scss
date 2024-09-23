@@ -1,0 +1,53 @@
+.ere__apa-switch-layout {
+  span {
+    position: relative;
+    width: 28px;
+    height: var(--ere-archiver-action-height);
+    display: inline-block;
+    cursor: pointer;
+    background-color: var(--ere-color-heading);
+    text-align: center;
+    color: #fff;
+    @include transition(all .3s);
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      @include transition(all .3s);
+    }
+    i {
+      line-height: var(--ere-archiver-action-height);
+    }
+
+    &.view-as-list {
+      margin-right: 5px;
+      &:before {
+        border-bottom: solid 0 transparent;
+        border-top: solid var(--ere-archiver-action-height) var(--ere-color-heading);
+        border-right: solid 6px transparent;
+        left: 100%;
+      }
+    }
+
+    &.view-as-grid {
+      &:before {
+        border-bottom: solid var(--ere-archiver-action-height) var(--ere-color-heading);
+        border-top: solid 0 transparent;
+        border-left: solid 6px transparent;
+        right: 100%;
+      }
+    }
+
+    &.active,
+    &:hover {
+      background-color: var(--ere-color-accent);
+      &:before {
+        border-top-color: var(--ere-color-accent);
+        border-bottom-color: var(--ere-color-accent);
+      }
+    }
+
+  }
+}

@@ -1,0 +1,8 @@
+.ere-property.property-list-two-columns {
+  @media (min-width: 768px) {
+    .property-excerpt {
+      max-height: calc(var(--ere-body-line-height) * var(--ere-loop-list-two-columns-property-except-max-height));
+      overflow: hidden;
+    }
+  }
+}

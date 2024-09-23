@@ -1,0 +1,10 @@
+.ere__social-share {
+  .social-share-list {
+    right: 0;
+    left: auto;
+    a + a {
+      margin-right: 10px;
+      margin-left: 0;
+    }
+  }
+}

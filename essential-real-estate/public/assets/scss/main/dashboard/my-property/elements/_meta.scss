@@ -1,0 +1,30 @@
+.ere__loop-my-property-meta-item {
+  i {
+    color: var(--ere-color-accent);
+    margin-right: 5px;
+  }
+}
+.ere__loop-property-meta-expire-date,
+.ere__loop-property-meta-date {
+  display: inline-block;
+}
+
+.ere__loop-property-meta-date {
+  margin-right: 5px;
+}
+
+.ere__loop-my-property-date-expire {
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  color: var(--ere-color-accent-foreground);
+  background-color: var(--ere-color-accent);
+  border-radius: 10px;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-block;
+  &.ere__expired {
+    color: var(--ere-color-heading-foreground);
+    background-color: var(--ere-color-heading);
+  }
+}

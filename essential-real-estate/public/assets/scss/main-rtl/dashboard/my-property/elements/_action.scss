@@ -1,0 +1,9 @@
+ul.ere__loop-my-property-action {
+  li {
+    margin-left: 5px;
+    margin-right: 0;
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}
