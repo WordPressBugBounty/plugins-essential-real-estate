@@ -454,10 +454,11 @@ if (!function_exists('ere_image_resize_url')) {
         $file_path = wp_parse_url($url);
 
         $file_path = sanitize_text_field($_SERVER['DOCUMENT_ROOT']) . $file_path['path'];
-        $wp_upload_folder = wp_upload_dir();
-        $wp_upload_folder = $wp_upload_folder['basedir'];
+        $wp_upload_dir = wp_upload_dir();
+        $wp_upload_folder = $wp_upload_dir['basedir'];
 
         $file_path = explode('/uploads/', $file_path);
+
         if (is_array($file_path)) {
             if (count($file_path) > 1) {
                 $file_path = $wp_upload_folder . '/' . $file_path[1];
@@ -472,7 +473,9 @@ if (!function_exists('ere_image_resize_url')) {
         if (is_multisite()) {
             global $blog_id;
             $file_path = str_replace("/sites/{$blog_id}/sites/{$blog_id}/", "/sites/{$blog_id}/", $file_path);
+            $wp_upload_dir = wp_get_upload_dir();
         }
+
 
         // Destination width and height variables
         $dest_width = $width * $retina;
@@ -497,16 +500,34 @@ if (!function_exists('ere_image_resize_url')) {
 
         // Get the destination file name
         $dest_file_name = "{$dir}/{$file_name}";
-
         if (!file_exists($dest_file_name)) {
 
             /*
              *  Bail if this image isn't in the Media Library.
              *  We only want to resize Media Library images, so we can be sure they get deleted correctly when appropriate.
              */
-            $get_attachment = $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->posts WHERE guid=%s", $url));
-            if (!$get_attachment)
+            $attachment = $wpdb->get_row(
+                $wpdb->prepare(
+                    "SELECT ID as post_id FROM $wpdb->posts WHERE guid = %s",
+                    $url
+                )
+            );
+            if (!$attachment) {
+                $relative_file_path = str_replace($wp_upload_dir['baseurl'] . '/', '', $url);
+                $attachment = $wpdb->get_row(
+                    $wpdb->prepare(
+                        "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attached_file' AND meta_value = %s",
+                        $relative_file_path
+                    )
+                );
+            }
+
+            if ($attachment) {
+                $attachment_id = $attachment->post_id;
+            } else {
                 return array('url' => $url, 'width' => $width, 'height' => $height);
+            }
+
 
             // Load WordPress Image Editor
             $editor = wp_get_image_editor($file_path);
@@ -559,10 +580,10 @@ if (!function_exists('ere_image_resize_url')) {
 	            $resized_type = $saved['mime-type'];
 
 	            // Add the resized dimensions to original image metadata (so we can delete our resized images when the original image is delete from the Media Library)
-	            $metadata = wp_get_attachment_metadata($get_attachment[0]->ID);
+	            $metadata = wp_get_attachment_metadata($attachment_id);
 	            if (isset($metadata['image_meta'])) {
 		            $metadata['image_meta']['resized_images'][] = $resized_width . 'x' . $resized_height;
-		            wp_update_attachment_metadata($get_attachment[0]->ID, $metadata);
+		            wp_update_attachment_metadata($attachment_id, $metadata);
 	            }
 
 	            // Create the image array

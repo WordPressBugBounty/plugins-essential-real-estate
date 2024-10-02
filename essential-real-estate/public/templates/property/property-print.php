@@ -26,7 +26,7 @@ remove_action( 'wp_head',             'rel_canonical'                          )
 remove_action( 'wp_head',             'wp_shortlink_wp_head',            10);
 remove_action( 'wp_head',             'wp_custom_css_cb',                101   );
 remove_action( 'wp_head',             'wp_site_icon',                    99    );
-add_action('wp_enqueue_scripts','ere_dequeue_assets_print_property',9999);
+//add_action('wp_enqueue_scripts','ere_dequeue_assets_print_property',9999);
 function ere_dequeue_assets_print_property() {
     foreach (wp_styles()->registered as $k => $v) {
         if (!in_array($k,array('bootstrap','font-awesome','star-rating',ERE_PLUGIN_PREFIX . 'main',ERE_PLUGIN_PREFIX . 'main-rtl',ERE_PLUGIN_PREFIX . 'property-print',ERE_PLUGIN_PREFIX . 'property-print-rtl'))) {

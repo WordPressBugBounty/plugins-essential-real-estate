@@ -1,5 +1,11 @@
 Changelog
 =========
+### 5.1.0 - October 02, 2024
+* Fix function 'ere_image_resize_url'
+
+### 5.0.9 - September 27, 2024
+* Fix qr code in property print page
+
 ### 5.0.8 - September 16, 2024
 * Fix enqueue js select2 in shortcode property search map
 
