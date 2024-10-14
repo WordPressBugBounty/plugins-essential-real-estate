@@ -258,7 +258,7 @@ if ( ! class_exists( 'ERE_Admin' ) ) {
 		}
 
 		function additional_details_field( $meta_prefix ) {
-			if ( ! class_exists( 'GSF_SmartFramework' ) ) {
+/*			if ( ! class_exists( 'GSF_SmartFramework' ) ) {
 				return array(
 					'id'       => "{$meta_prefix}additional_features",
 					'title'    => esc_html__( 'Additional details:', 'essential-real-estate' ),
@@ -266,7 +266,7 @@ if ( ! class_exists( 'ERE_Admin' ) ) {
 					'default'  => array(),
 					'template' => ERE_PLUGIN_DIR . '/admin/templates/additional-details-field.php',
 				);
-			}
+			}*/
 
 			return array(
 				'id'     => "{$meta_prefix}additional_features",
