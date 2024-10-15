@@ -72,8 +72,12 @@ class ERE_Background_Emailer extends WP_Background_Process {
 					$args ['website_url'] = get_option('siteurl');
 					$args ['website_name'] = get_option('blogname');
 					$args ['user_email'] = $email;
+
 					$user = get_user_by('email', $email);
-					$args ['username'] = $user->user_login;
+					if (is_a($user, 'WP_User')) {
+						$args ['username'] = $user->user_login;
+					}
+
 					foreach ($args as $key => $val) {
 						if ($val === null) {
 							continue;
