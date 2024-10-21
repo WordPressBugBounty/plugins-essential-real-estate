@@ -194,14 +194,16 @@ function ere_get_single_property_overview($property_id = '')
     if ( $additional_features > 0 ) {
         $additional_feature_title = get_post_meta( $property_id, ERE_METABOX_PREFIX . 'additional_feature_title', true );
         $additional_feature_value = get_post_meta( $property_id, ERE_METABOX_PREFIX . 'additional_feature_value', true );
-        for ( $i = 0; $i < $additional_features; $i ++ ) {
-            if ( ! empty( $additional_feature_title[ $i ] ) && ! empty( $additional_feature_value[ $i ] ) ) {
-                $overview[ sanitize_title( $additional_feature_title[ $i ] ) ] = array(
-                    'title'    => $additional_feature_title[ $i ],
-                    'content'  => '<span>' . $additional_feature_value[ $i ] . '</span>',
-                    'priority' => $priority,
-                );
-                $priority+= 10;
+        if (!empty($additional_feature_title) && !empty($additional_feature_value)) {
+            for ( $i = 0; $i < $additional_features; $i ++ ) {
+                if ( ! empty( $additional_feature_title[ $i ] ) && ! empty( $additional_feature_value[ $i ] ) ) {
+                    $overview[ sanitize_title( $additional_feature_title[ $i ] ) ] = array(
+                        'title'    => $additional_feature_title[ $i ],
+                        'content'  => '<span>' . $additional_feature_value[ $i ] . '</span>',
+                        'priority' => $priority,
+                    );
+                    $priority+= 10;
+                }
             }
         }
     }

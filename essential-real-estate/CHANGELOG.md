@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.1.3 - October 21, 2024
+* Fix function Additional details in property page
+
 ### 5.1.2 - October 15, 2024
 * Fix issue send mail
 

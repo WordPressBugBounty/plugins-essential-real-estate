@@ -64,7 +64,7 @@ if ( ! class_exists( 'ERE_Admin' ) ) {
 				if ( $enable_filter_location == 1 ) {
 					wp_enqueue_script( 'select2', ERE_PLUGIN_URL . 'public/assets/packages/select2/js/select2.full.min.js', array( 'jquery' ), '4.0.6-rc.1', true );
 				}
-				wp_enqueue_script( ERE_PLUGIN_PREFIX . 'admin-js', ERE_PLUGIN_URL . 'admin/assets/js/ere-admin' . $min_suffix . '.js', array( 'jquery','select2_js' ), ERE_PLUGIN_VER, true );
+				wp_enqueue_script( ERE_PLUGIN_PREFIX . 'admin-js', ERE_PLUGIN_URL . 'admin/assets/js/ere-admin' . $min_suffix . '.js', array( 'jquery' ), ERE_PLUGIN_VER, true );
 				wp_localize_script( ERE_PLUGIN_PREFIX . 'admin-js', 'ere_admin_vars',
 					array(
 						'ajax_url'               => ERE_AJAX_URL,
@@ -258,7 +258,7 @@ if ( ! class_exists( 'ERE_Admin' ) ) {
 		}
 
 		function additional_details_field( $meta_prefix ) {
-/*			if ( ! class_exists( 'GSF_SmartFramework' ) ) {
+			if ( ! class_exists( 'GSF_SmartFramework' ) ) {
 				return array(
 					'id'       => "{$meta_prefix}additional_features",
 					'title'    => esc_html__( 'Additional details:', 'essential-real-estate' ),
@@ -266,7 +266,7 @@ if ( ! class_exists( 'ERE_Admin' ) ) {
 					'default'  => array(),
 					'template' => ERE_PLUGIN_DIR . '/admin/templates/additional-details-field.php',
 				);
-			}*/
+			}
 
 			return array(
 				'id'     => "{$meta_prefix}additional_features",
