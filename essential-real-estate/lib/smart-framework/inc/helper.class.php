@@ -570,5 +570,17 @@ if (!class_exists('GSF_Inc_Helper')) {
                 }
 		    }
         }
+
+        function get_current_screen(){
+            if ( !function_exists( 'get_current_screen' ) ) {
+                require_once ABSPATH . '/wp-admin/includes/screen.php';
+            }
+
+            if (!function_exists('get_current_screen')) {
+                return null;
+            }
+
+            return get_current_screen();
+        }
 	}
 }

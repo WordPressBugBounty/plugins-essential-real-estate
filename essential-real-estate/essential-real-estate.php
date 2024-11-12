@@ -3,7 +3,7 @@
  * Plugin Name: Essential Real Estate
  * Plugin URI: https://wordpress.org/plugins/essential-real-estate
  * Description: The latest plugins Real Estate you want. Completely all features, easy customize and override layout, functions. Supported global payment, build market, single, list property, single agent...etc. All fields are defined dynamic, they will help you can build any kind of Real Estate website.
- * Version: 5.1.3
+ * Version: 5.1.4
  * Author: G5Theme
  * Author URI: http://themeforest.net/user/g5theme
  * Text Domain: essential-real-estate
@@ -28,7 +28,7 @@ if (!defined('WPINC')) {
 }
 
 if (!defined('ERE_PLUGIN_VER')) {
-    define('ERE_PLUGIN_VER', '5.1.3');
+    define('ERE_PLUGIN_VER', '5.1.4');
 }
 if (!defined('ERE_PLUGIN_FILE')) {
     define('ERE_PLUGIN_FILE', __FILE__);

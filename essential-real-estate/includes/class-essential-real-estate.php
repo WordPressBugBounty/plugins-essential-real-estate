@@ -232,55 +232,61 @@ if (!class_exists('Essential_Real_Estate')) {
             $this->loader->add_filter('ere_trans_log_slug', $admin_trans_log, 'modify_trans_log_slug');
             $this->loader->add_action('restrict_manage_posts', $admin_trans_log, 'filter_restrict_manage_trans_log');
             $this->loader->add_filter('parse_query', $admin_trans_log, 'trans_log_filter');
+
+
+
+
+
+
             if (is_admin()) {
                 global $pagenow;
                 $setup_page = new ERE_Admin_Setup();
                 $this->loader->add_action('admin_menu', $setup_page, 'admin_menu', 12);
                 $this->loader->add_action('admin_init', $setup_page, 'redirect');
+                $post_type = isset($_GET['post_type']) ? sanitize_text_field(wp_unslash($_GET['post_type'])) : '';
 
                 // property custom columns
-	            $post_type = isset($_GET['post_type']) ? sanitize_text_field(wp_unslash($_GET['post_type'])) : '';
+                add_filter( 'manage_property_posts_columns', array( $admin_property, 'register_custom_column_titles' ) );
+                add_action( 'manage_property_posts_custom_column', array($admin_property,'display_custom_column'), 2 );
+                add_filter('manage_edit-property_sortable_columns', array($admin_property, 'sortable_columns'));
+                add_filter( 'post_row_actions', array( $admin_property, 'modify_list_row_actions' ), 100, 2 );
                 if (($pagenow == 'edit.php') && ($post_type == 'property')) {
-                    $this->loader->add_filter('manage_edit-property_columns', $admin_property, 'register_custom_column_titles');
-                    $this->loader->add_action('manage_posts_custom_column', $admin_property, 'display_custom_column');
-                    $this->loader->add_filter('manage_edit-property_sortable_columns', $admin_property, 'sortable_columns');
                     $this->loader->add_filter('request', $admin_property, 'column_orderby');
-                    $this->loader->add_filter('post_row_actions', $admin_property, 'modify_list_row_actions',10,2);
                 }
 
+
+
+
                 // agent custom columns
-                if (($pagenow == 'edit.php')  && ($post_type == 'agent')) {
-                    $this->loader->add_filter('manage_edit-agent_columns', $admin_agent, 'register_custom_column_titles');
-                    $this->loader->add_action('manage_posts_custom_column', $admin_agent, 'display_custom_column');
-                    $this->loader->add_filter('post_row_actions', $admin_agent, 'modify_list_row_actions',10,2);
-                }
+                add_filter( 'manage_agent_posts_columns', array( $admin_agent, 'register_custom_column_titles' ) );
+                add_action( 'manage_agent_posts_custom_column', array($admin_agent,'display_custom_column'), 2 );
+                add_filter( 'post_row_actions', array( $admin_agent, 'modify_list_row_actions' ), 100, 2 );
+
                 // package custom columns
-                if (($pagenow == 'edit.php') && ($post_type == 'package')) {
-                    $this->loader->add_filter('manage_edit-package_columns', $admin_package, 'register_custom_column_titles');
-                    $this->loader->add_action('manage_posts_custom_column', $admin_package, 'display_custom_column');
-                    $this->loader->add_filter('post_row_actions', $admin_package, 'modify_list_row_actions',10,2);
-                }
+                add_filter( 'manage_package_posts_columns', array( $admin_package, 'register_custom_column_titles' ) );
+                add_action( 'manage_package_posts_custom_column', array($admin_package,'display_custom_column'), 2 );
+                add_filter( 'post_row_actions', array( $admin_package, 'modify_list_row_actions' ), 100, 2 );
+
                 // agent package custom columns
-                if (($pagenow == 'edit.php') && ($post_type == 'user_package')) {
-                    $this->loader->add_filter('manage_edit-user_package_columns', $admin_user_package, 'register_custom_column_titles');
-                    $this->loader->add_action('manage_posts_custom_column', $admin_user_package, 'display_custom_column');
-                    $this->loader->add_filter('post_row_actions', $admin_user_package, 'modify_list_row_actions',10,2);
-                }
+                add_filter( 'manage_user_package_posts_columns', array( $admin_user_package, 'register_custom_column_titles' ) );
+                add_action( 'manage_user_package_posts_custom_column', array($admin_user_package,'display_custom_column'), 2 );
+                add_filter( 'post_row_actions', array( $admin_user_package, 'modify_list_row_actions' ), 100, 2 );
+
                 // Invoice custom columns
+                add_filter( 'manage_invoice_posts_columns', array( $admin_invoice, 'register_custom_column_titles' ) );
+                add_action( 'manage_invoice_posts_custom_column', array($admin_invoice,'display_custom_column'), 2 );
+                add_filter( 'post_row_actions', array( $admin_invoice, 'modify_list_row_actions' ), 100, 2 );
+                add_filter( 'manage_edit-invoice_sortable_columns', array( $admin_invoice, 'sortable_columns' ));
                 if (($pagenow == 'edit.php' ) && ($post_type == 'invoice')) {
-                    $this->loader->add_filter('manage_edit-invoice_columns', $admin_invoice, 'register_custom_column_titles');
-                    $this->loader->add_action('manage_posts_custom_column', $admin_invoice, 'display_custom_column');
-                    $this->loader->add_filter('manage_edit-invoice_sortable_columns', $admin_invoice, 'sortable_columns');
-                    $this->loader->add_filter('request', $admin_invoice, 'column_orderby');
-                    $this->loader->add_filter('post_row_actions', $admin_invoice, 'modify_list_row_actions',10,2);
+                    add_filter( 'request', array( $admin_invoice, 'column_orderby' ));
                 }
                 // Trans_log custom columns
+                add_filter( 'manage_trans_log_posts_columns', array( $admin_trans_log, 'register_custom_column_titles' ) );
+                add_action( 'manage_trans_log_posts_custom_column', array($admin_trans_log,'display_custom_column'), 2 );
+                add_filter( 'post_row_actions', array( $admin_trans_log, 'modify_list_row_actions' ), 100, 2 );
+                add_filter( 'manage_edit-trans_log_sortable_columns', array( $admin_trans_log, 'sortable_columns' ));
                 if (($pagenow == 'edit.php')  && ($post_type == 'trans_log')) {
-                    $this->loader->add_filter('manage_edit-trans_log_columns', $admin_trans_log, 'register_custom_column_titles');
-                    $this->loader->add_action('manage_posts_custom_column', $admin_trans_log, 'display_custom_column');
-                    $this->loader->add_filter('manage_edit-trans_log_sortable_columns', $admin_trans_log, 'sortable_columns');
-                    $this->loader->add_filter('request', $admin_trans_log, 'column_orderby');
-                    $this->loader->add_filter('post_row_actions', $admin_trans_log, 'modify_list_row_actions',10,2);
+                    add_filter( 'request', array( $admin_trans_log, 'column_orderby' ));
                 }
                 $setup_metaboxes = new ERE_Admin_Setup_Metaboxes();
                 $this->loader->add_action('load-post.php', $setup_metaboxes, 'meta_boxes_setup');
@@ -524,7 +530,7 @@ if (!class_exists('Essential_Real_Estate')) {
 
 	    public function loader_framework($frameworks) {
 		    $frameworks[] = array(
-			    'version' => '3.1.0',
+			    'version' => '3.1.2',
 			    'path' => ERE_PLUGIN_DIR . 'lib/smart-framework/',
 			    'uri' => ERE_PLUGIN_URL . 'lib/smart-framework/',
 			    'plugin_file' => ERE_PLUGIN_FILE,

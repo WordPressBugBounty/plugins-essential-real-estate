@@ -1,5 +1,9 @@
 Changelog
 =========
+### 5.1.4 - November 12, 2024
+* Fix save meta-box in smart-framework
+* Fix Quick edit in custom post type
+
 ### 5.1.3 - October 21, 2024
 * Fix function Additional details in property page
 

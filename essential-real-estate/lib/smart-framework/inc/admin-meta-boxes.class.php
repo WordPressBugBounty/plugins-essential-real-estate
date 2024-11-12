@@ -167,6 +167,7 @@ if (!class_exists('GSF_Inc_Admin_Meta_Boxes')) {
 	        $configs = &$args['args'];
 	        $meta_values = $this->getMetaValue($configs);
 	        GSF()->helper()->setFieldLayout(isset($configs['layout']) ? $configs['layout'] : 'inline');
+            wp_nonce_field('gsf_meta_box_nonce_action','gsf_meta_box');
 	        GSF()->helper()->renderFields($configs, $meta_values);
         }
 
@@ -176,6 +177,9 @@ if (!class_exists('GSF_Inc_Admin_Meta_Boxes')) {
 		        return;
 	        }
 
+            if (!isset($_REQUEST['gsf_meta_box_nonce']) || !wp_verify_nonce(wp_unslash($_REQUEST['gsf_meta_box_nonce']),'gsf_meta_box')) {
+                return;
+            }
 
 	        // Dont' save meta boxes for revisions or autosaves.
 	        if ( (defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE) || is_int( wp_is_post_revision( $post_id ) ) || is_int( wp_is_post_autosave( $post_id ) ) ) {
@@ -246,14 +250,14 @@ if (!class_exists('GSF_Inc_Admin_Meta_Boxes')) {
         private function isMetaPage($screen = null) {
             if ( ! ( $screen instanceof WP_Screen ) )
             {
-                $screen = get_current_screen();
+                $screen = GSF_Inc_Helper::getInstance()->get_current_screen();
             }
             return 'post' == $screen->base && in_array( $screen->post_type, $this->post_types );
         }
 
         private function getCurrentPostType() {
             $post_type = '';
-            $screen = get_current_screen();
+            $screen = GSF_Inc_Helper::getInstance()->get_current_screen();
             if ($screen != null) {
                 $post_type = $screen->post_type;
             }

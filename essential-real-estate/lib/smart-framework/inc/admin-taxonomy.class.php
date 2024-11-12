@@ -328,7 +328,7 @@ if (!class_exists('GSF_Inc_Admin_Taxonomy')) {
 			$taxonomy = isset($_REQUEST['taxonomy']) ? GSF()->helper()->sanitize_text($_REQUEST['taxonomy']) : '';
 			$action = isset($_REQUEST['action']) ? GSF()->helper()->sanitize_text($_REQUEST['action']) : '';
 			if (empty($action)) {
-				$screen = get_current_screen();
+				$screen = GSF_Inc_Helper::getInstance()->get_current_screen();
 				$action = $screen->base;
 			}
 			return (('edit-tags' == $action) || ('term' == $action) || ('add-tag' == $action)) && in_array($taxonomy, $this->_taxonomies );
@@ -337,7 +337,7 @@ if (!class_exists('GSF_Inc_Admin_Taxonomy')) {
 		private function isNewPage() {
 			$action = isset($_REQUEST['action']) ? GSF()->helper()->sanitize_text($_REQUEST['action']) : '';
 			if (empty($action)) {
-				$screen = get_current_screen();
+				$screen = GSF_Inc_Helper::getInstance()->get_current_screen();
 				$action = $screen->base;
 			}
 			return ($action === 'edit-tags');

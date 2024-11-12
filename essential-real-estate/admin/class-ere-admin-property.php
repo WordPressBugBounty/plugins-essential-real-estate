@@ -45,6 +45,8 @@ if ( ! class_exists( 'ERE_Admin_Property' ) ) {
 			return $new_columns;
 		}
 
+
+
 		/**
 		 * Display custom column for properties
 		 *
@@ -173,6 +175,8 @@ if ( ! class_exists( 'ERE_Admin_Property' ) ) {
 
 			return $vars;
 		}
+
+
 
 		/**
 		 * Modify property slug

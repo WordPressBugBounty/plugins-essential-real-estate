@@ -68,7 +68,7 @@ function ere_get_single_property_overview($property_id = '')
     if (empty($property_id)) {
         $property_id = get_the_ID();
     }
-    
+
     $overview = array();
 
     $overview['property_id'] = array(
@@ -191,7 +191,7 @@ function ere_get_single_property_overview($property_id = '')
 
 
     $additional_features = get_post_meta( $property_id, ERE_METABOX_PREFIX . 'additional_features', true );
-    if ( $additional_features > 0 ) {
+    if ( !empty($additional_features) ) {
         $additional_feature_title = get_post_meta( $property_id, ERE_METABOX_PREFIX . 'additional_feature_title', true );
         $additional_feature_value = get_post_meta( $property_id, ERE_METABOX_PREFIX . 'additional_feature_value', true );
         if (!empty($additional_feature_title) && !empty($additional_feature_value)) {
