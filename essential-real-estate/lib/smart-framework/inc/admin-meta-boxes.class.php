@@ -167,7 +167,7 @@ if (!class_exists('GSF_Inc_Admin_Meta_Boxes')) {
 	        $configs = &$args['args'];
 	        $meta_values = $this->getMetaValue($configs);
 	        GSF()->helper()->setFieldLayout(isset($configs['layout']) ? $configs['layout'] : 'inline');
-            wp_nonce_field('gsf_meta_box_nonce_action','gsf_meta_box');
+            wp_nonce_field('gsf_meta_box','gsf_meta_box');
 	        GSF()->helper()->renderFields($configs, $meta_values);
         }
 
@@ -177,7 +177,7 @@ if (!class_exists('GSF_Inc_Admin_Meta_Boxes')) {
 		        return;
 	        }
 
-            if (!isset($_REQUEST['gsf_meta_box_nonce']) || !wp_verify_nonce(wp_unslash($_REQUEST['gsf_meta_box_nonce']),'gsf_meta_box')) {
+            if (!isset($_REQUEST['gsf_meta_box']) || !wp_verify_nonce(wp_unslash($_REQUEST['gsf_meta_box']),'gsf_meta_box')) {
                 return;
             }
 

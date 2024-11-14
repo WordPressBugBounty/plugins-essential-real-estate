@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: real estate, agency, agent, realtor, property
 Requires at least: 4.5
 Tested up to: 6.6.2
-Stable tag: 5.1.4
+Stable tag: 5.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,8 +98,10 @@ Yes! it's always will be free.
 10. Listing properties with features on frontend
 
 == Changelog ==
-= 5.1.4 =
+= 5.1.5 =
 * Fix save meta-box in smart-framework
+
+= 5.1.4 =
 * Fix Quick edit in custom post type
 
 = 5.1.3 =
