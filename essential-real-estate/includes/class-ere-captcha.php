@@ -107,7 +107,7 @@ if (!class_exists('ERE_Captcha')) {
 
 		public function verify_recaptcha() {
             $nonce = isset($_POST['ere_recaptcha_nonce']) ? ere_clean(wp_unslash($_POST['ere_recaptcha_nonce'])) : '';
-            if (!wp_verify_nonce($nonce,'ere_recaptcha_nonce')) {
+            if (!wp_verify_nonce($nonce,'ere_recaptcha')) {
                 echo wp_json_encode( array(
                     'success' => false,
                     'message' => esc_attr__( 'Captcha Invalid Security', 'essential-real-estate' )

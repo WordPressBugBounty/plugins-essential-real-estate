@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.1.6 - November 29, 2024
+* Fix error verify captcha register user
+
 ### 5.1.5 - November 14, 2024
 * Fix save meta-box in smart-framework
 
