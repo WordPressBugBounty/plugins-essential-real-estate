@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.1.7 - December 09, 2024
+* Fix capabilities for post_types: "trans_log", "invoice" and "user_package"
+
 ### 5.1.6 - November 29, 2024
 * Fix error verify captcha register user
 
