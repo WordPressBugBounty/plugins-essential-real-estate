@@ -85,7 +85,7 @@ if ( ! class_exists( 'ERE_Query' ) ) {
 				'min-land-area' => '',
 				'max-land-area' => '',
 				'property_identity' => '',
-				'features' => '',
+				'other_features' => '',
 				'item_amount' => '',
 				'paged' => 1,
 				'sortby' => '',
@@ -750,12 +750,11 @@ if ( ! class_exists( 'ERE_Query' ) ) {
 		}
 
 		public function get_tax_query_feature( $tax_query ) {
-			$features = isset( $_REQUEST['features'] ) ?  wp_unslash( $_REQUEST['features'] )  : $this->_atts['features'];
+			$features = isset( $_REQUEST['other_features'] ) ?  wp_unslash( $_REQUEST['other_features'] )  : $this->_atts['other_features'];
 			if ( ! empty( $features )) {
-				if (is_string($features) && strpos($features,';')) {
-					$features = explode(';',$features);
-				}
-
+                if (!is_array($features)) {
+                    $features = explode(';',$features);
+                }
 				$tax_query[] = array(
 					'taxonomy' => 'property-feature',
 					'field'    => 'slug',

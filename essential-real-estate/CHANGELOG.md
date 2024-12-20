@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.1.8 - December 20, 2024
+* Fix query property by features
+
 ### 5.1.7 - December 09, 2024
 * Fix capabilities for post_types: "trans_log", "invoice" and "user_package"
 

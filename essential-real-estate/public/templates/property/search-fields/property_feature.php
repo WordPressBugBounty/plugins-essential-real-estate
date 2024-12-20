@@ -33,6 +33,8 @@ foreach ($property_features as $term) {
     }
 };
 
+$prefix = uniqid('__');
+
 $has_request_features = !empty($request_features) && is_array($request_features) & count($request_features) > 0;
 ?>
 <div class="col-12 other-features-wrap">
@@ -57,11 +59,11 @@ $has_request_features = !empty($request_features) && is_array($request_features)
                                 <div class="col-lg-2 col-md-3 col-sm-4 col-12 mt-2">
                                     <div class="form-check">
                                         <?php if (!empty($request_features) && in_array($child_item->slug, $request_features)):  ?>
-                                            <input type="checkbox" class="form-check-input" id="property_feature_<?php echo esc_attr($child_item->term_id)?>" name="other_features" checked="checked" value="<?php echo esc_attr($child_item->slug) ?>" />
+                                            <input type="checkbox" class="form-check-input" id="property_feature_<?php echo esc_attr($child_item->term_id . $prefix)?>" name="other_features" checked="checked" value="<?php echo esc_attr($child_item->slug) ?>" />
                                         <?php else: ?>
-                                            <input type="checkbox" class="form-check-input" id="property_feature_<?php echo esc_attr($child_item->term_id)?>" name="other_features" value="<?php echo esc_attr($child_item->slug) ?>" />
+                                            <input type="checkbox" class="form-check-input" id="property_feature_<?php echo esc_attr($child_item->term_id . $prefix)?>" name="other_features" value="<?php echo esc_attr($child_item->slug) ?>" />
                                         <?php endif; ?>
-                                        <label class="form-check-label" for="property_feature_<?php echo esc_attr($child_item->term_id)?>">
+                                        <label class="form-check-label" for="property_feature_<?php echo esc_attr($child_item->term_id . $prefix)?>">
                                             <?php echo esc_html($child_item->name); ?>
                                         </label>
                                     </div>
@@ -76,11 +78,11 @@ $has_request_features = !empty($request_features) && is_array($request_features)
                         <div class="col-lg-2 col-md-3 col-sm-4 col-12 mt-2">
                             <div class="form-check">
                                 <?php if (!empty($request_features) && in_array($parents_item->slug, $request_features)):  ?>
-                                    <input type="checkbox" class="form-check-input" id="property_feature_<?php echo esc_attr($parents_item->term_id)?>" name="other_features" checked="checked" value="<?php echo esc_attr($parents_item->slug) ?>" />
+                                    <input type="checkbox" class="form-check-input" id="property_feature_<?php echo esc_attr($parents_item->term_id . $prefix)?>" name="other_features" checked="checked" value="<?php echo esc_attr($parents_item->slug) ?>" />
                                 <?php else: ?>
-                                    <input type="checkbox" class="form-check-input" id="property_feature_<?php echo esc_attr($parents_item->term_id)?>" name="other_features" value="<?php echo esc_attr($parents_item->slug) ?>" />
+                                    <input type="checkbox" class="form-check-input" id="property_feature_<?php echo esc_attr($parents_item->term_id . $prefix)?>" name="other_features" value="<?php echo esc_attr($parents_item->slug) ?>" />
                                 <?php endif; ?>
-                                <label class="form-check-label" for="property_feature_<?php echo esc_attr($parents_item->term_id)?>">
+                                <label class="form-check-label" for="property_feature_<?php echo esc_attr($parents_item->term_id . $prefix)?>">
                                     <?php echo esc_html($parents_item->name); ?>
                                 </label>
                             </div>
