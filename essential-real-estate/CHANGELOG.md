@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.1.9 - January  07, 2025
+* Fix error CSRF in setup pages
+
 ### 5.1.8 - December 20, 2024
 * Fix query property by features
 

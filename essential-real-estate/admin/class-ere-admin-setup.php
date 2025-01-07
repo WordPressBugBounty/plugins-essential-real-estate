@@ -154,6 +154,10 @@ if ( ! class_exists( 'ERE_Admin_Setup' ) ) {
 			$pages_to_create = ERE_Admin_Setup::get_page_setup_config();
 			$step            = ! empty( $_GET['step'] ) ? absint( wp_unslash( $_GET['step'] ) ) : 1;
 			if ( 3 === $step && ! empty( $_POST ) ) {
+                if (!isset($_POST['_wpnonce']) || !wp_verify_nonce($_POST['_wpnonce'],'ere_setup_pages')) {
+                    return;
+                }
+
 				$create_pages = isset( $_POST['ere-create-page'] ) ? ere_clean( wp_unslash( $_POST['ere-create-page'] ) ) : array();
 				$page_titles  = isset( $_POST['ere-page-title'] ) ? ere_clean( wp_unslash( $_POST['ere-page-title'] ) ) : array();
 				foreach ( $pages_to_create as $page => $v ) {
@@ -214,6 +218,7 @@ if ( ! class_exists( 'ERE_Admin_Setup' ) ) {
                     </p>
 
 					<form action="<?php echo esc_url( add_query_arg( 'step', 3 ) ); ?>" method="post">
+                        <?php wp_nonce_field('ere_setup_pages') ?>
 						<table class="ere-shortcodes widefat">
 							<thead>
 								<tr>
