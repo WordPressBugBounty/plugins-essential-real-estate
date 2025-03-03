@@ -31,3 +31,12 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
     </div>
 </script>
+<script type="text/template" id="tmpl-ere__mc_template">
+    <div class="ere__mc-result">
+        <div class="ere__loan-amount"><span><?php echo esc_html__('Loan Amount','essential-real-estate') ?>:</span> <strong>{{{data.loan_amount}}}</strong></div>
+        <div class="ere__years"><span><?php echo esc_html__('Years','essential-real-estate') ?>:</span> <strong>{{{data.years}}}</strong></div>
+        <div class="ere__monthly"><span><?php echo esc_html__('Monthly','essential-real-estate') ?>:</span> <strong>{{{data.monthly_payment}}}</strong></div>
+        <div class="ere__bi_weekly"><span><?php echo esc_html__('Bi Weekly','essential-real-estate') ?>:</span> <strong>{{{data.bi_weekly_payment}}}</strong></div>
+        <div class="ere__weekly"><span><?php echo esc_html__('Weekly','essential-real-estate') ?>:</span> <strong>{{{data.weekly_payment}}}</strong></div>
+    </div>
+</script>

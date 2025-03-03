@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.2.0 - March  03, 2025
+* Fix widget mortgage calculator 
+
 ### 5.1.9 - January  07, 2025
 * Fix error CSRF in setup pages
 
