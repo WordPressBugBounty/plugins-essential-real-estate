@@ -32,6 +32,10 @@ extract(shortcode_atts(array(
 	'el_class' => ''
 ), $atts));
 
+if (!in_array($layout_style,array('property-cities-filter','property-list-two-columns','property-single-carousel','property-sync-carousel'))) {
+    $layout_style = 'property-cities-filter';
+}
+
 $wrapper_styles = array();
 $property_item_class = array();
 $property_content_class = array('property-content-wrap');

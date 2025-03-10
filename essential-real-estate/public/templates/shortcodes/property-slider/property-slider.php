@@ -22,6 +22,12 @@ extract( shortcode_atts( array(
 	'image_size'        => ere_get_sc_property_slider_image_size_default(),
 	'el_class'          => ''
 ), $atts ) );
+
+if (!in_array($layout_style,array('navigation-middle','pagination-image'))) {
+    $layout_style = 'navigation-middle';
+}
+
+
 $wrapper_classes = array(
 	'ere-property-slider',
     'ere-property',

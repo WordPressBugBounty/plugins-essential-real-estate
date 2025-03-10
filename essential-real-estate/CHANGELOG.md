@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.2.1 - March  10, 2025
+* Fix vulnerable to Local File Inclusion
+
 ### 5.2.0 - March  03, 2025
 * Fix widget mortgage calculator 
 
