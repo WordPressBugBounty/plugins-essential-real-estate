@@ -1,3 +1,21 @@
+<?php
+/**
+ * @var $require_element
+ * @var $require_element_id
+ * @var $require_compare
+ * @var $require_values
+ * @var $field_output_name
+ * @var $field_title
+ * @var $field_output_id
+ * @var $field_value
+ * @var $is_title_block
+ * @var $multiple
+ * @var $field_seclect_options
+ */
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+?>
 <div class="textbox-wrap element"  data-require-element="<?php if(isset($require_element)){ echo esc_attr($require_element);} ?>"
      data-require-element-id="<?php if(isset($require_element_id)){ echo esc_attr($require_element_id);} ?>"
      data-require-compare="<?php if(isset($require_compare)){ echo esc_attr($require_compare);} ?>"

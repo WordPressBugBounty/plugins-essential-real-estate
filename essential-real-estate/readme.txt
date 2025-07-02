@@ -87,9 +87,9 @@ Yes! it's always will be free.
 == Screenshots ==
 
 1. Essential Real Esate Options: all features of plugin, where user can use to setting.
-2. Add New Property screen shot on backend
+2. Add New Property screenshot on backend
 3. Manage Agents: display how to manage Agents on backend
-4. Approve Property: screen shot show how to approved a Property(when setting need Approved mode) on backend
+4. Approve Property: screenshot show how to approved a Property(when setting need Approved mode) on backend
 5. Invoice for print when user payment
 6. Add new Property on frontend
 7. User management features on frontend

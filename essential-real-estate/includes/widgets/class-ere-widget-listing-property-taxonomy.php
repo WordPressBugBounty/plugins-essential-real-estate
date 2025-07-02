@@ -68,8 +68,8 @@ if (!class_exists('ERE_Widget_Listing_Property_Taxonomy')) {
                         'type' => 'select',
                         'multiple'=>true,
                         'title' => esc_html__('Select Features:', 'essential-real-estate'),
-                        'options' => $this->get_all_taxonomies('property-features'),
-                        'require' => array('element' => 'taxonomy', 'compare'=>'=','value' => array('features'))
+                        'options' => $this->get_all_taxonomies('property-feature'),
+                        'require' => array('element' => 'taxonomy', 'compare'=>'=','value' => array('feature'))
                     ),
                     array(
                         'name' => 'neighborhoods',

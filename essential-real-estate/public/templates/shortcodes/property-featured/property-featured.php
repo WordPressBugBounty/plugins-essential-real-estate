@@ -130,6 +130,7 @@ $args = ere_get_property_query_args($_atts);
 $args = apply_filters('ere_shortcodes_property_featured_query_args',$args);
 $data = new WP_Query($args);
 $total_post = $data->found_posts;
+
 ere_get_template('shortcodes/property-featured/layout/' . $layout_style . '.php',
     array(
         'layout_style' => $layout_style,

@@ -1,10 +1,15 @@
 <?php
 /**
- * Created by G5Theme.
- * User: trungpq
- * Date: 10/9/15
- * Time: 10:18 AM
+ * @var $data_section_wrap
+ * @var $extras
+ * @var $field_values
+ * @var $extra_values
+ * @var $x
+ * @var $allowed_fields
  */
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
 ?>
 <div class="widget_acf_wrap" id="<?php echo esc_attr($data_section_wrap) ?>">
 	<!-- begin init extra fields -->
@@ -12,9 +17,9 @@
 	if (isset($extras) && is_array($extras)) {
 		foreach ($extras as $extra) {
 			$field_value = array_key_exists('std',$extra) ? $extra['std'] : '';
-			$field_type = $extra['type'];
-			$field_name = $extra['name'];
-			$field_title = $extra['title'];
+			$field_type = isset($extra['type']) ? sanitize_text_field(wp_unslash($extra['type'])) : 'text';
+			$field_name = isset($extra['name']) ? sanitize_text_field(wp_unslash($extra['name'])) : '';
+			$field_title = isset($extra['title']) ? sanitize_text_field(wp_unslash($extra['title'])) : '';
 			$field_output_id = $this->widget->get_field_id($field_name);
 			$field_output_name = $this->widget->get_field_name('extra') . '[' . $field_name . ']';
 			$require = array_key_exists('require', $extra) && isset($extra['require']) ? $extra['require'] : '';
@@ -44,7 +49,9 @@
 			$img_height = array_key_exists('height', $extra) && isset($extra['height']) ? $extra['height'] : '28';
 
 			$is_title_block = 0;
-			include($plugin_path.'/templates/'.$field_type.'.php');
+            if (in_array($field_type,$allowed_fields)) {
+                include (ERE_PLUGIN_DIR . "/includes/widgets/acf/templates/{$field_type}.php");
+            }
 		}
 	}
 	?>
@@ -61,10 +68,10 @@
 
                 <div class="fieldset" data-collapse="0">
                     <?php foreach ($fields as $field) {
-                        $field_type = $field['type'];
-                        $field_name = $field['name'];
-                        $field_title = $field['title'];
-                        $placeholder = (isset ($field['placeholder'])) ? esc_attr($field['placeholder']) : esc_html__('Title', 'essential-real-estate');
+                        $field_type = isset($field['type']) ? sanitize_text_field(wp_unslash($field['type'])) : 'text';
+                        $field_name = isset($field['name']) ? sanitize_text_field(wp_unslash($field['name'])) : '';
+                        $field_title = isset($field['title']) ? sanitize_text_field(wp_unslash($field['title'])) : '';
+                        $placeholder = isset($field['placeholder']) ? sanitize_text_field(wp_unslash($field['placeholder'])) : __('Title', 'essential-real-estate');
                         $field_output_id = $this->widget->get_field_id($field_name) . '_' . $x;
                         $field_output_name = $this->widget->get_field_name('fields') . '[' . $x . ']' . '[' . $field_name . ']';
                         $is_title_block = isset($field['is_title_block']) && $field['is_title_block'] == '1' ? 1 : 0;
@@ -91,7 +98,9 @@
                             $require_compare =  array_key_exists('compare', $require) && isset($require['compare']) ? $require['compare'] : '';
                             $require_values =  array_key_exists('value', $require) && isset($require['value']) ? implode(',',$require['value']) : '';
                         }
-                        include($plugin_path.'/templates/'.$field_type.'.php');
+                        if (in_array($field_type,$allowed_fields)) {
+                            include (ERE_PLUGIN_DIR . "/includes/widgets/acf/templates/{$field_type}.php");
+                        }
                     } ?>
                     <div class="button-groups">
                         <a class="button deletion" data-section-id="<?php echo esc_attr($section_id) ?>"
@@ -105,8 +114,5 @@
                                       data-section-wrap="<?php echo esc_attr($data_section_wrap) ?>"><?php echo esc_html__('Add row','essential-real-estate') ?></a>
         </div>
     <?php } ?>
-
     <!-- end init fields -->
-
-
 </div>

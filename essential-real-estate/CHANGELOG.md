@@ -1,5 +1,9 @@
 Changelog
 =========
+### 5.2.2 - July 02, 2025
+* Fix widget ERE Listing Property Taxonomy
+* Fix vulnerable to Local File Inclusion
+
 ### 5.2.1 - March  10, 2025
 * Fix vulnerable to Local File Inclusion
 

@@ -69,14 +69,22 @@ if (!class_exists('GSF_Inc_Helper')) {
 		 * @param $args
 		 */
 		public function getTemplate($slug, $args = array()) {
-			if ($args && is_array($args)) {
-				extract($args);
-			}
 			$located = GSF()->pluginDir($slug . '.php');
-			if (!file_exists($located)) {
+            $action_args = array(
+                'located'       => $located,
+            );
+
+			if (!file_exists($action_args['located'])) {
 				return;
 			}
-			include($located);
+            if ( ! empty( $args ) && is_array( $args ) ) {
+                if ( isset( $args['action_args'] ) ) {
+                    unset( $args['action_args'] );
+                }
+                extract( $args ); // @codingStandardsIgnoreLine
+            }
+
+			include($action_args['located']);
 		}
 
 		/**

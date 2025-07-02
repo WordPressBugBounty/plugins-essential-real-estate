@@ -323,8 +323,8 @@ var ERE_Widget_Acf = ERE_Widget_Acf || {};
 			}
 			ERE_Widget_Acf.sortable($wrapper);
 			ERE_Widget_Acf.initCheckbox($wrapper);
-			ERE_Widget_Acf.registerRequireElement($wrapper);
 			ERE_Widget_Acf.initSelectize($wrapper);
+			ERE_Widget_Acf.registerRequireElement($wrapper);
 		}
 	};
 
