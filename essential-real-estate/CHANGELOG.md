@@ -1,5 +1,17 @@
 Changelog
 =========
+### 5.2.6 - February 03, 2026
+* Fix shortcode compare
+
+### 5.2.5 - January 29, 2026
+* Fix missing icon wishlist
+
+### 5.2.4 - January 28, 2026
+* Fix authorization to authenticated in plugin option
+
+### 5.2.3 - January 27, 2026
+* Fix font management
+
 ### 5.2.2 - July 02, 2025
 * Fix widget ERE Listing Property Taxonomy
 * Fix vulnerable to Local File Inclusion

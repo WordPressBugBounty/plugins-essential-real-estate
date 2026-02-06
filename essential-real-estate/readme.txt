@@ -3,8 +3,8 @@ Contributors: g5theme
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RC62AS34KU8WY
 Tags: real estate, agency, agent, realtor, property
 Requires at least: 4.5
-Tested up to: 6.6.2
-Stable tag: 5.2.2
+Tested up to: 6.9
+Stable tag: 5.2.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,18 @@ Yes! it's always will be free.
 10. Listing properties with features on frontend
 
 == Changelog ==
+= 5.2.6 =
+* Fix shortcode compare
+
+= 5.2.5 =
+* Fix missing icon wishlist
+
+= 5.2.4 =
+* Fix authorization to authenticated in plugin option
+
+= 5.2.3 =
+* Fix font management
+
 = 5.2.2 =
 * Fix widget ERE Listing Property Taxonomy
 * Fix vulnerable to Local File Inclusion

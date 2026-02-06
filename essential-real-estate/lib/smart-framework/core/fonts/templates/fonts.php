@@ -1,7 +1,7 @@
 <?php
 $index = 0;
 ?>
-<div class="gsf-fonts-wrapper wrap" data-nonce="<?php echo esc_attr(wp_create_nonce('gsf_font_management')) ?>">
+<div class="gsf-fonts-wrapper wrap" data-nonce="<?php echo esc_attr( wp_create_nonce('gsf_font_management')) ?>">
     <div class="gsf-font-header">
         <h1><?php esc_html_e('Fonts Management', 'smart-framework'); ?></h1>
     </div>

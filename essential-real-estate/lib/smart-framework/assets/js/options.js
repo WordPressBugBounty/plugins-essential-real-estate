@@ -114,7 +114,7 @@ var GSF_THEME_OPTION;
 					success: function(res) {
 						$this.data('importing', false);
 						$this.html($this.data('import-text'));
-						if (res == 1) {
+						if (res.success) {
 							alert(GSF_META_DATA.msgImportDone);
 							window.location.reload();
 						}
@@ -199,7 +199,7 @@ var GSF_THEME_OPTION;
 					type: 'post',
 					success: function(res) {
 						GSF_THEME_OPTION.hideLoading('reset_section');
-						if (res == 1) {
+						if (res.success) {
 							alert(GSF_META_DATA.msgResetSectionDone);
 							window.location.reload();
 						}
@@ -243,7 +243,7 @@ var GSF_THEME_OPTION;
 					type: 'post',
 					success: function(res) {
 						GSF_THEME_OPTION.hideLoading('reset_option');
-						if (res == 1) {
+						if (res.success) {
 							alert(GSF_META_DATA.msgResetOptionsDone);
 							window.location.reload();
 						}
@@ -318,7 +318,7 @@ var GSF_THEME_OPTION;
 					type: 'post',
 					success: function(res) {
 						GSF_THEME_OPTION.hideLoading('delete_preset');
-						if (res == 1) {
+						if (res.success) {
 							$('.gsf-theme-options-preset-select li').first().trigger('click');
 						}
 						else {
@@ -354,7 +354,7 @@ var GSF_THEME_OPTION;
 					type: 'post',
 					success: function(res) {
 						GSF_THEME_OPTION.hideLoading('make_default_options');
-						if (res == 1) {
+						if (res.success) {
 							$('.gsf-theme-options-preset-select li').first().trigger('click');
 						}
 						else {
@@ -489,23 +489,23 @@ var GSF_THEME_OPTION;
 						type: 'post',
 						success: function(res) {
 							$this.removeClass('gsf-preset-creating');
+							if (res.success) {
+								G5Utils.popup.close();
 
-							G5Utils.popup.close();
-
-							var $wrapperRes = $(res);
-							$('.gsf-theme-options-page').html($wrapperRes);
-
-							$wrapperRes.find('.gsf-meta-box-wrap').each(function() {
-								GSF.fields.initFields($(this));
-							});
-							GSF_THEME_OPTION.saveOptions();
-							GSF_THEME_OPTION.headerSize();
-							GSF_THEME_OPTION.optionMessage();
-							$(document).trigger('gsf_section_changed');
-							$('.gsf-field').trigger('gsf_check_required');
-							$('.gsf-field').trigger('gsf_check_preset');
-							_current_preset = $('#_current_preset').val();
-							GSF_THEME_OPTION.changeLocation(_current_preset);
+								var $wrapperRes = $(res.data);
+								$('.gsf-theme-options-page').html($wrapperRes);
+								$wrapperRes.find('.gsf-meta-box-wrap').each(function() {
+									GSF.fields.initFields($(this));
+								});
+								GSF_THEME_OPTION.saveOptions();
+								GSF_THEME_OPTION.headerSize();
+								GSF_THEME_OPTION.optionMessage();
+								$(document).trigger('gsf_section_changed');
+								$('.gsf-field').trigger('gsf_check_required');
+								$('.gsf-field').trigger('gsf_check_preset');
+								_current_preset = $('#_current_preset').val();
+								GSF_THEME_OPTION.changeLocation(_current_preset);
+							}
 						},
 						error: function () {
 							$this.removeClass('gsf-preset-creating');
@@ -551,22 +551,23 @@ var GSF_THEME_OPTION;
 						$this.removeClass('gsf-preset-creating');
 					}
 					$('.gsf-theme-options-page').removeClass('in');
+					if (res.success) {
+						var $wrapperRes = $(res.data);
+						$('.gsf-theme-options-page').html($wrapperRes);
 
-					var $wrapperRes = $(res);
-					$('.gsf-theme-options-page').html($wrapperRes);
 
+						$wrapperRes.find('.gsf-meta-box-wrap').each(function() {
+							GSF.fields.initFields($(this));
+						});
+						GSF_THEME_OPTION.headerSize();
+						GSF_THEME_OPTION.saveOptions();
+						GSF_THEME_OPTION.optionMessage();
+						$(document).trigger('gsf_section_changed');
 
-					$wrapperRes.find('.gsf-meta-box-wrap').each(function() {
-						GSF.fields.initFields($(this));
-					});
-					GSF_THEME_OPTION.headerSize();
-					GSF_THEME_OPTION.saveOptions();
-					GSF_THEME_OPTION.optionMessage();
-					$(document).trigger('gsf_section_changed');
-
-					$('.gsf-field').trigger('gsf_check_required');
-					//$('.gsf-field').trigger('gsf_check_preset');
-					GSF_THEME_OPTION.changeLocation(_current_preset);
+						$('.gsf-field').trigger('gsf_check_required');
+						//$('.gsf-field').trigger('gsf_check_preset');
+						GSF_THEME_OPTION.changeLocation(_current_preset);
+					}
 				},
 				error: function () {
 					if ($this != null) {

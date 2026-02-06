@@ -278,7 +278,14 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 		}
 
 		public function makeDefaultOption() {
-			check_ajax_referer('gsf_theme_options_management');
+            if (
+                empty($_REQUEST['_wpnonce']) ||
+                ! wp_verify_nonce($_REQUEST['_wpnonce'], 'gsf_theme_options_management')
+            ) {
+                wp_send_json_error(
+                    esc_html__('Access Deny!', 'smart-framework')
+                );
+            }
 
             $page = GSF()->helper()->sanitize_text($_POST['_current_page']);
 			$current_preset = GSF()->helper()->sanitize_text($_POST['_current_preset']);
@@ -287,7 +294,6 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			$capability = isset($configs['permission']) ? $configs['permission'] : 'manage_options';
 			if (!current_user_can($capability)) {
 				wp_send_json_error(esc_html__('Access Deny!', 'smart-framework'));
-				die();
 			}
 
 			$option_name = $configs['option_name'];
@@ -314,8 +320,7 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			 */
 			do_action("gsf_after_change_options/{$option_name}", $options, '');
 
-			echo 1;
-			die();
+            wp_send_json_success(esc_html__('Make default option success!', 'smart-framework'));
 		}
 
 		/**
@@ -386,7 +391,14 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 		}
 
 		public function createPresetOptions() {
-			check_ajax_referer('gsf_theme_options_management');
+            if (
+                empty($_REQUEST['_wpnonce']) ||
+                ! wp_verify_nonce($_REQUEST['_wpnonce'], 'gsf_theme_options_management')
+            ) {
+                wp_send_json_error(
+                    esc_html__('Access Deny!', 'smart-framework')
+                );
+            }
 
 			$page = GSF()->helper()->sanitize_text($_POST['_current_page']);
 			$current_preset = GSF()->helper()->sanitize_text($_POST['_current_preset']);
@@ -398,7 +410,6 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			$capability = isset($configs['permission']) ? $configs['permission'] : 'manage_options';
 			if (!current_user_can($capability)) {
 				wp_send_json_error(esc_html__('Access Deny!', 'smart-framework'));
-				die();
 			}
 
 			$enable_preset = isset($configs['preset']) ? $configs['preset'] : false;
@@ -412,7 +423,7 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			$this->current_section = $current_section_id;
 
 			if (!$enable_preset) {
-				die();
+                wp_send_json_error(__('Preset is disabled', 'smart-framework'));
 			}
 
 			$theme = wp_get_theme();
@@ -446,7 +457,7 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 				$configs['option_name'] = $this->getOptionPresetName($option_name, $new_preset_name);
 			}
 
-
+            ob_start();
 			GSF()->helper()->setFieldLayout(isset($configs['layout']) ? $configs['layout'] : 'inline');
 			GSF()->helper()->getTemplate('admin/templates/theme-options-start',
 				array(
@@ -464,11 +475,19 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			GSF()->helper()->getTemplate('admin/templates/theme-options-end', array(
 				'is_exists_section' => isset($configs['section'])
 			));
-			die();
+            $data =  ob_get_clean();
+            wp_send_json_success($data);
 		}
 
 		public function ajaxThemeOption() {
-			check_ajax_referer('gsf_theme_options_management');
+            if (
+                empty($_REQUEST['_wpnonce']) ||
+                ! wp_verify_nonce($_REQUEST['_wpnonce'], 'gsf_theme_options_management')
+            ) {
+                wp_send_json_error(
+                    esc_html__('Access Deny!', 'smart-framework')
+                );
+            }
 
 			$page = GSF()->helper()->sanitize_text($_POST['_current_page']);
 			$current_preset = GSF()->helper()->sanitize_text($_POST['_current_preset']);
@@ -478,7 +497,6 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			$capability = isset($configs['permission']) ? $configs['permission'] : 'manage_options';
 			if (!current_user_can($capability)) {
 				wp_send_json_error(esc_html__('Access Deny!', 'smart-framework'));
-				die();
 			}
 
 			$current_section_id = isset($_POST['_current_section']) ? GSF()->helper()->sanitize_text($_POST['_current_section']) : '';
@@ -499,6 +517,7 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 				$configs['page_title'] = $option_keys[$current_preset];
 				$configs['option_name'] = $this->getOptionPresetName($option_name, $current_preset);
 			}
+            ob_start();
 			GSF()->helper()->setFieldLayout(isset($configs['layout']) ? $configs['layout'] : 'inline');
 			GSF()->helper()->getTemplate('admin/templates/theme-options-start',
 				array(
@@ -516,7 +535,8 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			GSF()->helper()->getTemplate('admin/templates/theme-options-end', array(
 				'is_exists_section' => isset($configs['section'])
 			));
-			die();
+            $data = ob_get_clean();
+            wp_send_json_success($data);
 		}
 
 		public function importPopup() {
@@ -569,7 +589,14 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 		 * Save Options
 		 */
 		public function saveOptions() {
-            check_ajax_referer('gsf_theme_options_management');
+            if (
+                empty($_POST['_wpnonce']) ||
+                ! wp_verify_nonce($_POST['_wpnonce'], 'gsf_theme_options_management')
+            ) {
+                wp_send_json_error(
+                    esc_html__('Access Deny!', 'smart-framework')
+                );
+            }
 
 			$page = GSF()->helper()->sanitize_text($_POST['_current_page']);
 			$current_preset = GSF()->helper()->sanitize_text($_POST['_current_preset']);
@@ -578,16 +605,16 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 
             $capability = isset($configs['permission']) ? $configs['permission'] : 'manage_options';
 
-            if (!current_user_can($capability)) {
-				wp_send_json_error(esc_html__('Access Deny!', 'smart-framework'));
-                die();
-			}
+            if ( ! current_user_can($capability) ) {
+                wp_send_json_error(
+                    esc_html__('Access Deny!', 'smart-framework')
+                );
+            }
 
 			$option_name = $configs['option_name'];
 			$current_section = isset($_POST['_current_section']) ? GSF()->helper()->sanitize_text($_POST['_current_section']) : '';
 
 			$config_keys = GSF()->helper()->getConfigKeys($configs, $current_section);
-			$field_default = GSF()->helper()->getConfigDefault($configs);
 			$config_options = array();
 			foreach ($config_keys as $meta_id => $field_meta) {
 				$field_type = isset($field_meta['type']) ? $field_meta['type'] : 'text';
@@ -637,7 +664,13 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 		 * Export theme options
 		 */
 		public function exportThemeOption() {
-            check_ajax_referer('gsf_theme_options_management');
+            if (
+                empty($_REQUEST['_wpnonce']) ||
+                ! wp_verify_nonce($_REQUEST['_wpnonce'], 'gsf_theme_options_management')
+            ) {
+
+                wp_die(__('Access denied', 'smart-framework'), 403);
+            }
 
 			$page = GSF()->helper()->sanitize_text($_GET['_current_page']);
 			$current_preset = GSF()->helper()->sanitize_text($_GET['_current_preset']);
@@ -645,8 +678,7 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 
 			$capability = isset($configs['permission']) ? $configs['permission'] : 'manage_options';
 			if (!current_user_can($capability)) {
-				wp_send_json_error(esc_html__('Access Deny!', 'smart-framework'));
-				die();
+                wp_die(__('Access denied', 'smart-framework'), 403);
 			}
 
 			$option_name = $configs['option_name'];
@@ -661,14 +693,21 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			header( 'Pragma: public' );
 
 			echo wp_kses_post(base64_encode(wp_json_encode($options)));
-			die();
+			wp_die();
 		}
 
 		/**
 		 * Import Options
 		 */
 		public function importThemeOptions() {
-			check_ajax_referer('gsf_theme_options_management');
+            if (
+                empty($_REQUEST['_wpnonce']) ||
+                ! wp_verify_nonce($_REQUEST['_wpnonce'], 'gsf_theme_options_management')
+            ) {
+                wp_send_json_error(
+                    esc_html__('Access Deny!', 'smart-framework')
+                );
+            }
 
 			$page = GSF()->helper()->sanitize_text($_POST['_current_page']);
 			$current_preset = GSF()->helper()->sanitize_text($_POST['_current_preset']);
@@ -677,20 +716,23 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			$capability = isset($configs['permission']) ? $configs['permission'] : 'manage_options';
 			if (!current_user_can($capability)) {
 				wp_send_json_error(esc_html__('Access Deny!', 'smart-framework'));
-				die();
 			}
 
 			$option_name = $configs['option_name'];
 
 			if (!isset($_POST['backup_data'])) {
-				return;
+                wp_send_json_error(
+                    esc_html__('No import data', 'smart-framework')
+                );
 			}
 
 			$backup_data = GSF()->helper()->sanitize_text($_POST['backup_data']);
 
 			$backup = json_decode(base64_decode($backup_data), true);
 			if (($backup == null) || !is_array($backup)) {
-				return;
+                wp_send_json_error(
+                    esc_html__('Invalid import format', 'smart-framework')
+                );
 			}
 
 			$options = get_option($this->getOptionPresetName($option_name, $current_preset));
@@ -727,12 +769,20 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			 */
 			do_action("gsf_after_change_options/{$option_name}", $options, $current_preset);
 
-			echo 1;
-			die();
+            wp_send_json_success(
+                esc_html__('Import options done', 'smart-framework')
+            );
 		}
 
 		public function resetThemeOptions() {
-			check_ajax_referer('gsf_theme_options_management');
+            if (
+                empty($_REQUEST['_wpnonce']) ||
+                ! wp_verify_nonce($_REQUEST['_wpnonce'], 'gsf_theme_options_management')
+            ) {
+                wp_send_json_error(
+                    esc_html__('Access Deny!', 'smart-framework')
+                );
+            }
 
 			$page = GSF()->helper()->sanitize_text($_POST['_current_page']);
 			$current_preset = isset($_POST['_current_preset']) ?  GSF()->helper()->sanitize_text($_POST['_current_preset']) : '';
@@ -741,7 +791,6 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			$capability = isset($configs['permission']) ? $configs['permission'] : 'manage_options';
 			if (!current_user_can($capability)) {
 				wp_send_json_error(esc_html__('Access Deny!', 'smart-framework'));
-				die();
 			}
 
 			$option_name = $configs['option_name'];
@@ -770,13 +819,19 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			 */
 			do_action("gsf_after_change_options/{$option_name}", $options, $current_preset);
 
-			echo 1;
-			die();
+            wp_send_json_success(__('Theme options reset successfully', 'smart-framework'));
 
 		}
 
 		public function resetSectionOptions() {
-			check_ajax_referer('gsf_theme_options_management');
+            if (
+                empty($_REQUEST['_wpnonce']) ||
+                ! wp_verify_nonce($_REQUEST['_wpnonce'], 'gsf_theme_options_management')
+            ) {
+                wp_send_json_error(
+                    esc_html__('Access Deny!', 'smart-framework')
+                );
+            }
 
 			$page = GSF()->helper()->sanitize_text($_POST['_current_page']);
 			$current_preset = isset($_POST['_current_preset']) ? GSF()->helper()->sanitize_text($_POST['_current_preset']) : '';
@@ -785,14 +840,13 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			$capability = isset($configs['permission']) ? $configs['permission'] : 'manage_options';
 			if (!current_user_can($capability)) {
 				wp_send_json_error(esc_html__('Access Deny!', 'smart-framework'));
-				die();
 			}
 
 			$option_name = $configs['option_name'];
 			$section = GSF()->helper()->sanitize_text($_POST['section']);
-			if (empty($section)) {
-				return;
-			}
+            if ( empty($page) || empty($section) ) {
+                wp_send_json_error(__('Invalid request data', 'smart-framework'));
+            }
 
 			$option_default = GSF()->helper()->getConfigDefault($configs, $section);
 
@@ -824,11 +878,17 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			 */
 			do_action("gsf_after_change_options/{$option_name}", $options, $current_preset);
 
-			echo 1;
-			die();
+            wp_send_json_success(__('Section reset successfully', 'smart-framework'));
 		}
 		public function deletePreset() {
-			check_ajax_referer('gsf_theme_options_management');
+            if (
+                empty($_REQUEST['_wpnonce']) ||
+                ! wp_verify_nonce($_REQUEST['_wpnonce'], 'gsf_theme_options_management')
+            ) {
+                wp_send_json_error(
+                    esc_html__('Access Deny!', 'smart-framework')
+                );
+            }
 
 			$page = GSF()->helper()->sanitize_text($_POST['_current_page']);
 			$current_preset = GSF()->helper()->sanitize_text($_POST['_current_preset']);
@@ -837,7 +897,6 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			$capability = isset($configs['permission']) ? $configs['permission'] : 'manage_options';
 			if (!current_user_can($capability)) {
 				wp_send_json_error(esc_html__('Access Deny!', 'smart-framework'));
-				die();
 			}
 
 			$option_name = $configs['option_name'];
@@ -855,8 +914,7 @@ if (!class_exists('GSF_Inc_Admin_Theme_Options')) {
 			 */
 			do_action('gsf_after_delete_preset', $option_name, $current_preset);
 
-			echo 1;
-			die();
+            wp_send_json_success(__('Preset deleted successfully', 'smart-framework'));
 		}
 
 		private function enqueueOptionsAssets(&$configs) {

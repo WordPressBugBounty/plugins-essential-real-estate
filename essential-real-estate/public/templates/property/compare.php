@@ -10,6 +10,7 @@ if (!is_array($hide_compare_fields)) {
 }
 ERE_Compare::open_session();
 $property_ids = $_SESSION['ere_compare_properties'];
+
 $property_ids = array_diff($property_ids, ["0"]);
 $args = array(
     'post_type' => 'property',
@@ -33,7 +34,7 @@ foreach ($property_ids as $post_id) {
     $compare_terms[$post_id] = wp_get_post_terms($post_id, 'property-feature', array('fields' => 'ids'));
 }
 ?>
-<?php if ($data->have_posts()): ?>
+<?php if ($data->have_posts() && !empty($property_ids)): ?>
     <div class="table-responsive-xl ere__compare-table-wrap compare-table-wrap ere-property">
     <table class="table ere__compare-tables compare-tables table-striped">
         <thead>

@@ -190,7 +190,8 @@ var ERE = ERE || {};
                         title_not_favorite = $this.attr('data-title-not-favorite'),
                         icon_not_favorite = $this.attr('data-icon-not-favorite'),
                         title_favorited = $this.attr('data-title-favorited'),
-                        icon_favorited = $this.attr('data-icon-favorited');
+                        icon_favorited = $this.attr('data-icon-favorited'),
+                        icon_current = $this.attr('class');
                     $.ajax({
                         type: 'post',
                         url: ajax_url,
@@ -200,25 +201,24 @@ var ERE = ERE || {};
                             'property_id': property_id
                         },
                         beforeSend: function () {
-                            $this.children('i').addClass('fa-spinner fa-spin');
+                            $this.children('i').attr("class", "fa fa-spinner fa-spin");
                         },
                         success: function (data) {
                             if ((typeof(data.added) == 'undefined') ||(data.added==-1)) {
                                 ERE.login_modal();
                             }
                             if (data.added==1) {
-                                $this.children('i').removeClass(icon_not_favorite).addClass(icon_favorited);
+                                $this.children('i').attr("class", icon_favorited);
                                 $this.attr('title', title_favorited);
                             } else if (data.added==0) {
-                                $this.children('i').removeClass(icon_favorited).addClass(icon_not_favorite);
+                                $this.children('i').attr("class", icon_not_favorite);
                                 $this.attr('title', title_not_favorite);
                             }
-                            $this.children('i').removeClass('fa-spinner fa-spin');
                             $this.removeClass('on-handle');
                             property_inner.removeClass('property-active-hover');
                         },
                         error: function () {
-                            $this.children('i').removeClass('fa-spinner fa-spin');
+                            $this.children('i').attr("class", icon_current);
                             $this.removeClass('on-handle');
                             property_inner.removeClass('property-active-hover');
                         }
@@ -710,8 +710,7 @@ var ERE = ERE || {};
                     },
                     complete: function(){
                         _self._ajax_process = false;
-                        $this.children('i').removeClass('fa fa-spinner fa-spin');
-                        $this.children('i').addClass('fa fa-check');
+                        $this.children('i').attr("class", "fa fa-check")
                     }
                 });
             });

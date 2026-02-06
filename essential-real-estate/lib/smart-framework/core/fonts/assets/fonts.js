@@ -12,7 +12,6 @@ var GSF_Fonts = GSF_Fonts || {};
         _nonce: '',
         init: function () {
             this._nonce = $('.gsf-fonts-wrapper').data('nonce');
-            console.log(this._nonce);
             this.tabClick();
             this.binderFonts();
             this.searchFonts();
@@ -132,6 +131,11 @@ var GSF_Fonts = GSF_Fonts || {};
             this.bindActiveFont();
         },
         getFontFamily: function (name) {
+            if (name === undefined) {
+                return "";
+            }
+
+
             if (name.indexOf(',') != -1) {
                 return name;
             }

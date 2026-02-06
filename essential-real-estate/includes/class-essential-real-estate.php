@@ -530,7 +530,7 @@ if (!class_exists('Essential_Real_Estate')) {
 
 	    public function loader_framework($frameworks) {
 		    $frameworks[] = array(
-			    'version' => '3.1.3',
+			    'version' => '3.1.5',
 			    'path' => ERE_PLUGIN_DIR . 'lib/smart-framework/',
 			    'uri' => ERE_PLUGIN_URL . 'lib/smart-framework/',
 			    'plugin_file' => ERE_PLUGIN_FILE,

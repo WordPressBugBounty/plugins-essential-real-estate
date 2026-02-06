@@ -536,76 +536,114 @@ if ( ! class_exists( 'GSF_Core_Fonts' ) ) {
 				die();
 			}
 
+            if ( empty($_FILES['file_font']) || $_FILES['file_font']['error'] !== UPLOAD_ERR_OK ) {
+                wp_send_json_error(esc_html__('Invalid upload!', 'smart-framework'), 400);
+            }
+
+            $file = $_FILES['file_font'];
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            if ( $ext !== 'zip' ) {
+                wp_send_json_error(esc_html__('Only ZIP file allowed!', 'smart-framework'), 400);
+            }
+
+            $allowed_mimes = [
+                'application/zip',
+                'application/x-zip-compressed',
+                'multipart/x-zip'
+            ];
+
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime  = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+
+            if ( ! in_array($mime, $allowed_mimes, true) ) {
+                wp_send_json_error(esc_html__('Invalid file type!', 'smart-framework'), 400);
+            }
+
+            if (!file_exists($this->fontResoucesDir())) {
+                GSF()->file()->mkdir($this->fontResoucesDir());
+            }
+
 			$name          = sanitize_text_field(wp_unslash($_POST['name']));
 			$sanitize_name = sanitize_title( $name );
 
-			if ( ! file_exists( $this->fontResoucesDir() ) ) {
-				GSF()->file()->mkdir( $this->fontResoucesDir() );
-			}
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            $upload = wp_handle_upload($file, [
+                'test_form' => false,
+                'mimes'     => [
+                    'zip' => 'application/zip'
+                ]
+            ]);
 
-			$target_file = $_FILES['file_font']["tmp_name"];
+            if ( isset($upload['error']) ) {
+                wp_send_json_error($upload['error'], 400);
+            }
 
-			// Extract zip file
-			$zip             = new ZipArchive;
-			$allow_extract   = array();
-			$css_file        = '';
-			$css_count       = 0;
-			$font_dir        = '';
-			$create_font_dir = false;
+            $zip_path = $upload['file'];
+            $zip = new ZipArchive;
+            $allow_extract = array();
+            $css_file = '';
+            $css_count = 0;
+            $font_dir = '';
+            $create_font_dir = false;
+            if ( $zip->open($zip_path) === true ) {
+                for ( $i = 0; $i < $zip->numFiles; $i++ ) {
+                    $entry = $zip->getNameIndex($i);
 
-			// Check zip file incorrect
-			$check_zip = $zip->open($target_file, ZipArchive::CHECKCONS);
-			if ($check_zip !== TRUE) {
-				wp_send_json_error( esc_html__( 'Zip file incorrect!', 'smart-framework' ) );
-				die();
-			}
+                    if ( strpos($entry, '../') !== false ) {
+                        continue;
+                    }
 
-			if ( file_exists( $target_file ) && ( $fp = $zip->open( $target_file ) ) ) {
-				for ( $i = 0; $i < $zip->numFiles; $i ++ ) {
-					$entry = $zip->getNameIndex( $i );
-					if ( preg_match( '/__MACOSX/', $entry ) ) {
-						continue;
-					}
-					if ( preg_match( '/((\.eot)|(\.svg)|(\.ttf)|(\.woff)|(\.woff2)|(\.css))$/', $entry ) ) {
-						$allow_extract[] = $entry;
-					}
-					if ( preg_match( '/(\.css)$/', $entry ) ) {
-						$css_file  = $entry;
-						$css_count += 1;
-					}
-					$entry_exp = preg_split( '/[\/\\\\]/', $entry );
-					if ( count( $entry_exp ) == 1 ) {
-						$create_font_dir = true;
-					} else {
-						$font_dir = $entry_exp[0];
-					}
-				}
+                    if ( preg_match('/__MACOSX/', $entry) ) {
+                        continue;
+                    }
 
-				if ( $css_count === 1 ) {
-					if ( $create_font_dir ) {
-						if ( @file_exists( $this->fontResoucesDir() . $sanitize_name ) ) {
-							wp_send_json_error( esc_html__( 'Font Exist!', 'smart-framework' ) );
-							$zip->close();
-                            wp_delete_file( $target_file );
-							die();
-						}
-						GSF()->file()->mkdir( $this->fontResoucesDir() . $sanitize_name );
-						$zip->extractTo( $this->fontResoucesDir() . $sanitize_name, $allow_extract );
-					} else {
-						if ( @file_exists( $this->fontResoucesDir() . $font_dir ) ) {
-							wp_send_json_error( esc_html__( 'Font Exist!', 'smart-framework' ) );
-							$zip->close();
-                            wp_delete_file( $target_file );
-							die();
-						}
-						$zip->extractTo( $this->fontResoucesDir(), $allow_extract );
-					}
-				}
-				$zip->close();
-			}
-			if ( file_exists( $target_file ) ) {
-                wp_delete_file( $target_file );
-			}
+                    if ( preg_match('/\.(php|phtml|phar|exe|js|sh)$/i', $entry) ) {
+                        continue;
+                    }
+
+                    if ( preg_match('/\.(eot|svg|ttf|woff|woff2|css)$/i', $entry) ) {
+                        $allow_extract[] = $entry;
+                    }
+
+                    if ( preg_match('/\.css$/i', $entry) ) {
+                        $css_file = $entry;
+                        $css_count++;
+                    }
+
+                    $entry_exp = preg_split('/[\/\\\\]/', $entry);
+                    if ( count($entry_exp) === 1 ) {
+                        $create_font_dir = true;
+                    } else {
+                        $font_dir = $entry_exp[0];
+                    }
+                }
+
+                if ( $css_count !== 1 ) {
+                    $zip->close();
+                    unlink($zip_path);
+                    wp_send_json_error(esc_html__('Only allowed with 1 css file!', 'smart-framework'));
+                }
+
+                $extract_dir = $create_font_dir
+                    ? $this->fontResoucesDir() . $sanitize_name
+                    : $this->fontResoucesDir();
+
+                if ( file_exists($extract_dir) ) {
+                    $zip->close();
+                    unlink($zip_path);
+                    wp_send_json_error(esc_html__('Font Exist!', 'smart-framework'));
+                }
+
+                if ( $create_font_dir ) {
+                    GSF()->file()->mkdir($extract_dir);
+                }
+
+                $zip->extractTo($extract_dir, $allow_extract);
+                $zip->close();
+            }
+
+            unlink($zip_path);
 
 			$variants    = array();
 			$font_family = '';
@@ -680,37 +718,68 @@ if ( ! class_exists( 'GSF_Core_Fonts' ) ) {
 		}
 
 		public function ajaxDeleteCustomFont() {
-			$nonce = isset($_REQUEST['_nonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_nonce'])) : '';
 
-			if ( ! wp_verify_nonce( $nonce, 'gsf_font_management' ) ) {
-				wp_send_json_error( esc_html__( 'Access deny!', 'smart-framework' ) );
-				die();
-			}
+            if ( ! current_user_can('manage_options') ) {
+                wp_send_json_error(
+                    esc_html__('Permission denied!', 'smart-framework'),
+                    403
+                );
+            }
+
+            $nonce = sanitize_text_field(wp_unslash($_REQUEST['_nonce'] ?? ''));
+            if ( ! wp_verify_nonce($nonce, 'gsf_font_management') ) {
+                wp_send_json_error(
+                    esc_html__('Access denied!', 'smart-framework'),
+                    403
+                );
+            }
+
+            if ( empty($_POST['family_name']) ) {
+                wp_send_json_error(
+                    esc_html__('Missing font family!', 'smart-framework'),
+                    400
+                );
+            }
+
 			$family_name = sanitize_text_field(wp_unslash($_POST['family_name']));
 
 			$option_fonts = $this->getCustomFonts();
-			$data_delete  = array();
-			foreach ( $option_fonts as $key => $font ) {
-				if ( $font['family'] == $family_name ) {
-					if ( GSF()->file()->delete( $this->fontResoucesDir() . $font['font_dir'], true, 'd' ) ) {
-						$data_delete = $option_fonts[ $key ];
-						unset( $option_fonts[ $key ] );
-						$this->setCustomFonts( $option_fonts );
-						wp_send_json_success( $data_delete );
-						die();
-					}
-					wp_send_json_error( esc_html__( 'Font directory is not deleted', 'smart-framework' ) );
-					die();
-				}
-			}
-			wp_send_json_success( esc_html__( 'Delete custom font done!', 'smart-framework' ) );
-			die();
+
+            if ( empty($option_fonts) || ! is_array($option_fonts) ) {
+                wp_send_json_error(
+                    esc_html__('No custom fonts found!', 'smart-framework'),
+                    404
+                );
+            }
+
+            foreach ($option_fonts as $key => $font) {
+                if ($font['family'] == $family_name) {
+                    if (GSF()->file()->delete($this->fontResoucesDir() . $font['font_dir'], true, 'd')) {
+                        $data_delete = $option_fonts[$key];
+                        unset($option_fonts[$key]);
+                        $this->setCustomFonts($option_fonts);
+                        wp_send_json_success($data_delete);
+                        die();
+                    }
+                    wp_send_json_error(esc_html__('Font directory is not deleted','smart-framework'));
+                    die();
+                }
+            }
+            wp_send_json_success(esc_html__('Delete custom font done!','smart-framework'));
 		}
 
 		public function ajaxResetActiveFont() {
+
+            if ( ! current_user_can('manage_options') ) {
+                wp_send_json_error(
+                    esc_html__('Permission denied!', 'smart-framework'),
+                    403
+                );
+            }
+
 			$nonce = isset($_REQUEST['_nonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_nonce'])) : '';
 
-			if ( ! wp_verify_nonce( $nonce, 'ajaxResetActiveFont' ) ) {
+			if ( ! wp_verify_nonce( $nonce, 'gsf_font_management' ) ) {
 				wp_send_json_error( esc_html__( 'Access deny!', 'smart-framework' ) );
 				die();
 			}
@@ -746,6 +815,15 @@ if ( ! class_exists( 'GSF_Core_Fonts' ) ) {
 		}
 
 		public function ajaxUsingFont() {
+
+            if ( ! current_user_can('manage_options') ) {
+                wp_send_json_error(
+                    esc_html__('Permission denied!', 'smart-framework'),
+                    403
+                );
+            }
+
+
 			$nonce = isset($_REQUEST['_nonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_nonce'])) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'gsf_font_management' ) ) {
@@ -765,6 +843,13 @@ if ( ! class_exists( 'GSF_Core_Fonts' ) ) {
 		}
 
 		public function ajaxRemoveActiveFont() {
+            if ( ! current_user_can('manage_options') ) {
+                wp_send_json_error(
+                    esc_html__('Permission denied!', 'smart-framework'),
+                    403
+                );
+            }
+
 			$nonce = isset($_REQUEST['_nonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_nonce'])) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'gsf_font_management' ) ) {
@@ -788,6 +873,13 @@ if ( ! class_exists( 'GSF_Core_Fonts' ) ) {
 		}
 
 		public function ajaxSaveActiveFont() {
+            if ( ! current_user_can('manage_options') ) {
+                wp_send_json_error(
+                    esc_html__('Permission denied!', 'smart-framework'),
+                    403
+                );
+            }
+
 			$nonce = isset($_REQUEST['_nonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_nonce'])) : '';
 
 			if ( ! wp_verify_nonce( $nonce, 'gsf_font_management' ) ) {
@@ -827,9 +919,17 @@ if ( ! class_exists( 'GSF_Core_Fonts' ) ) {
 		}
 
 		public function ajaxChangeFont() {
+
+            if ( ! current_user_can('manage_options') ) {
+                wp_send_json_error(
+                    esc_html__('Permission denied!', 'smart-framework'),
+                    403
+                );
+            }
+
 			$nonce = isset($_REQUEST['_nonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_nonce'])) : '';
 
-			if ( ! wp_verify_nonce( $nonce, 'ajaxResetActiveFont' ) ) {
+			if ( ! wp_verify_nonce( $nonce, 'gsf_font_management' ) ) {
 				wp_send_json_error( esc_html__( 'Access deny!', 'smart-framework' ) );
 				die();
 			}

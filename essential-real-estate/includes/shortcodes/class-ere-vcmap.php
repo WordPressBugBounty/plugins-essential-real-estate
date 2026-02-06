@@ -1869,67 +1869,100 @@ if ( ! class_exists( 'ERE_Vc_map' ) ) {
 				'name'     => esc_html__( 'Register', 'essential-real-estate' ),
 				'base'     => 'ere_register',
 				'icon'     => 'fa fa-user-plus',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 			vc_map( array(
 				'name'     => esc_html__( 'Profile', 'essential-real-estate' ),
 				'base'     => 'ere_profile',
 				'icon'     => 'fa fa-user',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 			vc_map( array(
 				'name'     => esc_html__( 'Reset Password', 'essential-real-estate' ),
 				'base'     => 'ere_reset_password',
 				'icon'     => 'fa fa-refresh',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 			vc_map( array(
 				'name'     => esc_html__( 'My Invoice', 'essential-real-estate' ),
 				'base'     => 'ere_my_invoices',
 				'icon'     => 'fa fa-list',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 			vc_map( array(
 				'name'     => esc_html__( 'Package', 'essential-real-estate' ),
 				'base'     => 'ere_package',
 				'icon'     => 'fa fa-list-alt',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 			vc_map( array(
 				'name'     => esc_html__( 'My Properties', 'essential-real-estate' ),
 				'base'     => 'ere_my_properties',
 				'icon'     => 'fa fa-th',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 			vc_map( array(
 				'name'     => esc_html__( 'Submit Property', 'essential-real-estate' ),
 				'base'     => 'ere_submit_property',
 				'icon'     => 'fa fa-newspaper-o',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 			vc_map( array(
 				'name'     => esc_html__( 'My Favorites', 'essential-real-estate' ),
 				'base'     => 'ere_my_favorites',
 				'icon'     => 'fa fa-star',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 			vc_map( array(
 				'name'     => esc_html__( 'Advanced Search Page', 'essential-real-estate' ),
 				'base'     => 'ere_advanced_search',
 				'icon'     => 'fa fa-search-plus',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 			vc_map( array(
 				'name'     => esc_html__( 'Compare', 'essential-real-estate' ),
 				'base'     => 'ere_compare',
 				'icon'     => 'fa fa-balance-scale',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 			vc_map( array(
 				'name'     => esc_html__( 'My Saved Searches', 'essential-real-estate' ),
 				'base'     => 'ere_my_save_search',
 				'icon'     => 'fa fa-save',
-				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' )
+				'category' => esc_html__( 'ERE Shortcode', 'essential-real-estate' ),
+                'params' => array(
+
+                )
 			) );
 
             vc_map( array(

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version 3.1.3
+ * @version 3.1.5
  */
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
@@ -100,7 +100,7 @@ if (!class_exists('GSF_Framework')) {
 		}
 
 		public function pluginVer() {
-			return '3.1.3';
+			return '3.1.5';
 		}
 
 		/**

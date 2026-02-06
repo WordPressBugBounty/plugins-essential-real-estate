@@ -9,6 +9,7 @@
   @include border-radius(50%);
   font-size: 14px;
   @include transition(all .3s);
+  &:focus,
   &:hover {
     color: var(--ere-color-accent);
     background-color: var(--ere-color-accent-foreground);

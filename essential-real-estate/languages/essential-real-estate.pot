@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: essential-real-estate\n"
-"POT-Creation-Date: 2025-03-03 09:51+0700\n"
+"POT-Creation-Date: 2025-03-03 09:48+0700\n"
 "PO-Revision-Date: 2017-02-18 15:35+0700\n"
 "Last-Translator: \n"
 "Language-Team: G5Theme <g5plus@outlook.com>\n"
@@ -651,22 +651,22 @@ msgstr ""
 msgid "3. Done"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:188
+#: admin/class-ere-admin-setup.php:187
 msgid "Setup Wizard Introduction"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:189
+#: admin/class-ere-admin-setup.php:188
 msgid "Thanks for installing <em>Essential-Real-Estate</em>!"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:190
+#: admin/class-ere-admin-setup.php:189
 msgid ""
 "This setup wizard will help you get started by creating the pages for property "
 "submission, property management, profile management, listing property, listing "
 "agent, packages, payment, login, register..."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:193
+#: admin/class-ere-admin-setup.php:192
 #, php-format
 msgid ""
 "If you want to skip the wizard and setup the pages and shortcodes yourself "
@@ -674,19 +674,19 @@ msgid ""
 "%1$sdocumentation%2$s for help."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:201
+#: admin/class-ere-admin-setup.php:200
 msgid "Continue to page setup"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:203
+#: admin/class-ere-admin-setup.php:202
 msgid "Skip setup. I will setup the plugin manually (Not Recommended)"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:209
+#: admin/class-ere-admin-setup.php:208
 msgid "Page Setup"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:213
+#: admin/class-ere-admin-setup.php:212
 #, php-format
 msgid ""
 "<em>essential-real-estate</em> includes %1$sshortcodes%2$s which can be used "
@@ -695,160 +695,160 @@ msgid ""
 "%4$sshortcode documentation%2$s."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:226
+#: admin/class-ere-admin-setup.php:225
 msgid "Page Title"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:227
+#: admin/class-ere-admin-setup.php:226
 msgid "Page Description"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:228
+#: admin/class-ere-admin-setup.php:227
 msgid "Content Shortcode"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:261
+#: admin/class-ere-admin-setup.php:260
 msgid "Create selected pages"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:263
+#: admin/class-ere-admin-setup.php:262
 msgid "Skip this step"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:273
+#: admin/class-ere-admin-setup.php:272
 msgid "All Done!"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:275
+#: admin/class-ere-admin-setup.php:274
 msgid ""
 "Looks like you're all set to start using the plugin. In case you're wondering "
 "where to go next:"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:279
+#: admin/class-ere-admin-setup.php:278
 msgid "Real Estate plugin settings"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:282
+#: admin/class-ere-admin-setup.php:281
 msgid "Add a property the back-end"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:301
+#: admin/class-ere-admin-setup.php:300
 msgctxt "Default page title (wizard)"
 msgid "New Property"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:302
+#: admin/class-ere-admin-setup.php:301
 msgid ""
 "This page allows users to post property to your website via the front-end.If you "
 "do not want to accept submissions from users in this way (for example you just "
 "want to post property from the admin dashboard) you can skip creating this page."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:307
+#: admin/class-ere-admin-setup.php:306
 msgctxt "Default page title (wizard)"
 msgid "My Properties"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:308
+#: admin/class-ere-admin-setup.php:307
 msgid ""
 "This page allows users to manage and edit their own property via the front-end."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:313
+#: admin/class-ere-admin-setup.php:312
 msgctxt "Default page title (wizard)"
 msgid "My Profile"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:314
+#: admin/class-ere-admin-setup.php:313
 msgid ""
 "This page allows users to view and edit their own profile via the front-end."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:319
+#: admin/class-ere-admin-setup.php:318
 msgctxt "Default page title (wizard)"
 msgid "My Invoices"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:320
+#: admin/class-ere-admin-setup.php:319
 msgid "This page allows users to view their own invoice via the front-end."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:325
+#: admin/class-ere-admin-setup.php:324
 msgctxt "Default page title (wizard)"
 msgid "My Favorites"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:326
+#: admin/class-ere-admin-setup.php:325
 msgid "This page allows users to view their own favorites via the front-end."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:331
+#: admin/class-ere-admin-setup.php:330
 msgctxt "Default page title (wizard)"
 msgid "My Saved Searches"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:332
+#: admin/class-ere-admin-setup.php:331
 msgid ""
 "This page allows users to view their own \"saved searches\" via the front-end."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:337
+#: admin/class-ere-admin-setup.php:336
 msgctxt "Default page title (wizard)"
 msgid "Packages"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:338 admin/class-ere-admin-setup.php:362
+#: admin/class-ere-admin-setup.php:337 admin/class-ere-admin-setup.php:361
 msgid "This is register page."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:343
+#: admin/class-ere-admin-setup.php:342
 msgctxt "Default page title (wizard)"
 msgid "Payment Invoice"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:344
+#: admin/class-ere-admin-setup.php:343
 msgid "This is payment page."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:349
+#: admin/class-ere-admin-setup.php:348
 msgctxt "Default page title (wizard)"
 msgid "Payment Completed"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:350
+#: admin/class-ere-admin-setup.php:349
 msgid "This is payment completed page."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:355
+#: admin/class-ere-admin-setup.php:354
 msgctxt "Default page title (wizard)"
 msgid "Login"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:356
+#: admin/class-ere-admin-setup.php:355
 msgid "This is login page."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:361
+#: admin/class-ere-admin-setup.php:360
 msgctxt "Default page title (wizard)"
 msgid "Register"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:367
+#: admin/class-ere-admin-setup.php:366
 msgctxt "Default page title (wizard)"
 msgid "Compare"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:368
+#: admin/class-ere-admin-setup.php:367
 msgid "This is compare page."
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:373
+#: admin/class-ere-admin-setup.php:372
 msgctxt "Default page title (wizard)"
 msgid "Advanced Search"
 msgstr ""
 
-#: admin/class-ere-admin-setup.php:374
+#: admin/class-ere-admin-setup.php:373
 msgid "This is advanced search page."
 msgstr ""
 
