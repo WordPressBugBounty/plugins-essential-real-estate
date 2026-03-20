@@ -184,7 +184,6 @@ if ( ! class_exists( 'ERE_Admin_Setup' ) ) {
 				</ul>
 
 				<?php if ( 1 === $step ) : ?>
-
 					<h3><?php esc_html_e( 'Setup Wizard Introduction', 'essential-real-estate' ); ?></h3>
 					<p><?php echo wp_kses_post( __( 'Thanks for installing <em>Essential-Real-Estate</em>!', 'essential-real-estate' ) ); ?></p>
 					<p><?php esc_html_e( 'This setup wizard will help you get started by creating the pages for property submission, property management, profile management, listing property, listing agent, packages, payment, login, register...', 'essential-real-estate' ); ?></p>

@@ -393,36 +393,42 @@ if (!function_exists('ere_get_format_money_search_field')) {
  */
 function ere_get_format_number($number,$decimals = 0)
 {
-	if ($number === '') {
-		return 0;
-	}
+    if ($number === '' || $number === null) {
+        return 0;
+    }
 
-	$number_floor = floor($number);
+    $dec_point = ere_get_price_decimal_separator();
+    $thousands_sep = ere_get_option('thousand_separator', ',');
 
-	$dec_point = ere_get_price_decimal_separator();
-	$thousands_sep = ere_get_option('thousand_separator', ',');
-	$number_floor =  number_format($number_floor, $decimals, $dec_point, $thousands_sep);
+    // Normalize number: convert decimal separator to dot for PHP processing
+    if (is_string($number)) {
+        $number = str_replace($thousands_sep, '', $number); // remove thousand separators
+        if ($dec_point !== '.') {
+            $number = str_replace($dec_point, '.', $number);
+        }
+    }
+
+    // Ensure numeric
+    if (!is_numeric($number)) {
+        return 0;
+    }
 
 
-	$number_decimal = $number . '';
-	$number_decimal_index = strpos($number_decimal, $dec_point);
+    $number = (float) $number;
+    $number_floor = floor($number);
+    $number_floor = number_format($number_floor, $decimals, $dec_point, $thousands_sep);
+    // Extract decimal part from original float
+    $number_decimal = $number - floor($number);
+    if ($number_decimal > 0) {
+        $number_decimal = rtrim(substr(number_format($number_decimal, 10, '.', ''), 2), '0');
+    } else {
+        $number_decimal = '';
+    }
 
-	if ($number_decimal_index !== false) {
-		$number_decimal = substr($number_decimal, $number_decimal_index + 1);
-		if ($number_decimal !== '') {
-			for ($i = strlen($number_decimal) - 1; $i >= 0; $i--) {
-				if ($number_decimal[$i] !== '0') {
-					break;
-				}
-			}
-			$number_decimal = substr($number_decimal, 0, $i+1);
-		}
-	}
-	else {
-		$number_decimal = '';
-	}
+    return $number_decimal === ''
+        ? $number_floor
+        : $number_floor . $dec_point . $number_decimal;
 
-	return $number_decimal === '' ? $number_floor : $number_floor . $dec_point . $number_decimal;
 }
 /**
  * Image resize by url

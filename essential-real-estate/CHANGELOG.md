@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.2.7 - March 20, 2026
+* Fix function ere_get_format_number
+
 ### 5.2.6 - February 03, 2026
 * Fix shortcode compare
 

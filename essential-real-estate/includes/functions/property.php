@@ -68,7 +68,7 @@ function ere_get_single_property_overview($property_id = '')
     if (empty($property_id)) {
         $property_id = get_the_ID();
     }
-
+    
     $overview = array();
 
     $overview['property_id'] = array(
@@ -835,7 +835,7 @@ function ere_property_get_nearby_places_data($property_id) {
     if ($position === false) {
         return false;
     }
-    $nearby_places_radius = ere_get_option('nearby_places_radius');
+    $nearby_places_radius = absint(ere_get_option('nearby_places_radius'));
     $nearby_places_rank_by = ere_get_option('nearby_places_rank_by');
     $nearby_places_distance_in = ere_get_option('nearby_places_distance_in');
     $nearby_places_field = ere_get_option('nearby_places_field');
@@ -856,9 +856,12 @@ function ere_property_get_nearby_places_data($property_id) {
             $types[] = $type;
         }
     }
+
     if (empty($nearby_places_radius)) {
-        $nearby_places_radius = '5000';
+        $nearby_places_radius = 5000;
     }
+
+    $nearby_places_radius = min($nearby_places_radius,50000);
 
     if (empty($fields)) {
         return false;
