@@ -20,6 +20,7 @@ function ere_agency_get_social_data($agency_id) {
     $facebook = get_term_meta( $agency_id, 'agency_facebook_url', true );
     $twitter = get_term_meta( $agency_id, 'agency_twitter_url', true );
     $linkedin = get_term_meta( $agency_id, 'agency_linkedin_url', true );
+    $tiktok = get_term_meta( $agency_id, 'agency_tiktok_url', true );
     $pinterest = get_term_meta( $agency_id, 'agency_pinterest_url', true );
     $instagram = get_term_meta( $agency_id, 'agency_instagram_url', true );
     $skype = get_term_meta( $agency_id, 'agency_skype', true );
@@ -38,7 +39,7 @@ function ere_agency_get_social_data($agency_id) {
         $data['twitter'] = array(
             'priority' => 20,
             'label'    => esc_html__( 'Twitter', 'essential-real-estate' ),
-            'icon' => 'fa fa-twitter',
+            'icon' => 'fa-brands fa-x-twitter',
             'link' => $twitter,
         );
     }
@@ -58,6 +59,15 @@ function ere_agency_get_social_data($agency_id) {
             'label'    => esc_html__( 'Linkedin', 'essential-real-estate' ),
             'icon' => 'fa fa-linkedin',
             'link' => $linkedin,
+        );
+    }
+
+    if (!empty($tiktok)) {
+        $data['tiktok'] = array(
+            'priority' => 45,
+            'label'    => esc_html__( 'Tiktok', 'essential-real-estate' ),
+            'icon' => 'fa-brands fa-tiktok',
+            'link' => $tiktok,
         );
     }
 

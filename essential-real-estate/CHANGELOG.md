@@ -1,5 +1,9 @@
 Changelog
 =========
+### 5.2.8 - March 25, 2026
+* Add social profile tiktok for agent and angency
+* Update font awesome version 6.6.0
+
 ### 5.2.7 - March 20, 2026
 * Fix function ere_get_format_number
 

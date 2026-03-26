@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $facebook
  * @var $twitter
  * @var $linkedin
+ * @var $tiktok
  * @var $pinterest
  * @var $instagram
  * @var $skype
@@ -75,7 +76,7 @@ $contact_forms_class = join(' ', $contact_forms_classes);
                         <?php endif; ?>
                         <?php if (!empty($twitter)): ?>
                             <a title="<?php echo esc_attr__('Twitter','essential-real-estate'); ?>" href="<?php echo esc_url( $twitter ); ?>">
-                                <i class="fa fa-twitter"></i>
+                                <i class="fa-brands fa-x-twitter"></i>
                             </a>
                         <?php endif; ?>
                         <?php if (!empty($skype)): ?>
@@ -86,6 +87,11 @@ $contact_forms_class = join(' ', $contact_forms_classes);
                         <?php if (!empty($linkedin)): ?>
                             <a title="<?php echo esc_attr__('Linkedin','essential-real-estate'); ?>" href="<?php echo esc_url( $linkedin ); ?>">
                                 <i class="fa fa-linkedin"></i>
+                            </a>
+                        <?php endif; ?>
+                        <?php if (!empty($tiktok)): ?>
+                            <a title="<?php echo esc_attr__('Tiktok','essential-real-estate'); ?>" href="<?php echo esc_url( $tiktok ); ?>">
+                                <i class="fa-brands fa-tiktok"></i>
                             </a>
                         <?php endif; ?>
                         <?php if (!empty($pinterest)): ?>

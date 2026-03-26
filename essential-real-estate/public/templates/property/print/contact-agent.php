@@ -14,6 +14,7 @@ if (!defined('ABSPATH')) {
  * @var $facebook
  * @var $twitter
  * @var $linkedin
+ * @var $tiktok
  * @var $pinterest
  * @var $instagram
  * @var $skype
@@ -64,7 +65,7 @@ $wrapper_class = join(' ', apply_filters('ere_single_property_contact_agent_wrap
                         <?php endif; ?>
                         <?php if (!empty($twitter)): ?>
                             <div>
-                                <i class="fa fa-twitter"></i> <span><?php echo esc_url($twitter)?></span>
+                                <i class="fa-brands fa-x-twitter"></i> <span><?php echo esc_url($twitter)?></span>
                             </div>
                         <?php endif; ?>
                         <?php if (!empty($skype)): ?>
@@ -75,6 +76,11 @@ $wrapper_class = join(' ', apply_filters('ere_single_property_contact_agent_wrap
                         <?php if (!empty($linkedin)): ?>
                             <div>
                                 <i class="fa fa-linkedin"></i> <span><?php echo esc_url($linkedin)?></span>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (!empty($tiktok)): ?>
+                            <div>
+                                <i class="fa-brands fa-tiktok"></i> <span><?php echo esc_url($tiktok)?></span>
                             </div>
                         <?php endif; ?>
                         <?php if (!empty($pinterest)): ?>

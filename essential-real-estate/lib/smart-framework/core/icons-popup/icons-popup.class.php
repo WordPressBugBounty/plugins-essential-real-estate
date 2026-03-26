@@ -42,16 +42,16 @@ if (!class_exists('GSF_Core_Icons_Popup')) {
 			GSF()->helper()->getTemplate('core/icons-popup/templates/icons-popup.tpl');
 		}
 
-		public function get_icon_font_resources() {
-			$icon_font_css = apply_filters('gsf_font_icon_assets', array(
-				'font-awesome' => array(
-					'url' => GSF()->helper()->getAssetUrl('assets/vendors/font-awesome/css/font-awesome.min.css'),
-					'ver' => '4.7.0',
-					'deps' => array(),
-				)
-			));
-			return $icon_font_css;
-		}
+        public function get_icon_font_resources() {
+            $icon_font_css = apply_filters('gsf_font_icon_assets', array(
+                'font-awesome' => array(
+                    'url' => GSF()->helper()->getAssetUrl('assets/vendors/font-awesome/css/all.min.css'),
+                    'ver' => '6.6.0',
+                    'deps' => array('font-awesome-4-shims'),
+                )
+            ));
+            return $icon_font_css;
+        }
 
 		public function enqueue_icon_font() {
 			$icon_font_css = $this->get_icon_font_resources();
@@ -62,6 +62,7 @@ if (!class_exists('GSF_Core_Icons_Popup')) {
 		}
 
 		public function register_icon_font() {
+            wp_register_style( 'font-awesome-4-shims', GSF()->helper()->getAssetUrl('assets/vendors/font-awesome/css/v4-shims.min.css'), array(), false );
 			$icon_font_css = $this->get_icon_font_resources();
 			foreach ($icon_font_css as $font_key => $font_value) {
 				wp_register_style($font_key, $font_value['url'], isset($font_value['deps']) ? $font_value['deps'] : array(), $font_value['ver']);

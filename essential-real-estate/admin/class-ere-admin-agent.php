@@ -176,6 +176,7 @@ if ( ! class_exists( 'ERE_Admin_Agent' ) ) {
 				$agent_facebook_url   = isset( $_POST[ ERE_METABOX_PREFIX . 'agent_facebook_url' ] ) ? sanitize_url( wp_unslash( $_POST[ ERE_METABOX_PREFIX . 'agent_facebook_url' ] ) ) : '';
 				$agent_twitter_url    = isset( $_POST[ ERE_METABOX_PREFIX . 'agent_twitter_url' ] ) ? sanitize_url( wp_unslash( $_POST[ ERE_METABOX_PREFIX . 'agent_twitter_url' ] ) ) : '';
 				$agent_linkedin_url   = isset( $_POST[ ERE_METABOX_PREFIX . 'agent_linkedin_url' ] ) ? sanitize_url( wp_unslash( $_POST[ ERE_METABOX_PREFIX . 'agent_linkedin_url' ] ) ) : '';
+                $agent_tiktok_url   = isset( $_POST[ ERE_METABOX_PREFIX . 'agent_tiktok_url' ] ) ? sanitize_url( wp_unslash( $_POST[ ERE_METABOX_PREFIX . 'agent_tiktok_url' ] ) ) : '';
 				$agent_pinterest_url  = isset( $_POST[ ERE_METABOX_PREFIX . 'agent_pinterest_url' ] ) ? sanitize_url( wp_unslash( $_POST[ ERE_METABOX_PREFIX . 'agent_pinterest_url' ] ) ) : '';
 				$agent_instagram_url  = isset( $_POST[ ERE_METABOX_PREFIX . 'agent_instagram_url' ] ) ? sanitize_url( wp_unslash( $_POST[ ERE_METABOX_PREFIX . 'agent_instagram_url' ] ) ) : '';
 				$agent_skype          = isset( $_POST[ ERE_METABOX_PREFIX . 'agent_skype' ] ) ? ere_clean( wp_unslash( $_POST[ ERE_METABOX_PREFIX . 'agent_skype' ] ) ) : '';
@@ -199,6 +200,7 @@ if ( ! class_exists( 'ERE_Admin_Agent' ) ) {
 				update_user_meta( $user_id, ERE_METABOX_PREFIX . 'author_facebook_url', $agent_facebook_url );
 				update_user_meta( $user_id, ERE_METABOX_PREFIX . 'author_twitter_url', $agent_twitter_url );
 				update_user_meta( $user_id, ERE_METABOX_PREFIX . 'author_linkedin_url', $agent_linkedin_url );
+                update_user_meta( $user_id, ERE_METABOX_PREFIX . 'author_tiktok_url', $agent_tiktok_url );
 				update_user_meta( $user_id, ERE_METABOX_PREFIX . 'author_vimeo_url', $agent_vimeo_url );
 				update_user_meta( $user_id, ERE_METABOX_PREFIX . 'author_youtube_url', $agent_youtube_url );
 				update_user_meta( $user_id, ERE_METABOX_PREFIX . 'author_pinterest_url', $agent_pinterest_url );

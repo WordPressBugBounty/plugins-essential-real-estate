@@ -20,6 +20,7 @@ $author_website_url   = isset( $current_author_meta[ ERE_METABOX_PREFIX . 'autho
 $author_facebook_url  = isset( $current_author_meta[ ERE_METABOX_PREFIX . 'author_facebook_url' ] ) ? $current_author_meta[ ERE_METABOX_PREFIX . 'author_facebook_url' ][0] : '';
 $author_twitter_url   = isset( $current_author_meta[ ERE_METABOX_PREFIX . 'author_twitter_url' ] ) ? $current_author_meta[ ERE_METABOX_PREFIX . 'author_twitter_url' ][0] : '';
 $author_linkedin_url  = isset( $current_author_meta[ ERE_METABOX_PREFIX . 'author_linkedin_url' ] ) ? $current_author_meta[ ERE_METABOX_PREFIX . 'author_linkedin_url' ][0] : '';
+$author_tiktok_url  = isset( $current_author_meta[ ERE_METABOX_PREFIX . 'author_tiktok_url' ] ) ? $current_author_meta[ ERE_METABOX_PREFIX . 'author_tiktok_url' ][0] : '';
 $author_pinterest_url = isset( $current_author_meta[ ERE_METABOX_PREFIX . 'author_pinterest_url' ] ) ? $current_author_meta[ ERE_METABOX_PREFIX . 'author_pinterest_url' ][0] : '';
 $author_instagram_url = isset( $current_author_meta[ ERE_METABOX_PREFIX . 'author_instagram_url' ] ) ? $current_author_meta[ ERE_METABOX_PREFIX . 'author_instagram_url' ][0] : '';
 $author_skype         = isset( $current_author_meta[ ERE_METABOX_PREFIX . 'author_skype' ] ) ? $current_author_meta[ ERE_METABOX_PREFIX . 'author_skype' ][0] : '';
@@ -60,42 +61,47 @@ $author_vimeo_url     = isset( $current_author_meta[ ERE_METABOX_PREFIX . 'autho
 				<?php endif; ?>
 				<div class="ere__single-agent-social agent-social">
 					<?php if ( ! empty( $author_facebook_url ) ): ?>
-						<a title="Facebook" href="<?php echo esc_url( $author_facebook_url ); ?>">
+						<a title="<?php echo esc_attr__('Facebook','essential-real-estate')?>" href="<?php echo esc_url( $author_facebook_url ); ?>">
 							<i class="fa fa-facebook"></i>
 						</a>
 					<?php endif; ?>
 					<?php if ( ! empty( $author_twitter_url ) ): ?>
-						<a title="Twitter" href="<?php echo esc_url( $author_twitter_url ); ?>">
-							<i class="fa fa-twitter"></i>
+						<a title="<?php echo esc_attr__('Twitter','essential-real-estate')?>" href="<?php echo esc_url( $author_twitter_url ); ?>">
+							<i class="fa-brands fa-x-twitter"></i>
 						</a>
 					<?php endif; ?>
 					<?php if ( ! empty( $author_skype ) ): ?>
-						<a title="Skype" href="skype:<?php echo esc_url( $author_skype ); ?>?call">
+						<a title="<?php echo esc_attr__('Skype','essential-real-estate')?>" href="skype:<?php echo esc_url( $author_skype ); ?>?call">
 							<i class="fa fa-skype"></i>
 						</a>
 					<?php endif; ?>
 					<?php if ( ! empty( $author_linkedin_url ) ): ?>
-						<a title="Linkedin" href="<?php echo esc_url( $author_linkedin_url ); ?>">
+						<a title="<?php echo esc_attr__('Linkedin','essential-real-estate')?>" href="<?php echo esc_url( $author_linkedin_url ); ?>">
 							<i class="fa fa-linkedin"></i>
 						</a>
 					<?php endif; ?>
+                    <?php if ( ! empty( $author_tiktok_url ) ): ?>
+                        <a title="<?php echo esc_attr__('Tiktok','essential-real-estate')?>" href="<?php echo esc_url( $author_tiktok_url ); ?>">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                    <?php endif; ?>
 					<?php if ( ! empty( $author_pinterest_url ) ): ?>
-						<a title="Pinterest" href="<?php echo esc_url( $author_pinterest_url ); ?>">
+						<a title="<?php echo esc_attr__('Pinterest','essential-real-estate')?>" href="<?php echo esc_url( $author_pinterest_url ); ?>">
 							<i class="fa fa-pinterest"></i>
 						</a>
 					<?php endif; ?>
 					<?php if ( ! empty( $author_instagram_url ) ): ?>
-						<a title="Instagram" href="<?php echo esc_url( $author_instagram_url ); ?>">
+						<a title="<?php echo esc_attr__('Instagram','essential-real-estate')?>" href="<?php echo esc_url( $author_instagram_url ); ?>">
 							<i class="fa fa-instagram"></i>
 						</a>
 					<?php endif; ?>
 					<?php if ( ! empty( $author_youtube_url ) ): ?>
-						<a title="Youtube" href="<?php echo esc_url( $author_youtube_url ); ?>">
+						<a title="<?php echo esc_attr__('Youtube','essential-real-estate')?>" href="<?php echo esc_url( $author_youtube_url ); ?>">
 							<i class="fa fa-youtube-play"></i>
 						</a>
 					<?php endif; ?>
 					<?php if ( ! empty( $author_vimeo_url ) ): ?>
-						<a title="Vimeo" href="<?php echo esc_url( $author_vimeo_url ); ?>">
+						<a title="<?php echo esc_attr__('Vimeo','essential-real-estate')?>" href="<?php echo esc_url( $author_vimeo_url ); ?>">
 							<i class="fa fa-vimeo"></i>
 						</a>
 					<?php endif; ?>

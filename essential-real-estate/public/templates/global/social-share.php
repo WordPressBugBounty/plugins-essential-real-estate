@@ -38,7 +38,7 @@ $page_title = get_the_title();
                     break;
                 case 'twitter':
                     $link  = "https://twitter.com/share?text=" . $page_title . "&url=" . urlencode($page_permalink);
-                    $icon = 'fa fa-twitter';
+                    $icon = 'fa-brands fa-x-twitter';
                     $title = esc_html__('Twitter', 'essential-real-estate');
                     break;
                 case 'linkedin':

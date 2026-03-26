@@ -189,6 +189,14 @@ if (!class_exists('ERE_Profile')) {
                 delete_user_meta($user_id, ERE_METABOX_PREFIX . 'author_linkedin_url');
             }
 
+            // Update tiktok
+            $user_tiktok_url = isset($_POST['user_tiktok_url']) ? sanitize_url(wp_unslash($_POST['user_tiktok_url'])) : '';
+            if (!empty($user_tiktok_url)) {
+                update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_tiktok_url', $user_tiktok_url);
+            } else {
+                delete_user_meta($user_id, ERE_METABOX_PREFIX . 'author_tiktok_url');
+            }
+
             // Update instagram
 	        $user_instagram_url = isset($_POST['user_instagram_url']) ? sanitize_url(wp_unslash($_POST['user_instagram_url'])) : '';
             if (!empty($user_instagram_url)) {
@@ -286,6 +294,7 @@ if (!class_exists('ERE_Profile')) {
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_facebook_url', $user_facebook_url);
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_twitter_url', $user_twitter_url);
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_linkedin_url', $user_linkedin_url);
+                update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_tiktok_url', $user_tiktok_url);
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_pinterest_url', $user_pinterest_url);
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_instagram_url', $user_instagram_url);
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_skype', $user_skype);
@@ -373,6 +382,7 @@ if (!class_exists('ERE_Profile')) {
 		        $agent_facebook_url = get_the_author_meta(ERE_METABOX_PREFIX . 'author_facebook_url', $user_id);
 		        $agent_twitter_url = get_the_author_meta(ERE_METABOX_PREFIX . 'author_twitter_url', $user_id);
 		        $agent_linkedin_url = get_the_author_meta(ERE_METABOX_PREFIX . 'author_linkedin_url', $user_id);
+                $agent_tiktok_url = get_the_author_meta(ERE_METABOX_PREFIX . 'author_tiktok_url', $user_id);
 		        $agent_pinterest_url = get_the_author_meta(ERE_METABOX_PREFIX . 'author_pinterest_url', $user_id);
 		        $agent_instagram_url = get_the_author_meta(ERE_METABOX_PREFIX . 'author_instagram_url', $user_id);
 		        $agent_youtube_url = get_the_author_meta(ERE_METABOX_PREFIX . 'author_youtube_url', $user_id);
@@ -394,6 +404,7 @@ if (!class_exists('ERE_Profile')) {
 		        update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_facebook_url', $agent_facebook_url);
 		        update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_twitter_url', $agent_twitter_url);
 		        update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_linkedin_url', $agent_linkedin_url);
+                update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_tiktok_url', $agent_tiktok_url);
 		        update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_pinterest_url', $agent_pinterest_url);
 		        update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_instagram_url', $agent_instagram_url);
 		        update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_skype', $agent_skype);
@@ -705,6 +716,15 @@ if (!class_exists('ERE_Profile')) {
                                value="<?php echo esc_attr(get_the_author_meta(ERE_METABOX_PREFIX . 'author_linkedin_url', $user->ID)); ?>"
                                class="regular-text"></td>
                 </tr>
+                <tr class="author-tiktok-url-wrap">
+                    <th><label
+                                for="<?php echo esc_attr(ERE_METABOX_PREFIX . 'author_tiktok_url') ; ?>"><?php echo esc_html__('Tiktok', 'essential-real-estate'); ?></label>
+                    </th>
+                    <td><input type="text" name="<?php echo esc_attr(ERE_METABOX_PREFIX . 'author_tiktok_url') ; ?>"
+                               id="<?php echo esc_attr(ERE_METABOX_PREFIX . 'author_tiktok_url') ; ?>"
+                               value="<?php echo esc_attr(get_the_author_meta(ERE_METABOX_PREFIX . 'author_tiktok_url', $user->ID)); ?>"
+                               class="regular-text"></td>
+                </tr>
                 <tr class="author-pinterest-url-wrap">
                     <th><label
                             for="<?php echo esc_attr(ERE_METABOX_PREFIX . 'author_pinterest_url'); ?>"><?php echo esc_html__('Pinterest', 'essential-real-estate'); ?></label>
@@ -756,6 +776,7 @@ if (!class_exists('ERE_Profile')) {
                 $author_facebook_url = isset($_POST[ERE_METABOX_PREFIX . 'author_facebook_url']) ? sanitize_url(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_facebook_url'])) : '';
                 $author_twitter_url = isset($_POST[ERE_METABOX_PREFIX . 'author_twitter_url']) ? sanitize_url(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_twitter_url'])) : '';
                 $author_linkedin_url = isset($_POST[ERE_METABOX_PREFIX . 'author_linkedin_url']) ? sanitize_url(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_linkedin_url'])) : '';
+                $author_tiktok_url = isset($_POST[ERE_METABOX_PREFIX . 'author_tiktok_url']) ? sanitize_url(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_tiktok_url'])) : '';
                 $author_pinterest_url = isset($_POST[ERE_METABOX_PREFIX . 'author_pinterest_url']) ? sanitize_url(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_pinterest_url'])) : '';
                 $author_instagram_url = isset($_POST[ERE_METABOX_PREFIX . 'author_instagram_url']) ? sanitize_url(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_instagram_url'])) : '';
                 $author_youtube_url = isset($_POST[ERE_METABOX_PREFIX . 'author_youtube_url']) ? sanitize_url(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_youtube_url'])) : '';
@@ -768,6 +789,7 @@ if (!class_exists('ERE_Profile')) {
                 update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_facebook_url', $author_facebook_url);
                 update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_twitter_url', $author_twitter_url);
                 update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_linkedin_url', $author_linkedin_url);
+                update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_tiktok_url', $author_tiktok_url);
                 update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_pinterest_url', $author_pinterest_url);
                 update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_instagram_url', $author_instagram_url);
                 update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_youtube_url', $author_youtube_url);
@@ -805,6 +827,7 @@ if (!class_exists('ERE_Profile')) {
                     update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_facebook_url', $author_facebook_url);
                     update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_twitter_url', $author_twitter_url);
                     update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_linkedin_url', $author_linkedin_url);
+                    update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_tiktok_url', $author_tiktok_url);
                     update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_pinterest_url', $author_pinterest_url);
                     update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_instagram_url', $author_instagram_url);
                     update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_youtube_url', $author_youtube_url);

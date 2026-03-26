@@ -42,7 +42,7 @@
 		&:after {
 			content: '\f107';
 			display: block;
-			font-family: FontAwesome;
+			font-family: var(--ere-font-icon);
 			position: absolute;
 			right: 0;
 			top: 0;

@@ -1037,8 +1037,13 @@ if ( ! class_exists( 'ERE_Admin' ) ) {
 												'id'    => "{$meta_prefix}agent_linkedin_url",
 												'type'  => 'text',
 											),
+                                            array(
+                                                'title' => __( 'Tiktok URL', 'essential-real-estate' ),
+                                                'id'    => "{$meta_prefix}agent_tiktok_url",
+                                                'type'  => 'text',
+                                            ),
 										)
-									),
+									)
 								)
 							)
 						)
@@ -1624,6 +1629,11 @@ if ( ! class_exists( 'ERE_Admin' ) ) {
 								'id'    => "agency_linkedin_url",
 								'type'  => 'text',
 							),
+                            array(
+                                'title' => __( 'Tiktok URL', 'essential-real-estate' ),
+                                'id'    => "agency_tiktok_url",
+                                'type'  => 'text',
+                            )
 						)
 					),
 				)
@@ -2293,6 +2303,7 @@ if ( ! class_exists( 'ERE_Admin' ) ) {
 										'user_facebook_url'   => esc_html__( 'Facebook URL', 'essential-real-estate' ),
 										'user_twitter_url'    => esc_html__( 'Twitter URL', 'essential-real-estate' ),
 										'user_linkedin_url'   => esc_html__( 'Linkedin URL', 'essential-real-estate' ),
+                                        'user_tiktok_url'   => esc_html__( 'Tiktok URL', 'essential-real-estate' ),
 										'user_instagram_url'  => esc_html__( 'Instagram URL', 'essential-real-estate' ),
 										'user_pinterest_url'  => esc_html__( 'Pinterest URL', 'essential-real-estate' ),
 										'user_youtube_url'    => esc_html__( 'Youtube URL', 'essential-real-estate' ),

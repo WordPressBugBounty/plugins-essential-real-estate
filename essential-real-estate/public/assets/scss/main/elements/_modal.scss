@@ -58,7 +58,7 @@
 }
 .ui-dialog-titlebar-close:before{
 	content: "\f00d";
-	font-family: FontAwesome;
+	font-family: var(--ere-font-icon);
 	color: #fff;
 	cursor: pointer;
 }

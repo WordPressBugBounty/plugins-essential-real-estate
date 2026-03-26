@@ -19,6 +19,7 @@ $email             = isset( $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_e
 $agent_facebook_url  = isset( $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_facebook_url' ] ) ? $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_facebook_url' ][0] : '';
 $agent_twitter_url   = isset( $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_twitter_url' ] ) ? $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_twitter_url' ][0] : '';
 $agent_linkedin_url  = isset( $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_linkedin_url' ] ) ? $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_linkedin_url' ][0] : '';
+$agent_tiktok_url  = isset( $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_tiktok_url' ] ) ? $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_tiktok_url' ][0] : '';
 $agent_pinterest_url = isset( $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_pinterest_url' ] ) ? $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_pinterest_url' ][0] : '';
 $agent_instagram_url = isset( $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_instagram_url' ] ) ? $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_instagram_url' ][0] : '';
 $agent_skype         = isset( $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_skype' ] ) ? $agent_post_meta_data[ ERE_METABOX_PREFIX . 'agent_skype' ][0] : '';
@@ -98,47 +99,52 @@ if ( preg_match( '/\d+x\d+/', $custom_agent_image_size ) ) {
 			</div>
 			<div class="agent-social">
 				<?php if ( ! empty( $agent_facebook_url ) ): ?>
-					<a title="Facebook" href="<?php echo esc_url( $agent_facebook_url ); ?>">
+					<a title="<?php echo esc_attr__('Facebook','essential-real-estate')?>" href="<?php echo esc_url( $agent_facebook_url ); ?>">
 						<i class="fa fa-facebook"></i>
 					</a>
 				<?php endif; ?>
 				<?php if ( ! empty( $agent_twitter_url ) ): ?>
-					<a title="Twitter" href="<?php echo esc_url( $agent_twitter_url ); ?>">
-						<i class="fa fa-twitter"></i>
+					<a title="<?php echo esc_attr__('Twitter','essential-real-estate')?>" href="<?php echo esc_url( $agent_twitter_url ); ?>">
+						<i class="fa-brands fa-x-twitter"></i>
 					</a>
 				<?php endif; ?>
 				<?php if ( ! empty( $email ) ): ?>
-					<a title="Email" href="mailto:<?php echo esc_attr( $email ); ?>">
+					<a title="<?php echo esc_attr__('Email','essential-real-estate')?>" href="mailto:<?php echo esc_attr( $email ); ?>">
 						<i class="fa fa-envelope"></i>
 					</a>
 				<?php endif; ?>
 				<?php if ( ! empty( $agent_skype ) ): ?>
-					<a title="Skype" href="skype:<?php echo esc_url( $agent_skype ); ?>?call">
+					<a title="<?php echo esc_attr__('Skype','essential-real-estate')?>" href="skype:<?php echo esc_url( $agent_skype ); ?>?call">
 						<i class="fa fa-skype"></i>
 					</a>
 				<?php endif; ?>
 				<?php if ( ! empty( $agent_linkedin_url ) ): ?>
-					<a title="Linkedin" href="<?php echo esc_url( $agent_linkedin_url ); ?>">
+					<a title="<?php echo esc_attr__('Linkedin','essential-real-estate')?>" href="<?php echo esc_url( $agent_linkedin_url ); ?>">
 						<i class="fa fa-linkedin"></i>
 					</a>
 				<?php endif; ?>
+                <?php if ( ! empty( $agent_tiktok_url ) ): ?>
+                    <a title="<?php echo esc_attr__('Tiktok','essential-real-estate')?>" href="<?php echo esc_url( $agent_tiktok_url ); ?>">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                <?php endif; ?>
 				<?php if ( ! empty( $agent_pinterest_url ) ): ?>
-					<a title="Pinterest" href="<?php echo esc_url( $agent_pinterest_url ); ?>">
+					<a title="<?php echo esc_attr__('Pinterest','essential-real-estate')?>" href="<?php echo esc_url( $agent_pinterest_url ); ?>">
 						<i class="fa fa-pinterest"></i>
 					</a>
 				<?php endif; ?>
 				<?php if ( ! empty( $agent_instagram_url ) ): ?>
-					<a title="Instagram" href="<?php echo esc_url( $agent_instagram_url ); ?>">
+					<a title="<?php echo esc_attr__('Instagram','essential-real-estate')?>" href="<?php echo esc_url( $agent_instagram_url ); ?>">
 						<i class="fa fa-instagram"></i>
 					</a>
 				<?php endif; ?>
 				<?php if ( ! empty( $agent_youtube_url ) ): ?>
-					<a title="Youtube" href="<?php echo esc_url( $agent_youtube_url ); ?>">
+					<a title="<?php echo esc_attr__('Youtube','essential-real-estate')?>" href="<?php echo esc_url( $agent_youtube_url ); ?>">
 						<i class="fa fa-youtube-play"></i>
 					</a>
 				<?php endif; ?>
 				<?php if ( ! empty( $agent_vimeo_url ) ): ?>
-					<a title="Vimeo" href="<?php echo esc_url( $agent_vimeo_url ); ?>">
+					<a title="<?php echo esc_attr__('Vimeo','essential-real-estate')?>" href="<?php echo esc_url( $agent_vimeo_url ); ?>">
 						<i class="fa fa-vimeo"></i>
 					</a>
 				<?php endif; ?>
