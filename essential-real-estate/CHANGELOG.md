@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.3.0 - April 09, 2026
+* Fix shortcode in gutenberg editor
+
 ### 5.2.9 - March 30, 2026
 * Fix missing fontawesome
 
@@ -30,7 +33,7 @@ Changelog
 * Fix vulnerable to Local File Inclusion
 
 ### 5.2.0 - March  03, 2025
-* Fix widget mortgage calculator 
+* Fix widget mortgage calculator
 
 ### 5.1.9 - January  07, 2025
 * Fix error CSRF in setup pages
@@ -187,7 +190,7 @@ Changelog
 * Change css to scss file main.css
 
 ### 4.2.6 - September 21,2023
-* Fix error of registering as agent multiple times 
+* Fix error of registering as agent multiple times
 
 ### 4.2.5 - August 16,2023
 * Fix auto height gallery property
@@ -221,7 +224,7 @@ Changelog
 * Fix save post meta when preview change
 
 ### 4.1.6 - May 10,2023
-* Fix error remove property price when preview change 
+* Fix error remove property price when preview change
 
 ### 4.1.5 - April 27,2023
 * Add function remove featured of property in my property page
@@ -266,10 +269,10 @@ Changelog
 * Fix: issue taxonomy metabox in property page
 
 ### 4.0.2 - November 25,2022
-* Fix: owl responsive issue 
+* Fix: owl responsive issue
 
 ### 4.0.1 - November 24,2022
-* Add filter wp_kses_allowed_html: allow svg tag 
+* Add filter wp_kses_allowed_html: allow svg tag
 * Fix: condition issue in theSelected and theChecked
 * Add new action: ere_insert_user_package
 
@@ -350,7 +353,7 @@ Changelog
 * Update 10 icon file type in property attachment
 
 ### 3.7.5 - December 23, 2021
-* Fix show single property video with domain "https://youtu.be/" 
+* Fix show single property video with domain "https://youtu.be/"
 
 ### 3.7.4 - November 22, 2021
 * Fix error show property price when change config Decimal Separator
@@ -387,7 +390,7 @@ Changelog
 
 ### 3.6.3 - June 08, 2021
 * Fix search with language Greek
-* Fix upload image with wpml 
+* Fix upload image with wpml
 
 ### 3.6.2 - June 05, 2021
 * Disable scroll when search ajax
@@ -459,22 +462,22 @@ Changelog
 * Improve upload property image gallery
 
 #### 3.4.0 - January 27, 2021
-* Update required fields in page submit property 
+* Update required fields in page submit property
 
 #### 3.3.9 - January 25, 2021
-* Update search custom fields 
+* Update search custom fields
 
 #### 3.3.8 - January 15, 2021
-* Change config register post type trans_log, invoice, user_package, package 
+* Change config register post type trans_log, invoice, user_package, package
 
 #### 3.3.7 - January 15, 2021
-* Fix get my listing in page agent detail 
+* Fix get my listing in page agent detail
 
 #### 3.3.6 - January 04, 2021
-* Update setup admin page 
+* Update setup admin page
 
 #### 3.3.5 - January 04, 2021
-* Fix order by most viewed property 
+* Fix order by most viewed property
 
 #### 3.3.4 - December 30, 2020
 * Fix style button next and prev owl-carousel 2.3.4
@@ -521,10 +524,10 @@ Changelog
 * Add action hook: ere_dashboard_navbar
 
 #### 3.2.1 - September 19, 2020
-* Fix display country, state and neighborhood in admin property  
+* Fix display country, state and neighborhood in admin property
 
 #### 3.2.0 - September 19, 2020
-* Remove Taxonomy Parent for property status, property label, property feature  
+* Remove Taxonomy Parent for property status, property label, property feature
 
 #### 3.1.9 - September 10, 2020
 * Fix save empty value in smart-framework
@@ -545,13 +548,13 @@ Changelog
 * Update: Display multi level for property type
 
 #### 3.1.3 - August 14, 2020
-* Fix: error query property 
+* Fix: error query property
 
 #### 3.1.2 - August 12, 2020
 * Update: update order by property featured
 
 #### 3.1.1 - August 11, 2020
-* Update: fix url close info-box with https 
+* Update: fix url close info-box with https
 
 #### 3.1.0 - August 10, 2020
 * Update: fix display currency in search field price slider
@@ -566,10 +569,10 @@ Changelog
 * Fix: remove package of user when delete user package in backend
 * Fix: api rest and loopback error when click site health
 * Fix: layout meta package and agency
-* Fix: field switch and checkbox in smart-framework 
+* Fix: field switch and checkbox in smart-framework
 
 #### 3.0.6 - July 17, 2020
-* Fix: enqueue resource light gallery 
+* Fix: enqueue resource light gallery
 
 #### 3.0.5 - July 10, 2020
 * Fix: warning addition detail
@@ -598,7 +601,7 @@ Changelog
 * Update google captcha for login form default
 
 #### 2.0.7 - April 28, 2020
-* Fix schedule set listing expire  
+* Fix schedule set listing expire
 
 #### 2.0.6 - April 16, 2020
 * Update load  price slider for all status
@@ -611,7 +614,7 @@ Changelog
 
 #### 2.0.3 - April 09, 2020
 * Fix upload gallery in frontend submit
-* Fix allow zoom map on mobile 
+* Fix allow zoom map on mobile
 
 #### 2.0.2 - April 07, 2020
 * Update display agent description in shortcode allow html
@@ -623,7 +626,7 @@ Changelog
 * Fix display property size format decimals
 
 #### 1.9.9 - March 19, 2020
-* Fix submit property with Woocommerce Membership plugin 
+* Fix submit property with Woocommerce Membership plugin
 
 #### 1.9.8 - March 18, 2020
 * Fix advanced search with other features
@@ -671,10 +674,10 @@ Changelog
 * Fix: default location on add new property page
 
 #### 1.8.4 - October 14, 2019
-* Fix: Change status comment of agent and property 
+* Fix: Change status comment of agent and property
 
 #### 1.8.3 - September 19, 2019
-* Fix: Find location on add new property page 
+* Fix: Find location on add new property page
 
 #### 1.8.2 - August 31, 2019
 * Fix: Display content on infoBox google map
@@ -1007,7 +1010,7 @@ Changelog
 * Fix: upload image and allow sort image via frontend
 
 #### 1.0.6 - April 7, 2017
-* Allow to input float number of property area, size,... via backend 
+* Allow to input float number of property area, size,... via backend
 * Fix mising property status field on feature add shortcode from editor, fix empty address when edit property via frontend
 
 #### 1.0.5 - March 27, 2017

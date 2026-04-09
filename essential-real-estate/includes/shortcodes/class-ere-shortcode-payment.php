@@ -14,6 +14,9 @@ if (!class_exists('ERE_Shortcode_Payment')) {
          */
         public static function output($atts)
         {
+            if (is_admin() && !wp_doing_ajax()) {
+                return '';
+            }
             return ere_get_template_html('payment/payment.php', array('atts' => $atts));
         }
     }

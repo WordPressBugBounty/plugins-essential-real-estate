@@ -17,9 +17,14 @@ if (!class_exists('ERE_Shortcode_My_Invoice')) {
 
         public static function output($atts)
         {
+            if (is_admin() && !wp_doing_ajax()) {
+                return '';
+            }
+
             if (!is_user_logged_in()) {
-                echo ere_get_template_html('global/access-denied.php',array('type'=>'not_login'));
-                return null;
+                ob_start();
+                ere_get_template_html('global/access-denied.php',array('type'=>'not_login'));
+                return ob_get_clean();
             }
             $posts_per_page = '25';
             $date_query = array();

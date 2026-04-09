@@ -3,7 +3,7 @@
  * Plugin Name: Essential Real Estate
  * Plugin URI: https://wordpress.org/plugins/essential-real-estate
  * Description: The latest plugins Real Estate you want. Completely all features, easy customize and override layout, functions. Supported global payment, build market, single, list property, single agent...etc. All fields are defined dynamic, they will help you can build any kind of Real Estate website.
- * Version: 5.2.9
+ * Version: 5.3.0
  * Author: G5Theme
  * Author URI: http://themeforest.net/user/g5theme
  * Text Domain: essential-real-estate
@@ -28,7 +28,7 @@ if (!defined('WPINC')) {
 }
 
 if (!defined('ERE_PLUGIN_VER')) {
-    define('ERE_PLUGIN_VER', '5.2.9');
+    define('ERE_PLUGIN_VER', '5.3.0');
 }
 if (!defined('ERE_PLUGIN_FILE')) {
     define('ERE_PLUGIN_FILE', __FILE__);
@@ -63,15 +63,15 @@ if (!defined('ERE_OPTIONS_NAME')) {
 }
 if (!defined('ERE_AJAX_URL')) {
     $ajax_url = admin_url('admin-ajax.php', 'relative');
-	$my_current_lang = apply_filters( 'wpml_current_language', NULL );
-	if ($my_current_lang) {
-		$ajax_url = add_query_arg( 'ere_wpml_lang', $my_current_lang, $ajax_url );
-	}
+    $my_current_lang = apply_filters( 'wpml_current_language', NULL );
+    if ($my_current_lang) {
+        $ajax_url = add_query_arg( 'ere_wpml_lang', $my_current_lang, $ajax_url );
+    }
     define('ERE_AJAX_URL', $ajax_url);
 }
 
 if (!defined('ERE_ROUNDING_PRECISION')) {
-	define('ERE_ROUNDING_PRECISION', 6);
+    define('ERE_ROUNDING_PRECISION', 6);
 }
 
 /**

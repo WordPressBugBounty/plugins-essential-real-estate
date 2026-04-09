@@ -11,9 +11,14 @@ if (!class_exists('ERE_Shortcode_My_Favorites')) {
 	{
 		public static function output($atts)
 		{
+            if (is_admin() && !wp_doing_ajax()) {
+                return '';
+            }
+
 			if (!is_user_logged_in()) {
+                ob_start();
 				echo ere_get_template_html('global/access-denied.php',array('type'=>'not_login'));
-				return null;
+                return ob_get_clean();
 			}
 			$posts_per_page = 8;
 			extract(shortcode_atts(array(
