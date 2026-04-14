@@ -380,10 +380,12 @@ if (!class_exists('GSF_Inc_Helper')) {
 				'numberposts' => 20,
 				'orderby'     => 'post_title',
 				'order'       => 'ASC',
-			);
+                'suppress_filters' => false
+            );
 			if (!empty($params)) {
 				$args = array_merge($args, $params);
 			}
+
 			$posts = get_posts($args);
 			$ret_posts = array();
 			foreach ($posts as $post) {

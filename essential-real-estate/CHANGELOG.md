@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.3.1 - April 24, 2026
+* Fix get_posts when using wpml in smart-framework
+
 ### 5.3.0 - April 09, 2026
 * Fix shortcode in gutenberg editor
 
