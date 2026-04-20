@@ -8,7 +8,7 @@ if ( ! class_exists( 'ERE_Query' ) ) {
 		private static $_instance;
 		private $parameters = [];
 
-		private $_atts = [];
+		public $_atts = [];
 
 		private $_query_args = [];
 

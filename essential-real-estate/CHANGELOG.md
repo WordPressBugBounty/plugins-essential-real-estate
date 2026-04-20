@@ -1,6 +1,9 @@
 Changelog
 =========
-### 5.3.1 - April 24, 2026
+### 5.3.2 - April 20, 2026
+* Fix agent position in single property
+
+### 5.3.1 - April 14, 2026
 * Fix get_posts when using wpml in smart-framework
 
 ### 5.3.0 - April 09, 2026

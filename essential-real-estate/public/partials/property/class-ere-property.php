@@ -718,7 +718,7 @@ if (!class_exists('ERE_Property')) {
                 $user_id =  explode(',', $user_id);
             }
 
-            $args = array(
+            $args = apply_filters('ere_get_total_properties_by_user_args',array(
                 'post_type' => 'property',
                 'post_status' => 'publish',
                 'posts_per_page' => -1,
@@ -735,7 +735,8 @@ if (!class_exists('ERE_Property')) {
                         'compare' => 'IN'
                     )
                 )
-            );
+            ),$agent_id,$user_id) ;
+
             $properties = new WP_Query($args);
             return $properties->found_posts;
         }

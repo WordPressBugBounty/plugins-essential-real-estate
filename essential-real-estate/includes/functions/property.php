@@ -521,9 +521,11 @@ function ere_get_agent_contact_info_of_property($property_id)
         $email = get_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_email', true);
         $avatar_id = get_post_thumbnail_id($agent_id);
         $avatar_src = ere_image_resize_id($avatar_id, $avatar_width, $avatar_height, true);
-        $agent_position = esc_html__('Property Agent', 'essential-real-estate');
+        $agent_position = get_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_position', true);
+        if (empty($agent_position)) {
+            $agent_position = esc_html__('Property Agent', 'essential-real-estate');
+        }
         $agent_type = esc_html__('Agent', 'essential-real-estate');
-
         $agent_facebook_url = get_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_facebook_url', true);
         $agent_twitter_url = get_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_twitter_url', true);
         $agent_linkedin_url = get_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_linkedin_url', true);
