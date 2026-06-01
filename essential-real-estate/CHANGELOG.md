@@ -1,5 +1,8 @@
 Changelog
 =========
+### 5.3.3 - June 01, 2026
+* Fix Missing Authorization in function property feature
+
 ### 5.3.2 - April 20, 2026
 * Fix agent position in single property
 

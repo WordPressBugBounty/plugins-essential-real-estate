@@ -81,7 +81,7 @@ if (!class_exists('GSF_Inc_Helper')) {
                 if ( isset( $args['action_args'] ) ) {
                     unset( $args['action_args'] );
                 }
-                extract( $args ); // @codingStandardsIgnoreLine
+                extract( $args, EXTR_SKIP ); // @codingStandardsIgnoreLine
             }
 
 			include($action_args['located']);
