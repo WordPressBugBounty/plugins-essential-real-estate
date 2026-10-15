@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<input type="hidden" name="ere_params"
 						       value="<?php echo esc_attr(base64_encode( $parameters )); ?>">
 						<input type="hidden" name="ere_query"
-						       value="<?php echo esc_attr(base64_encode( serialize( $search_query ))); ?>">
+						       value="<?php echo esc_attr(base64_encode( wp_json_encode( $search_query ))); ?>">
 						<input type="hidden" name="ere_url" value="<?php echo esc_url( sanitize_url($_SERVER['REQUEST_URI']) ) ?>">
 						<input type="hidden" name="action" value='ere_save_search_ajax'>
 						<input type="hidden" name="ere_save_search_ajax"

@@ -55,7 +55,17 @@ if (!class_exists('ERE_Save_Search')) {
             global $wpdb, $current_user;
             wp_get_current_user();
             $query  =  isset($_REQUEST['ere_query']) ? ere_clean(wp_unslash($_REQUEST['ere_query'])) : '';
-            $table_name         = $wpdb->prefix . 'ere_save_search';
+            // Never store client-supplied serialized data (PHP Object Injection). Accept JSON only.
+            $search_query = self::decode_query($query);
+            if (!is_array($search_query)) {
+                echo wp_json_encode(array(
+                    'success' => false,
+                    'message' => esc_html__("Invalid search query!", 'essential-real-estate'),
+                ));
+                wp_die();
+            }
+            $query = base64_encode(wp_json_encode($search_query));
+            $table_name         =$wpdb->prefix . 'ere_save_search';
             $url  = isset($_REQUEST['ere_url']) ? sanitize_url(wp_unslash($_REQUEST['ere_url'])) : '';
             $title  = isset($_REQUEST['ere_title']) ?  ere_clean(wp_unslash($_REQUEST['ere_title'])) : '';
             $params  = isset($_REQUEST['ere_params']) ?  ere_clean(wp_unslash($_REQUEST['ere_params'])) : '';
@@ -84,6 +94,44 @@ if (!class_exists('ERE_Save_Search')) {
             echo wp_json_encode( array( 'success' => true, 'msg' => esc_html__('Save successfully', 'essential-real-estate') ) );
             wp_die();
         }
+        /**
+         * Decode a stored/submitted search query without instantiating any PHP objects.
+         * Supports the JSON format and legacy serialized rows (objects disallowed).
+         *
+         * @param string $data base64 encoded query
+         * @return array|null
+         */
+        public static function decode_query($data)
+        {
+            $decoded = base64_decode((string)$data, true);
+            if (!is_string($decoded) || $decoded === '') {
+                return null;
+            }
+            $search_query = json_decode($decoded, true);
+            if (!is_array($search_query) && is_serialized($decoded)) {
+                $search_query = @unserialize($decoded, array('allowed_classes' => false));
+            }
+            if (!is_array($search_query) || self::contains_object($search_query)) {
+                return null;
+            }
+            return $search_query;
+        }
+
+        private static function contains_object($value)
+        {
+            if (is_object($value)) {
+                return true;
+            }
+            if (is_array($value)) {
+                foreach ($value as $item) {
+                    if (self::contains_object($item)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public function get_total_save_search(){
             $user_id = get_current_user_id();
             global $wpdb;

@@ -107,7 +107,10 @@ if (!class_exists('ERE_Schedule')) {
 				$results        = $wpdb->get_results( "SELECT * FROM {$table_name}", OBJECT );
 				if ( sizeof ( $results ) !== 0 ){
 					foreach ( $results as $result ){
-						$search_query = unserialize( base64_decode( $result->query ) );
+						$search_query = ERE_Save_Search::decode_query( $result->query );
+						if ( ! is_array( $search_query ) ) {
+							continue;
+						}
 						$search_query['date_query'] =$date_query;
 
 						$user_email = $result->email;

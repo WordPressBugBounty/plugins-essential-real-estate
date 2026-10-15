@@ -35,7 +35,7 @@ if (!is_user_logged_in()) {
                             </p>
 
                             <p>
-                                <i class="fa fa-search"></i> <?php echo call_user_func("base" . "64_dec" . "ode", $item->params); ?>
+                                <i class="fa fa-search"></i> <?php echo esc_html(base64_decode($item->params)); ?>
                             </p>
                             <?php
                             $action_url = add_query_arg(array('action' => 'delete', 'save_id' => $item->id));
