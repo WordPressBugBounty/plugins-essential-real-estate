@@ -221,6 +221,14 @@ if (!class_exists('ERE_Invoice')) {
             }
 
             $invoice_id = absint(ere_clean(wp_unslash($_POST['invoice_id'])) ) ;
+            // Only owner of invoice or user can edit invoice
+            if (get_post_type($invoice_id) !== 'invoice') {
+                return;
+            }
+            $invoice_user_id = $this->get_invoice_meta($invoice_id, 'invoice_user_id');
+            if ((absint($invoice_user_id) !== get_current_user_id() || !is_user_logged_in()) && !current_user_can('edit_post', $invoice_id)) {
+                return;
+            }
 
             $isRTL = 'false';
             if(isset( $_POST['isRTL'] ))

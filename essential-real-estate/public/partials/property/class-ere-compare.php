@@ -33,7 +33,7 @@ if ( ! class_exists( 'ERE_Compare' ) ) {
 
 				if ( is_array( $_SESSION['ere_compare_properties'] ) && in_array( $property_id, $_SESSION['ere_compare_properties'] ) ) {
 					unset( $_SESSION['ere_compare_properties'][ array_search( $property_id, $_SESSION['ere_compare_properties'] ) ] );
-				} elseif ( $current_number < $max_items ) {
+				} elseif ( ( $current_number < $max_items ) && ere_current_user_can_view_property( $property_id ) ) {
 
 					$_SESSION['ere_compare_properties'][] = $property_id;
 				}

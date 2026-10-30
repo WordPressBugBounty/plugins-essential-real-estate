@@ -20,6 +20,63 @@ function ere_get_property_gallery_image($property_Id)
     return explode('|', $property_gallery);
 }
 
+/**
+ * Check current user can view property data (published property, or owner/editor of unpublished property)
+ *
+ * @param $property_id
+ *
+ * @return bool
+ */
+function ere_current_user_can_view_property($property_id)
+{
+    $can_view = false;
+    $property = get_post($property_id);
+    if (is_a($property, 'WP_Post') && ($property->post_type === 'property')) {
+        if ($property->post_status === 'publish') {
+            $can_view = !post_password_required($property);
+        } elseif (is_user_logged_in()) {
+            $can_view = (absint($property->post_author) === get_current_user_id()) || current_user_can('edit_post', $property->ID);
+        }
+    }
+    return apply_filters('ere_current_user_can_view_property', $can_view, $property_id);
+}
+
+/**
+ * Check email is a contact email of agent, agency, property author or property other contact
+ *
+ * @param $email
+ *
+ * @return bool
+ */
+function ere_is_contact_email($email)
+{
+    global $wpdb;
+    $is_contact = false;
+    if (is_email($email)) {
+        // Agent email
+        $is_contact = (bool)$wpdb->get_var($wpdb->prepare("SELECT pm.post_id FROM {$wpdb->postmeta} pm INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE pm.meta_key = %s AND pm.meta_value = %s AND p.post_type = 'agent' AND p.post_status = 'publish' LIMIT 1", ERE_METABOX_PREFIX . 'agent_email', $email));
+
+        // Property other contact email
+        if (!$is_contact) {
+            $is_contact = (bool)$wpdb->get_var($wpdb->prepare("SELECT pm.post_id FROM {$wpdb->postmeta} pm INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE pm.meta_key = %s AND pm.meta_value = %s AND p.post_type = 'property' AND p.post_status = 'publish' LIMIT 1", ERE_METABOX_PREFIX . 'property_other_contact_mail', $email));
+        }
+
+        // Agency email
+        if (!$is_contact) {
+            $is_contact = (bool)$wpdb->get_var($wpdb->prepare("SELECT tm.term_id FROM {$wpdb->termmeta} tm INNER JOIN {$wpdb->term_taxonomy} tt ON tt.term_id = tm.term_id WHERE tm.meta_key = 'agency_email' AND tm.meta_value = %s AND tt.taxonomy = 'agency' LIMIT 1", $email));
+        }
+
+        // Property author email
+        if (!$is_contact) {
+            $user = get_user_by('email', $email);
+            if ($user && (count_user_posts($user->ID, 'property', true) > 0)) {
+                $is_contact = true;
+            }
+        }
+    }
+    return apply_filters('ere_is_contact_email', $is_contact, $email);
+}
+
 function ere_get_single_property_features_tabs($property_id = '')
 {
     if (empty($property_id)) {

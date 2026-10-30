@@ -39,7 +39,7 @@ if (!class_exists('ERE_Property')) {
             if ($property_id > 0) {
                 // Check $property of current user
                 $property = get_post($property_id);
-                if ($property->post_author != $user_id) {
+                if (!$property || $property->post_author != $user_id) {
                     return false;
                 }
 
@@ -127,7 +127,10 @@ if (!class_exists('ERE_Property')) {
                 $is_check = $this->validate_remove_attachment($property_id, $attachment_id, $type);
 
                 if (($attachment_id > 0) && $is_check) {
-                    wp_delete_attachment($attachment_id);
+                    // Only delete file of current user, other files are only removed from property
+                    if ($this->is_attachment_owner($attachment_id, $user_id) || current_user_can('delete_post', $attachment_id)) {
+                        wp_delete_attachment($attachment_id);
+                    }
                     $success = true;
                 }
             }
@@ -138,10 +141,52 @@ if (!class_exists('ERE_Property')) {
             wp_die();
         }
 
+        /**
+         * Check attachment is uploaded by user
+         *
+         * @param $attachment_id
+         * @param $user_id
+         *
+         * @return bool
+         */
+        public function is_attachment_owner($attachment_id, $user_id)
+        {
+            $attachment = get_post($attachment_id);
+            return $attachment && ($attachment->post_type === 'attachment') && ($user_id > 0) && (absint($attachment->post_author) === absint($user_id));
+        }
+
+        /**
+         * Filter attachment ids submitted from property form
+         * Keep ids already in property, or uploaded by current user
+         *
+         * @param $attachment_ids
+         * @param $property_id
+         * @param $meta_key
+         *
+         * @return array
+         */
+        public function filter_submitted_attachment_ids($attachment_ids, $property_id, $meta_key)
+        {
+            $user_id = get_current_user_id();
+            $current_ids = array_map('intval', array_filter(explode('|', (string)get_post_meta($property_id, $meta_key, true))));
+            $result = array();
+            foreach ($attachment_ids as $attachment_id) {
+                $attachment_id = intval($attachment_id);
+                if ($attachment_id <= 0) {
+                    continue;
+                }
+                if (in_array($attachment_id, $current_ids) || $this->is_attachment_owner($attachment_id, $user_id) || current_user_can('edit_post', $attachment_id)) {
+                    $result[] = $attachment_id;
+                }
+            }
+            return $result;
+        }
+
         public function delete_property_attachments($postid)
         {
             global $post_type;
             if ($post_type == 'property') {
+                $property_author = get_post_field('post_author', $postid);
                 $media = get_children(array(
                     'post_parent' => $postid,
                     'post_type' => 'attachment'
@@ -155,7 +200,9 @@ if (!class_exists('ERE_Property')) {
                 $gallery_ids = explode('|', $gallery_ids);
                 if (!empty($gallery_ids)) {
                     foreach ($gallery_ids as $id) {
-                        wp_delete_attachment($id);
+                        if ($this->is_attachment_owner($id, $property_author) || current_user_can('delete_post', $id)) {
+                            wp_delete_attachment($id);
+                        }
                     }
                 }
 
@@ -163,7 +210,9 @@ if (!class_exists('ERE_Property')) {
                 $attachment_ids = explode('|', $attachment_ids);
                 if (!empty($attachment_ids)) {
                     foreach ($attachment_ids as $id) {
-                        wp_delete_attachment($id);
+                        if ($this->is_attachment_owner($id, $property_author) || current_user_can('delete_post', $id)) {
+                            wp_delete_attachment($id);
+                        }
                     }
                 }
             }
@@ -368,6 +417,9 @@ if (!class_exists('ERE_Property')) {
                 }
             } else if ($submit_action == 'edit-property') {
                 $property_id = absint(ere_clean(wp_unslash($_POST['property_id']))) ;
+                if ((get_post_type($property_id) !== 'property') || !$this->user_can_edit_property($property_id)) {
+                    return -1;
+                }
                 $new_property['ID'] = intval($property_id);
                 if ($paid_submission_type == 'per_package') {
                     $current_package_key = get_the_author_meta(ERE_METABOX_PREFIX . 'package_key', $user_id);
@@ -496,6 +548,7 @@ if (!class_exists('ERE_Property')) {
                 }
                 $_property_image_ids = isset($_POST['property_image_ids']) ? ere_clean(wp_unslash($_POST['property_image_ids'])) : '';
 	            if (is_array($_property_image_ids)) {
+		            $_property_image_ids = $this->filter_submitted_attachment_ids($_property_image_ids, $property_id, ERE_METABOX_PREFIX . 'property_images');
 		            $property_image_ids = array();
 		            $str_img_ids = '';
 		            foreach ($_property_image_ids as $property_img_id) {
@@ -520,6 +573,7 @@ if (!class_exists('ERE_Property')) {
 
 	            $_property_attachment_ids = isset($_POST['property_attachment_ids']) ? ere_clean(wp_unslash($_POST['property_attachment_ids'])) : '';
 	            if (!empty($_property_attachment_ids) && is_array($_property_attachment_ids)) {
+		            $_property_attachment_ids = $this->filter_submitted_attachment_ids($_property_attachment_ids, $property_id, ERE_METABOX_PREFIX . 'property_attachments');
 		            $property_attachment_ids = array();
 		            $str_attachment_ids = '';
 		            foreach ($_property_attachment_ids as $property_attachment_id) {
@@ -752,7 +806,7 @@ if (!class_exists('ERE_Property')) {
             $target_email = isset($_POST['target_email']) ?  sanitize_email(wp_unslash($_POST['target_email'])) : '';
             $property_url = isset($_POST['property_url']) ?  sanitize_url(wp_unslash($_POST['property_url'])) : '';
             $target_email = is_email($target_email);
-            if (!$target_email) {
+            if (!$target_email || !ere_is_contact_email($target_email)) {
                 echo wp_json_encode(array('success' => false, 'message' => esc_html__('Target Email address is not properly configured!', 'essential-real-estate')));
                 wp_die();
             }
@@ -782,7 +836,9 @@ if (!class_exists('ERE_Property')) {
 
             $header = 'Content-type: text/html; charset=utf-8' . "\r\n";
             $header = apply_filters("ere_contact_agent_mail_header", $header);
-            $header .= 'From: ' . $sender_name . " <" . $sender_email . "> \r\n";
+            if (is_email($sender_email)) {
+                $header .= 'Reply-To: ' . str_replace(array('"', '<', '>'), '', $sender_name) . " <" . $sender_email . "> \r\n";
+            }
 
             if (wp_mail($target_email, $email_subject, $email_body, $header)) {
                 echo wp_json_encode(array('success' => true, 'message' => esc_html__('Message Sent Successfully!', 'essential-real-estate')));
@@ -842,6 +898,9 @@ if (!class_exists('ERE_Property')) {
 
 	    public function view_gallery_ajax() {
 		    $property_id = isset($_POST['property_id']) ?  absint(ere_clean(wp_unslash($_POST['property_id']))) : 0;
+		    if (!ere_current_user_can_view_property($property_id)) {
+			    wp_send_json_error(esc_html__('No Images','essential-real-estate'));
+		    }
 		    $gallery = ere_get_property_gallery_image($property_id);
 		    if ($gallery === FALSE) {
 			    wp_send_json_error(esc_html__('No Images','essential-real-estate'));
@@ -884,6 +943,9 @@ if (!class_exists('ERE_Property')) {
             $property_id = isset($_POST['property_id']) ? absint(ere_clean(wp_unslash($_POST['property_id']))) : 0;
             if ($property_id <= 0) {
             	return;
+            }
+            if (!ere_current_user_can_view_property($property_id)) {
+                wp_die();
             }
             $isRTL = 'false';
             if (isset($_POST['isRTL'])) {

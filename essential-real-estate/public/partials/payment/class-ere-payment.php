@@ -531,6 +531,14 @@ if (!class_exists('ERE_Payment')) {
             }
             $user_id = $current_user->ID;
             $package_id = isset($_POST['package_id']) ? absint(ere_clean(wp_unslash($_POST['package_id']))) : 0;
+            // Only free package, and user has not used free package
+            $package_free = get_post_meta($package_id, ERE_METABOX_PREFIX . 'package_free', true);
+            $package_price = get_post_meta($package_id, ERE_METABOX_PREFIX . 'package_price', true);
+            $is_free_package = ($package_free == 1) || !($package_price > 0);
+            $user_free_package = get_the_author_meta(ERE_METABOX_PREFIX . 'free_package', $user_id);
+            if ((get_post_type($package_id) !== 'package') || (get_post_status($package_id) !== 'publish') || !$is_free_package || ($user_free_package == 'yes')) {
+                wp_die(esc_html__('Invalid package', 'essential-real-estate'), '', array('response' => 403));
+            }
             $payment_method = 'Free_Package';
             // insert invoice
             $invoice_id = $this->ere_invoice->insert_invoice('Package', $package_id, $user_id, 0, $payment_method, 1);

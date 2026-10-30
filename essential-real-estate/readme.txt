@@ -3,8 +3,8 @@ Contributors: g5theme
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RC62AS34KU8WY
 Tags: real estate, agency, agent, realtor, property
 Requires at least: 4.5
-Tested up to: 6.9
-Stable tag: 5.3.4
+Tested up to: 7.1
+Stable tag: 5.3.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,15 @@ Yes! it's always will be free.
 10. Listing properties with features on frontend
 
 == Changelog ==
+= 5.3.5 =
+* Security: Fix unauthenticated disclosure of unpublished properties in print property
+* Security: Fix unauthenticated disclosure of unpublished property images in gallery and compare
+* Security: Fix arbitrary email sending in contact agent form
+* Security: Fix free package activation for paid packages
+* Security: Fix missing authorization in print invoice
+* Security: Fix arbitrary attachment deletion in property form
+* Security: Fix missing authorization when editing property from front-end form
+
 = 5.3.4 =
 * Security: Fix authenticated PHP Object Injection in saved search (reported by Wordfence)
 * Security: Escape saved search parameters output

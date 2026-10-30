@@ -472,7 +472,7 @@ if ( ! class_exists( 'ERE_Admin_Property' ) ) {
 			$property_id = isset( $_GET['id'] ) ? ere_clean( wp_unslash( $_GET['id'] ) ) : 0;
 
             if (!current_user_can('manage_options')) {
-                wp_die(__('Permission denied', 'essential-real-estate'));
+                wp_die(esc_html__('Permission denied', 'essential-real-estate'));
             }
 
 			$is_featured = get_post_meta( $property_id, ERE_METABOX_PREFIX . 'property_featured', true );
