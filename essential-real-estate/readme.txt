@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: real estate, agency, agent, realtor, property
 Requires at least: 4.5
 Tested up to: 7.1
-Stable tag: 5.3.5
+Stable tag: 5.3.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,16 @@ Yes! it's always will be free.
 10. Listing properties with features on frontend
 
 == Changelog ==
+= 5.3.6 =
+* Security: Fix incomplete patch for arbitrary email sending in contact agent form - the recipient is now resolved server-side from the property, agent or agency (CVE-2026-90964 bypass, reported by Aabideen Bangash via WPScan)
+* Security: Contact messages for properties using "Other contact" by non-privileged authors are sent to the author's account email. To keep sending to the "Other contact" email, use the filter ere_trust_property_other_contact_mail
+* Security: Changing the account email from the front-end profile now requires confirmation from the new address
+* Security: When "Enable password" is on, new accounts must be activated from the link sent to their email before they can log in. Administrators can activate accounts manually from Users list. Accounts never activated within 48 hours are removed when someone registers the same username or email
+* Security: Fix non-admin users overwriting any agent's details from the wp-admin profile page
+* Security: Rate limit contact form submissions (10 per 10 minutes per visitor IP and recipient, filter: ere_contact_agent_rate_limit)
+* Note: Themes overriding global/contact-form.php or single-property/contact-agent.php must replace the target_email hidden field with contact_type and contact_id
+* Note: Please clear your page cache after updating so contact forms use the new fields
+
 = 5.3.5 =
 * Security: Fix unauthenticated disclosure of unpublished properties in print property
 * Security: Fix unauthenticated disclosure of unpublished property images in gallery and compare

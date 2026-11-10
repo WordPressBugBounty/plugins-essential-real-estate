@@ -328,7 +328,8 @@ if (!class_exists('Essential_Real_Estate')) {
             $profile = ERE_Profile::getInstance();
             $this->loader->add_filter('show_user_profile', $profile, 'custom_user_profile_fields');
             $this->loader->add_filter('edit_user_profile', $profile, 'custom_user_profile_fields');
-            $this->loader->add_action('profile_update', $profile, 'profile_update');
+            $this->loader->add_action('profile_update', $profile, 'profile_update', 10, 2);
+            $this->loader->add_action('template_redirect', $profile, 'confirm_email_change');
             $this->loader->add_action('edit_user_profile_update', $profile, 'update_custom_user_profile_fields');
             $this->loader->add_action('personal_options_update', $profile, 'update_custom_user_profile_fields');
 
@@ -355,6 +356,10 @@ if (!class_exists('Essential_Real_Estate')) {
             $this->loader->add_action('wp_ajax_ere_reset_password_ajax', $login_register, 'reset_password_ajax');
             $this->loader->add_action('wp_ajax_nopriv_ere_reset_password_ajax', $login_register, 'reset_password_ajax');
 	        $this->loader->add_action('template_redirect', $login_register, 'redirect_is_login');
+            $this->loader->add_filter('wp_authenticate_user', $login_register, 'check_email_verified', 10, 2);
+            $this->loader->add_action('template_redirect', $login_register, 'verify_email_link', 5);
+            $this->loader->add_filter('user_row_actions', $login_register, 'user_row_actions', 10, 2);
+            $this->loader->add_action('admin_post_ere_activate_user', $login_register, 'admin_activate_user');
 
             $shortcodes= ERE_Shortcodes::getInstance();
             $this->loader->add_action('wp', $shortcodes, 'shortcode_property_action_handler');

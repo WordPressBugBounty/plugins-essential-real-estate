@@ -262,13 +262,9 @@ if (!class_exists('ERE_Profile')) {
                             echo wp_json_encode(array('success' => false, 'message' => esc_html__('This Email is already used by another user. Please try a different one.', 'essential-real-estate')));
                             wp_die();
                         }
-                    } else {
-                        $return = wp_update_user(array('ID' => $user_id, 'user_email' => $user_email));
-                        if (is_wp_error($return)) {
-                            $error = $return->get_error_message();
-                            echo esc_html($error);
-                            wp_die();
-                        }
+                    } elseif (strtolower($user_email) !== strtolower($current_user->user_email)) {
+                        // Do not switch the account email until the user proves ownership of the new address.
+                        $email_change_pending = $this->send_email_change_confirmation($user_id, $user_email);
                     }
                 }
             }
@@ -284,7 +280,7 @@ if (!class_exists('ERE_Profile')) {
                 }
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_description', $user_des);
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_position', $user_position);
-                update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_email', $user_email);
+                update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_email', $current_user->user_email);
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_mobile_number', $user_mobile_number);
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_fax_number', $user_fax_number);
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_company', $user_company);
@@ -303,7 +299,12 @@ if (!class_exists('ERE_Profile')) {
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_website_url', $user_website_url);
                 update_post_meta($agent_id, '_thumbnail_id', $profile_pic_id);
             }
-            echo wp_json_encode(array('success' => true, 'message' => esc_html__('Profile updated', 'essential-real-estate')));
+            if (!empty($email_change_pending)) {
+                $message = esc_html__('Profile updated. A confirmation link has been sent to your new email address. Your email will be changed after you confirm it.', 'essential-real-estate');
+            } else {
+                $message = esc_html__('Profile updated', 'essential-real-estate');
+            }
+            echo wp_json_encode(array('success' => true, 'message' => $message));
             do_action('ere_update_profile_ajax_success', $user_id);
             wp_die();
         }
@@ -477,12 +478,80 @@ if (!class_exists('ERE_Profile')) {
             wp_die();
         }
 
-        public function profile_update($user_id)
+        public function profile_update($user_id, $old_user_data = null)
         {
             $agent_id = get_the_author_meta(ERE_METABOX_PREFIX . 'author_agent_id', $user_id);
             if (!empty($agent_id)) {
                 update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_user_id', $user_id);
+                // Keep the agent email in sync with the (confirmed) account email
+                $user = get_userdata($user_id);
+                if ($user && is_a($old_user_data, 'WP_User') && ($old_user_data->user_email !== $user->user_email) && (get_post_type($agent_id) == 'agent')) {
+                    update_post_meta($agent_id, ERE_METABOX_PREFIX . 'agent_email', $user->user_email);
+                }
             }
+        }
+
+        /**
+         * Send a confirmation link to the new email address. The account email is only changed after confirmation.
+         *
+         * @param $user_id
+         * @param $new_email
+         * @return bool
+         */
+        public function send_email_change_confirmation($user_id, $new_email)
+        {
+            $hash = wp_generate_password(32, false, false);
+            update_user_meta($user_id, ERE_METABOX_PREFIX . 'new_email', array(
+                'hash' => $hash,
+                'newemail' => $new_email,
+                'time' => time()
+            ));
+            $confirm_url = add_query_arg('ere_confirm_email', $hash, home_url('/'));
+            $site_name = wp_specialchars_decode(get_bloginfo('name'), ENT_QUOTES);
+            /* translators: %s: site name. */
+            $subject = sprintf(__('[%s] Confirm your new email address', 'essential-real-estate'), $site_name);
+            /* translators: %1$s: site name, %2$s: confirmation link. */
+            $message = sprintf(__("You recently requested to change the email address of your account on %1\$s.\n\nIf this is correct, please log in and click the following link to confirm the change:\n%2\$s\n\nThis link expires in 48 hours. If you did not request this, you can safely ignore this email.", 'essential-real-estate'), $site_name, $confirm_url);
+            return wp_mail($new_email, $subject, $message);
+        }
+
+        /**
+         * Handle the email change confirmation link
+         */
+        public function confirm_email_change()
+        {
+            if (empty($_GET['ere_confirm_email'])) {
+                return;
+            }
+            $hash = sanitize_text_field(wp_unslash($_GET['ere_confirm_email']));
+            if (!is_user_logged_in()) {
+                wp_safe_redirect(wp_login_url(add_query_arg('ere_confirm_email', $hash, home_url('/'))));
+                exit;
+            }
+            $user_id = get_current_user_id();
+            $pending = get_user_meta($user_id, ERE_METABOX_PREFIX . 'new_email', true);
+            $message = esc_html__('This email confirmation link is invalid or has expired.', 'essential-real-estate');
+            if (is_array($pending) && !empty($pending['hash']) && !empty($pending['newemail']) && hash_equals($pending['hash'], $hash)) {
+                delete_user_meta($user_id, ERE_METABOX_PREFIX . 'new_email');
+                if (time() - (int)$pending['time'] <= 2 * DAY_IN_SECONDS) {
+                    if (email_exists($pending['newemail'])) {
+                        $message = esc_html__('This Email is already used by another user. Please try a different one.', 'essential-real-estate');
+                    } else {
+                        $return = wp_update_user(array('ID' => $user_id, 'user_email' => $pending['newemail']));
+                        if (is_wp_error($return)) {
+                            $message = esc_html($return->get_error_message());
+                        } else {
+                            $message = esc_html__('Your email address has been changed.', 'essential-real-estate');
+                        }
+                    }
+                }
+            }
+            $profile_url = ere_get_permalink('my_profile');
+            wp_die($message, esc_html__('Email confirmation', 'essential-real-estate'), array(
+                'response' => 200,
+                'link_url' => $profile_url ? $profile_url : home_url('/'),
+                'link_text' => esc_html__('Back to profile', 'essential-real-estate'),
+            ));
         }
 
         /**
@@ -621,6 +690,7 @@ if (!class_exists('ERE_Profile')) {
                         <td><input type="text" name="<?php echo esc_attr(ERE_METABOX_PREFIX . 'author_agent_id') ; ?>"
                                    id="<?php echo esc_attr(ERE_METABOX_PREFIX . 'author_agent_id') ; ?>"
                                    value="<?php echo esc_attr(get_the_author_meta(ERE_METABOX_PREFIX . 'author_agent_id', $user->ID)); ?>"
+                                   <?php if (!current_user_can('edit_users')) { echo 'readonly'; } ?>
                                    class="regular-text"></td>
                     </tr>
                 </tbody>
@@ -794,7 +864,12 @@ if (!class_exists('ERE_Profile')) {
                 update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_instagram_url', $author_instagram_url);
                 update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_youtube_url', $author_youtube_url);
                 update_user_meta($user_id, ERE_METABOX_PREFIX . 'author_vimeo_url', $author_vimeo_url);
-                $agent_id = isset($_POST[ERE_METABOX_PREFIX . 'author_agent_id']) ? absint(ere_clean(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_agent_id']))) : 0;
+                // Only administrators may link a user to an agent; other users keep their current agent.
+                if (current_user_can('edit_users')) {
+                    $agent_id = isset($_POST[ERE_METABOX_PREFIX . 'author_agent_id']) ? absint(ere_clean(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_agent_id']))) : 0;
+                } else {
+                    $agent_id = absint(get_the_author_meta(ERE_METABOX_PREFIX . 'author_agent_id', $user_id));
+                }
                 if ($agent_id > 0 && get_post_type($agent_id) == 'agent') {
 
                     $author_company = isset($_POST[ERE_METABOX_PREFIX . 'author_company']) ? ere_clean(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_company'])) : '';
@@ -803,7 +878,13 @@ if (!class_exists('ERE_Profile')) {
                     $author_office_number = isset($_POST[ERE_METABOX_PREFIX . 'author_office_number']) ? ere_clean(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_office_number'])) : '';
                     $author_licenses = isset($_POST[ERE_METABOX_PREFIX . 'author_licenses']) ? ere_clean(wp_unslash($_POST[ERE_METABOX_PREFIX . 'author_licenses'])) : '';
                     $description = isset($_POST['description']) ? sanitize_textarea_field(wp_unslash($_POST['description'])) : '';
-                    $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
+                    // Users changing their own email must confirm it first (WordPress core); keep the current one until then.
+                    $user_data = get_userdata($user_id);
+                    if (current_user_can('edit_users')) {
+                        $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
+                    } else {
+                        $email = $user_data ? $user_data->user_email : '';
+                    }
                     $agent_website_url = isset($_POST['url']) ? sanitize_url(wp_unslash($_POST['url'])) : '';
 
 

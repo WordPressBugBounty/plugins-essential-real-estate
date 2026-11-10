@@ -216,7 +216,7 @@ function ere_template_single_agency_contact_form($agency) {
         return;
     }
     $enable_captcha= ere_enable_captcha( 'contact_agency' ) ;
-    ere_get_template('global/contact-form.php',array('email' =>  $email, 'enable_captcha' => $enable_captcha,'extend_class' => 'ere__single-agency-contact-form'));
+    ere_get_template('global/contact-form.php',array('email' =>  $email, 'contact_type' => 'agency', 'contact_id' => $agency->term_id, 'enable_captcha' => $enable_captcha,'extend_class' => 'ere__single-agency-contact-form'));
 }
 
 /**

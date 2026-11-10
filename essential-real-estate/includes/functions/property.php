@@ -77,6 +77,75 @@ function ere_is_contact_email($email)
     return apply_filters('ere_is_contact_email', $is_contact, $email);
 }
 
+/**
+ * Resolve the recipient of a contact form on the server side.
+ * The recipient address is never taken from the request.
+ *
+ * @param string $contact_type property|agent|agency
+ * @param int $contact_id
+ * @return array|false array('email' => string, 'property_id' => int) or false when contact is not allowed
+ */
+function ere_get_contact_recipient($contact_type, $contact_id)
+{
+    $contact_id = absint($contact_id);
+    if (empty($contact_id)) {
+        return false;
+    }
+    $email = '';
+    $property_id = 0;
+    switch ($contact_type) {
+        case 'property':
+            if ((get_post_type($contact_id) !== 'property') || (get_post_status($contact_id) !== 'publish')) {
+                return false;
+            }
+            $property_form_sections = ere_get_option('property_form_sections', ere_get_property_form_section_config_default());
+            if (!in_array('contact', (array)$property_form_sections)) {
+                return false;
+            }
+            $agent_display_option = get_post_meta($contact_id, ERE_METABOX_PREFIX . 'agent_display_option', true);
+            if ($agent_display_option === 'no') {
+                return false;
+            }
+            $agent_info = ere_get_agent_contact_info_of_property($contact_id);
+            if (empty($agent_info['is_login'])) {
+                return false;
+            }
+            $email = $agent_info['email'];
+            if ($agent_info['display_type'] === 'other_info') {
+                // "Other contact" email is free text entered by the property author:
+                // only trust it from privileged authors, otherwise send to the author's own (verified) account email.
+                $author_id = (int)get_post_field('post_author', $contact_id);
+                $trusted = ($author_id > 0) && user_can($author_id, 'edit_others_posts');
+                if (!apply_filters('ere_trust_property_other_contact_mail', $trusted, $contact_id, $author_id)) {
+                    $author = get_userdata($author_id);
+                    $email = $author ? $author->user_email : '';
+                }
+            }
+            $property_id = $contact_id;
+            break;
+        case 'agent':
+            if ((get_post_type($contact_id) !== 'agent') || (get_post_status($contact_id) !== 'publish')) {
+                return false;
+            }
+            $email = get_post_meta($contact_id, ERE_METABOX_PREFIX . 'agent_email', true);
+            break;
+        case 'agency':
+            $agency = get_term($contact_id, 'agency');
+            if (!is_a($agency, 'WP_Term')) {
+                return false;
+            }
+            $email = get_term_meta($agency->term_id, 'agency_email', true);
+            break;
+        default:
+            return false;
+    }
+    $email = is_email($email);
+    if (!$email) {
+        return false;
+    }
+    return apply_filters('ere_contact_recipient', array('email' => $email, 'property_id' => $property_id), $contact_type, $contact_id);
+}
+
 function ere_get_single_property_features_tabs($property_id = '')
 {
     if (empty($property_id)) {

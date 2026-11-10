@@ -80,7 +80,7 @@ function ere_template_single_agent_contact_form() {
     }
     $enable_captcha= ere_enable_captcha('contact_agent');
 
-    ere_get_template('global/contact-form.php',array('email' =>  $email, 'enable_captcha' => $enable_captcha));
+    ere_get_template('global/contact-form.php',array('email' =>  $email, 'contact_type' => 'agent', 'contact_id' => $agent_id, 'enable_captcha' => $enable_captcha));
 }
 
 

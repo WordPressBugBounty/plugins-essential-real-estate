@@ -803,11 +803,18 @@ if (!class_exists('ERE_Property')) {
             check_ajax_referer('ere_contact_agent_ajax_nonce', 'ere_security_contact_agent');
             $sender_phone = isset($_POST['sender_phone']) ? ere_clean(wp_unslash($_POST['sender_phone'])) : '';
 
-            $target_email = isset($_POST['target_email']) ?  sanitize_email(wp_unslash($_POST['target_email'])) : '';
-            $property_url = isset($_POST['property_url']) ?  sanitize_url(wp_unslash($_POST['property_url'])) : '';
-            $target_email = is_email($target_email);
-            if (!$target_email || !ere_is_contact_email($target_email)) {
+            // The recipient is resolved server-side from the contacted property/agent/agency, never taken from the request.
+            $contact_type = isset($_POST['contact_type']) ? sanitize_key(wp_unslash($_POST['contact_type'])) : '';
+            $contact_id = isset($_POST['contact_id']) ? absint(wp_unslash($_POST['contact_id'])) : 0;
+            $recipient = ere_get_contact_recipient($contact_type, $contact_id);
+            if ($recipient === false) {
                 echo wp_json_encode(array('success' => false, 'message' => esc_html__('Target Email address is not properly configured!', 'essential-real-estate')));
+                wp_die();
+            }
+            $target_email = $recipient['email'];
+            $property_url = !empty($recipient['property_id']) ? get_permalink($recipient['property_id']) : '';
+            if ($this->contact_agent_rate_limited($target_email)) {
+                echo wp_json_encode(array('success' => false, 'message' => esc_html__('You have sent too many messages. Please try again later.', 'essential-real-estate')));
                 wp_die();
             }
             //recaptcha
@@ -846,6 +853,34 @@ if (!class_exists('ERE_Property')) {
                 echo wp_json_encode(array('success' => false, 'message' => esc_html__('Server Error: WordPress mail function failed!', 'essential-real-estate')));
             }
             wp_die();
+        }
+
+        /**
+         * Limit contact form submissions per IP address and recipient
+         * (keyed by recipient too, so visitors sharing a proxy IP do not block the whole site)
+         *
+         * @param string $target_email
+         * @return bool true when the limit is reached
+         */
+        private function contact_agent_rate_limited($target_email)
+        {
+            $limit = (int)apply_filters('ere_contact_agent_rate_limit', 10);
+            $window = (int)apply_filters('ere_contact_agent_rate_limit_window', 10 * MINUTE_IN_SECONDS);
+            if ($limit <= 0 || $window <= 0) {
+                return false;
+            }
+            $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
+            $key = 'ere_contact_rl_' . md5($ip . '|' . strtolower($target_email));
+            $data = get_transient($key);
+            if (!is_array($data) || empty($data['start']) || ($data['start'] + $window < time())) {
+                $data = array('count' => 0, 'start' => time());
+            }
+            if ($data['count'] >= $limit) {
+                return true;
+            }
+            $data['count']++;
+            set_transient($key, $data, $window);
+            return false;
         }
 
         /**

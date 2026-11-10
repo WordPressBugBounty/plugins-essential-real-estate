@@ -5,6 +5,8 @@ if (!defined('ABSPATH')) {
 }
 /**
  * @var $email
+ * @var $contact_type
+ * @var $contact_id
  * @var $enable_captcha
  * @var $extend_class
  */
@@ -51,7 +53,8 @@ $wrapper_class = join(' ', $wrapper_classes);
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block ere__btn-submit-contact-form"><?php echo esc_html__('Submit Request', 'essential-real-estate'); ?></button>
         </div>
-        <input type="hidden" name="target_email" value="<?php echo esc_attr($email); ?>">
+        <input type="hidden" name="contact_type" value="<?php echo esc_attr($contact_type); ?>">
+        <input type="hidden" name="contact_id" value="<?php echo esc_attr($contact_id); ?>">
         <input type="hidden" name="action" id="contact_agent_action" value="ere_contact_agent_ajax">
         <?php wp_nonce_field('ere_contact_agent_ajax_nonce', 'ere_security_contact_agent'); ?>
         <div class="ere__message"></div>

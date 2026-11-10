@@ -118,6 +118,8 @@ if (!class_exists('ERE_Login_Register')) {
                 echo wp_json_encode( array( 'success' => false, 'message' => esc_html__('Please enter a valid account username.', 'essential-real-estate') ) );
                 wp_die();
             }
+            // Free the username of an account that was never activated
+            $this->delete_expired_unverified_user( username_exists( $user_login ) );
             if( username_exists( $user_login ) ) {
                 echo wp_json_encode( array( 'success' => false, 'message' => esc_html__('This username is already registered.', 'essential-real-estate') ) );
                 wp_die();
@@ -130,6 +132,8 @@ if (!class_exists('ERE_Login_Register')) {
                  echo wp_json_encode( array( 'success' => false, 'message' => esc_html__('Invalid email address.', 'essential-real-estate') ) );
                  wp_die();
              }
+            // Free the email of an account that was never activated (e.g. registered by someone else)
+            $this->delete_expired_unverified_user( email_exists( $email ) );
             if( email_exists( $email ) ) {
                 echo wp_json_encode( array( 'success' => false, 'message' => esc_html__('This email address is already registered.', 'essential-real-estate') ) );
                 wp_die();
@@ -162,7 +166,14 @@ if (!class_exists('ERE_Login_Register')) {
                 echo wp_json_encode( array( 'success' => false, 'message' => $user_id ) );
                 wp_die();
             } else {
-                if( $enable_password) {
+                // A user-chosen password does not prove ownership of the email address: require activation by email
+                $require_verification = $enable_password && apply_filters( 'ere_register_require_email_verification', true, $user_id );
+                if ( $require_verification ) {
+                    $this->send_verification_email( $user_id );
+                }
+                if( $enable_password && $require_verification ) {
+                    echo wp_json_encode( array( 'success' => true, 'message' => esc_html__('Your account was created. Please check your email and click the activation link before logging in.', 'essential-real-estate') ) );
+                } elseif( $enable_password) {
                     echo wp_json_encode( array( 'success' => true, 'message' => esc_html__('Your account was created, you can login now!', 'essential-real-estate') ) );
                 } else {
                     echo wp_json_encode( array( 'success' => true, 'message' => esc_html__('A generated password was sent to your email, please check email!', 'essential-real-estate') ) );
@@ -176,6 +187,132 @@ if (!class_exists('ERE_Login_Register')) {
             }
             wp_die();
         }
+
+        /**
+         * Send the account activation link to the account email address
+         *
+         * @param $user_id
+         * @return bool
+         */
+        public function send_verification_email( $user_id ) {
+            $user = get_userdata( $user_id );
+            if ( ! $user ) {
+                return false;
+            }
+            $hash = wp_generate_password( 32, false, false );
+            update_user_meta( $user_id, ERE_METABOX_PREFIX . 'email_verify', array(
+                'hash' => $hash,
+                'sent' => time()
+            ) );
+            $verify_url = add_query_arg( array( 'ere_verify_email' => $hash, 'uid' => $user_id ), home_url( '/' ) );
+            $site_name = wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES );
+            /* translators: %s: site name. */
+            $subject = sprintf( __( '[%s] Activate your account', 'essential-real-estate' ), $site_name );
+            /* translators: %1$s: site name, %2$s: username, %3$s: activation link. */
+            $message = sprintf( __( "An account was created on %1\$s with this email address (username: %2\$s).\n\nTo activate the account, please click the following link:\n%3\$s\n\nThis link expires in 48 hours. If you did not create this account, you can safely ignore this email and it will be removed.", 'essential-real-estate' ), $site_name, $user->user_login, $verify_url );
+            return wp_mail( $user->user_email, $subject, $message );
+        }
+
+        /**
+         * Block login of accounts whose email address has not been verified yet
+         *
+         * @param WP_User|WP_Error $user
+         * @param string $password
+         * @return WP_User|WP_Error
+         */
+        public function check_email_verified( $user, $password ) {
+            if ( ! is_a( $user, 'WP_User' ) ) {
+                return $user;
+            }
+            $verify = get_user_meta( $user->ID, ERE_METABOX_PREFIX . 'email_verify', true );
+            if ( empty( $verify ) ) {
+                return $user;
+            }
+            // Wrong password: let WordPress report it as usual
+            if ( ! wp_check_password( $password, $user->user_pass, $user->ID ) ) {
+                return $user;
+            }
+            // Re-send the activation link, at most once every 5 minutes
+            if ( ! is_array( $verify ) || empty( $verify['sent'] ) || ( time() - (int) $verify['sent'] > 5 * MINUTE_IN_SECONDS ) ) {
+                $this->send_verification_email( $user->ID );
+            }
+            return new WP_Error( 'ere_email_unverified', esc_html__( 'Your account has not been activated yet. Please click the activation link we sent to your email address.', 'essential-real-estate' ) );
+        }
+
+        /**
+         * Handle the account activation link
+         */
+        public function verify_email_link() {
+            if ( empty( $_GET['ere_verify_email'] ) || empty( $_GET['uid'] ) ) {
+                return;
+            }
+            $user_id = absint( wp_unslash( $_GET['uid'] ) );
+            $hash = sanitize_text_field( wp_unslash( $_GET['ere_verify_email'] ) );
+            $verify = get_user_meta( $user_id, ERE_METABOX_PREFIX . 'email_verify', true );
+            $message = esc_html__( 'This activation link is invalid or has expired. Please log in to receive a new activation link.', 'essential-real-estate' );
+            if ( is_array( $verify ) && ! empty( $verify['hash'] ) && hash_equals( $verify['hash'], $hash ) && ( time() - (int) $verify['sent'] <= 2 * DAY_IN_SECONDS ) ) {
+                delete_user_meta( $user_id, ERE_METABOX_PREFIX . 'email_verify' );
+                do_action( 'ere_user_email_verified', $user_id );
+                $message = esc_html__( 'Your account has been activated. You can log in now.', 'essential-real-estate' );
+            } elseif ( empty( $verify ) && get_userdata( $user_id ) ) {
+                $message = esc_html__( 'Your account is already activated.', 'essential-real-estate' );
+            }
+            wp_die( $message, esc_html__( 'Account activation', 'essential-real-estate' ), array(
+                'response'  => 200,
+                'link_url'  => home_url( '/' ),
+                'link_text' => esc_html__( 'Back to home', 'essential-real-estate' ),
+            ) );
+        }
+
+        /**
+         * Delete an account that was registered more than 48 hours ago and never activated,
+         * so its username / email address can be registered again by their real owner.
+         *
+         * @param int|false $user_id
+         */
+        private function delete_expired_unverified_user( $user_id ) {
+            if ( empty( $user_id ) || ! get_user_meta( $user_id, ERE_METABOX_PREFIX . 'email_verify', true ) ) {
+                return;
+            }
+            $user = get_userdata( $user_id );
+            if ( ! $user || ( time() - strtotime( $user->user_registered . ' UTC' ) <= 2 * DAY_IN_SECONDS ) || count_user_posts( $user_id ) > 0 || count_user_posts( $user_id, 'property' ) > 0 ) {
+                return;
+            }
+            require_once ABSPATH . 'wp-admin/includes/user.php';
+            wp_delete_user( $user_id );
+        }
+
+        /**
+         * Users list: allow administrators to activate an account manually
+         *
+         * @param array $actions
+         * @param WP_User $user
+         * @return array
+         */
+        public function user_row_actions( $actions, $user ) {
+            if ( current_user_can( 'edit_user', $user->ID ) && get_user_meta( $user->ID, ERE_METABOX_PREFIX . 'email_verify', true ) ) {
+                $url = wp_nonce_url( add_query_arg( array( 'action' => 'ere_activate_user', 'user_id' => $user->ID ), admin_url( 'admin-post.php' ) ), 'ere_activate_user_' . $user->ID );
+                $actions['ere_activate_user'] = '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Activate (email not verified)', 'essential-real-estate' ) . '</a>';
+            }
+            return $actions;
+        }
+
+        /**
+         * Manually activate an account from the Users list
+         */
+        public function admin_activate_user() {
+            $user_id = isset( $_GET['user_id'] ) ? absint( wp_unslash( $_GET['user_id'] ) ) : 0;
+            check_admin_referer( 'ere_activate_user_' . $user_id );
+            if ( ! current_user_can( 'edit_user', $user_id ) ) {
+                wp_die( esc_html__( 'You are not allowed to edit this user.', 'essential-real-estate' ) );
+            }
+            delete_user_meta( $user_id, ERE_METABOX_PREFIX . 'email_verify' );
+            do_action( 'ere_user_email_verified', $user_id );
+            $redirect = wp_get_referer();
+            wp_safe_redirect( $redirect ? $redirect : admin_url( 'users.php' ) );
+            exit;
+        }
+
         /**
          * user notification
          * @param $user_id

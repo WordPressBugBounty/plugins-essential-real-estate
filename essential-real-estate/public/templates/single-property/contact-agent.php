@@ -26,6 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $desc
  * @var $user_id
  * @var $agent_id
+ * @var $property_id
  */
 $wrapper_classes = array(
     'single-property-element',
@@ -229,8 +230,8 @@ $contact_forms_class = join(' ', $contact_forms_classes);
                         </div>
                     </div>
                     <input type="hidden" name="action" id="contact_agent_with_property_url_action" value="ere_contact_agent_ajax">
-                    <input type="hidden" name="target_email" value="<?php echo esc_attr( $email ); ?>">
-                    <input type="hidden" name="property_url" value="<?php echo esc_url(get_permalink()) ; ?>">
+                    <input type="hidden" name="contact_type" value="property">
+                    <input type="hidden" name="contact_id" value="<?php echo esc_attr( isset( $property_id ) ? $property_id : get_the_ID() ); ?>">
                     <?php wp_nonce_field('ere_contact_agent_ajax_nonce', 'ere_security_contact_agent'); ?>
                 </form>
             </div>

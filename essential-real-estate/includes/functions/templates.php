@@ -1076,6 +1076,7 @@ function ere_template_single_property_contact_agent($property_id = '') {
     }
     $agent_info = ere_get_agent_contact_info_of_property($property_id);
     if ($agent_info['is_login']) {
+        $agent_info['property_id'] = $property_id;
         ere_get_template( 'single-property/contact-agent.php', $agent_info);
     } else {
         ere_get_template( 'single-property/contact-agent-not-login.php');
