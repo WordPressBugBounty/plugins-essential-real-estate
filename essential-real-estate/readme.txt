@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: real estate, agency, agent, realtor, property
 Requires at least: 4.5
 Tested up to: 7.1
-Stable tag: 5.3.6
+Stable tag: 5.3.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,11 @@ Yes! it's always will be free.
 10. Listing properties with features on frontend
 
 == Changelog ==
+= 5.3.7 =
+* Security: Fix stored Cross-Site Scripting via property title in property listing images and single property gallery (alt/title attributes), reported via Wordfence
+* Security: Escape property title in map popups, search map results and Google Maps directions
+* Note: Themes overriding loop/property-image.php or single-property/gallery.php should replace the_title() with the_title_attribute() in alt/title attributes
+
 = 5.3.6 =
 * Security: Fix incomplete patch for arbitrary email sending in contact agent form - the recipient is now resolved server-side from the property, agent or agency (CVE-2026-90964 bypass, reported by Aabideen Bangash via WPScan)
 * Security: Contact messages for properties using "Other contact" by non-privileged authors are sent to the author's account email. To keep sending to the "Other contact" email, use the filter ere_trust_property_other_contact_mail

@@ -1,5 +1,10 @@
 Essential Real Estate - Full changelog
 
+= 5.3.7 =
+* Security: Fix stored Cross-Site Scripting via property title in property listing images and single property gallery (alt/title attributes), reported via Wordfence
+* Security: Escape property title in map popups, search map results and Google Maps directions
+* Note: Themes overriding loop/property-image.php or single-property/gallery.php should replace the_title() with the_title_attribute() in alt/title attributes
+
 = 5.3.6 =
 * Security: Fix incomplete patch for arbitrary email sending in contact agent form - the recipient is now resolved server-side from the property, agent or agency (CVE-2026-90964 bypass, reported by Aabideen Bangash via WPScan)
 * Security: Contact messages for properties using "Other contact" by non-privileged authors are sent to the author's account email. To keep sending to the "Other contact" email, use the filter ere_trust_property_other_contact_mail

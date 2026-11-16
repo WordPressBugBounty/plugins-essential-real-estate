@@ -969,7 +969,7 @@ function ere_property_get_location_data($property_id)
         'position' => $position,
         'marker' => ere_property_get_map_marker($property_id),
         'popup' => array(
-            'title' => get_the_title($property_id),
+            'title' => esc_attr(wp_strip_all_tags(get_the_title($property_id))),
             'url' => get_the_permalink($property_id),
             'thumb' => $property_image,
             'price' => $price,

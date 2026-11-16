@@ -52,6 +52,6 @@ if (empty($image_src)) {
      height="<?php echo esc_attr($height) ?>"
      src="<?php echo esc_url($image_src) ?>"
      onerror="this.src = '<?php echo esc_url($no_image_src) ?>';"
-     alt="<?php the_title(); ?>"
-     title="<?php the_title(); ?>">
+     alt="<?php the_title_attribute(); ?>"
+     title="<?php the_title_attribute(); ?>">
 

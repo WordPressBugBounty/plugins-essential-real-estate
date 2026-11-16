@@ -65,8 +65,8 @@ if (preg_match('/\d+x\d+/', $image_thumb_size)) {
             }
             ?>
             <div class="property-gallery-item ere-light-gallery">
-                <img src="<?php echo esc_url($image_src) ?>" alt="<?php the_title(); ?>"
-                     title="<?php the_title(); ?>">
+                <img src="<?php echo esc_url($image_src) ?>" alt="<?php the_title_attribute(); ?>"
+                     title="<?php the_title_attribute(); ?>">
                 <a data-thumb-src="<?php echo esc_url($image_full_src); ?>"
                    data-gallery-id="<?php echo esc_attr($gallery_id); ?>"
                    data-rel="ere_light_gallery" href="<?php echo esc_url($image_full_src); ?>"
@@ -83,8 +83,8 @@ if (preg_match('/\d+x\d+/', $image_thumb_size)) {
                 }
             ?>
             <div class="property-gallery-item">
-                <img src="<?php echo esc_url($image_src) ?>" alt="<?php the_title(); ?>"
-                     title="<?php the_title(); ?>">
+                <img src="<?php echo esc_url($image_src) ?>" alt="<?php the_title_attribute(); ?>"
+                     title="<?php the_title_attribute(); ?>">
             </div>
         <?php endforeach; ?>
     </div>

@@ -99,7 +99,7 @@ if (!class_exists('ERE_Search')) {
                 $properties_price = ere_get_format_money($properties_price);
                 $prop = new stdClass();
                 $prop->image_url = $image_src;
-                $prop->title = get_the_title();
+                $prop->title = esc_attr(wp_strip_all_tags(get_the_title()));
                 $prop->lat = $lat_lng[0];
                 $prop->lng = $lat_lng[1];
                 $prop->url = get_permalink();
@@ -259,7 +259,7 @@ if (!class_exists('ERE_Search')) {
                     $properties_price = ere_get_format_money($properties_price);
                     $prop = new stdClass();
                     $prop->image_url = $image_src;
-                    $prop->title = get_the_title();
+                    $prop->title = esc_attr(wp_strip_all_tags(get_the_title()));
                     $prop->lat = $lat;
                     $prop->lng = $lng;
                     $prop->url = get_permalink();

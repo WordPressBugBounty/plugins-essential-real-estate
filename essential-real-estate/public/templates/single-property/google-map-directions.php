@@ -70,13 +70,13 @@ $map_id = 'map-' . uniqid();
         marker = new google.maps.Marker({
             position: property_position,
             map: map,
-            title: '<?php echo esc_html($title) ?>',
+            title: '<?php echo esc_js($title) ?>',
             animation: google.maps.Animation.DROP,
             icon: '<?php echo esc_html($map_icons_path_marker) ?>'
         });
         google.maps.event.addListener(marker, 'click', (function (marker) {
             return function () {
-                infoWindow.setContent('<h6>' + '<?php echo esc_html($title) ?>' + '</h6>');
+                infoWindow.setContent('<h6>' + '<?php echo esc_js($title) ?>' + '</h6>');
                 infoWindow.open(map, marker);
             }
         })(marker));
