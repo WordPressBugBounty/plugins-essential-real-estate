@@ -677,7 +677,20 @@ var ERE = ERE || {};
                     rtl: isRTL,
 
                 };
-                var config = $.extend({}, defaults, $this.data("options"));
+                // Security: only accept plain numeric/boolean/text options from data-options, never HTML (filledStar, emptyStar, clearButton...).
+                var options = $this.data("options"), safeOptions = {};
+                if ($.isPlainObject(options)) {
+                    $.each(options, function (key, value) {
+                        if ($.inArray(key, ['filledStar', 'emptyStar', 'clearButton', 'starCaptions', 'starCaptionClasses', 'clearCaption', 'defaultCaption', 'containerClass', 'theme']) !== -1) {
+                            return;
+                        }
+                        if ((typeof value === 'number' && isFinite(value)) || typeof value === 'boolean' ||
+                            (typeof value === 'string' && /^[A-Za-z0-9_\s.,%:-]{0,100}$/.test(value))) {
+                            safeOptions[key] = value;
+                        }
+                    });
+                }
+                var config = $.extend({}, defaults, safeOptions);
                 $this.rating(config);
             });
         },

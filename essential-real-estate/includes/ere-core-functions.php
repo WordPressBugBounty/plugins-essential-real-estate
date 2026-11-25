@@ -1634,6 +1634,120 @@ if (!function_exists('ere_sanitize_filter_post_kses')) {
 	}
 }
 
+if ( ! function_exists( 'ere_user_content_allowed_html' ) ) {
+	/**
+	 * Allowed HTML for content submitted by front-end users (property description, custom textarea fields, reviews...).
+	 *
+	 * Same as the post allow-list, but without data-* attributes: plugin/theme scripts read their
+	 * configuration from data-* attributes (data-plugin-options, data-options...), so user content
+	 * must never be able to provide them.
+	 *
+	 * @since 5.3.8
+	 * @return array
+	 */
+	function ere_user_content_allowed_html() {
+		$allowed = wp_kses_allowed_html( 'post' );
+		foreach ( $allowed as $tag => $attributes ) {
+			if ( is_array( $attributes ) ) {
+				unset( $allowed[ $tag ]['data-*'] );
+				foreach ( array_keys( $attributes ) as $attribute ) {
+					if ( 0 === strpos( strtolower( $attribute ), 'data-' ) ) {
+						unset( $allowed[ $tag ][ $attribute ] );
+					}
+				}
+			}
+		}
+
+		return apply_filters( 'ere_user_content_allowed_html', $allowed );
+	}
+}
+
+if ( ! function_exists( 'ere_strip_reserved_classes' ) ) {
+	/**
+	 * Remove class names that plugin/theme scripts use as JavaScript hooks
+	 * (ere__owl-carousel, ere__start-rating, g5plus__owl-carousel, owl-*...) from already KSES-filtered HTML.
+	 *
+	 * @since 5.3.8
+	 * @param string $html Unslashed HTML that already went through wp_kses().
+	 * @return string
+	 */
+	function ere_strip_reserved_classes( $html ) {
+		if ( ! is_string( $html ) || false === stripos( $html, 'class' ) ) {
+			return $html;
+		}
+		$pattern = apply_filters( 'ere_user_content_reserved_class_pattern', '/^(ere__|ere-|g5plus__|owl-)/i' );
+
+		// After wp_kses() a tag never contains ">" and class values are always quoted.
+		return preg_replace_callback( '/<[a-z][^>]*>/i', function ( $tag ) use ( $pattern ) {
+			return preg_replace_callback( '/(\sclass\s*=\s*)(?:"([^"]*)"|\'([^\']*)\')/i', function ( $match ) use ( $pattern ) {
+				$value   = isset( $match[3] ) ? $match[3] : $match[2];
+				$classes = preg_split( '/\s+/', trim( $value ), -1, PREG_SPLIT_NO_EMPTY );
+				$keep    = array();
+				foreach ( $classes as $class ) {
+					if ( ! preg_match( $pattern, $class ) ) {
+						$keep[] = $class;
+					}
+				}
+
+				return $match[1] . '"' . str_replace( '"', '&quot;', implode( ' ', $keep ) ) . '"';
+			}, $tag[0] );
+		}, $html );
+	}
+}
+
+if ( ! function_exists( 'ere_kses_user_content' ) ) {
+	/**
+	 * Sanitize HTML submitted by front-end users. Input and output are unslashed.
+	 *
+	 * @since 5.3.8
+	 * @param string $content
+	 * @return string
+	 */
+	function ere_kses_user_content( $content ) {
+		if ( ! is_scalar( $content ) ) {
+			return '';
+		}
+		$content = wp_kses( (string) $content, ere_user_content_allowed_html() );
+
+		return ere_strip_reserved_classes( $content );
+	}
+}
+
+if ( ! function_exists( 'ere_filter_user_content_kses' ) ) {
+	/**
+	 * Drop-in replacement of wp_filter_post_kses() for front-end user content:
+	 * expects slashed data and returns slashed data.
+	 *
+	 * @since 5.3.8
+	 * @param string $data
+	 * @return string
+	 */
+	function ere_filter_user_content_kses( $data ) {
+		if ( ! is_scalar( $data ) ) {
+			return '';
+		}
+
+		return wp_slash( ere_kses_user_content( wp_unslash( $data ) ) );
+	}
+}
+
+if ( ! function_exists( 'ere_sanitize_filter_user_content_kses' ) ) {
+	/**
+	 * Recursive version of ere_filter_user_content_kses(), same behavior as ere_sanitize_filter_post_kses().
+	 *
+	 * @since 5.3.8
+	 * @param mixed $var
+	 * @return mixed
+	 */
+	function ere_sanitize_filter_user_content_kses( $var ) {
+		if ( is_array( $var ) ) {
+			return array_map( 'ere_sanitize_filter_user_content_kses', $var );
+		}
+
+		return is_scalar( $var ) ? ere_filter_user_content_kses( wp_unslash( $var ) ) : $var;
+	}
+}
+
 if (!function_exists('ere_sort_by_order_callback')) {
 	function ere_sort_by_order_callback( $a, $b ) {
 		if ( ! isset( $a['priority'] ) ) {

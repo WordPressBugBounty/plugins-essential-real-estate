@@ -2,9 +2,76 @@ var ERE_Carousel = ERE_Carousel || {};
 (function( $ ) {
 	'use strict';
 	var isRTL = $('body').hasClass('rtl');
+
+	// Owl options whose value is turned into HTML or a jQuery selector. They are never read from data-plugin-options.
+	var UNSAFE_KEYS = ['navElement', 'itemElement', 'stageElement', 'responsiveBaseElement', 'dotsData'],
+		SELECTOR_KEYS = ['navContainer', 'dotsContainer'],
+		SAFE_SELECTOR = /^[#.][A-Za-z0-9_-]+$/,
+		SAFE_STRING = /^[A-Za-z0-9_\s.,%#:-]{0,200}$/,
+		SAFE_NAV_TEXT = /^(<i class="[A-Za-z0-9_\s-]*"><\/i>|<span class="[A-Za-z0-9_\s-]*"><\/span>|[^<>&"'`=]{0,50})$/;
+
+	function isSafeScalar(value) {
+		return (typeof value === 'number' && isFinite(value)) ||
+			typeof value === 'boolean' ||
+			(typeof value === 'string' && SAFE_STRING.test(value));
+	}
+
 	ERE_Carousel = {
 		init: function () {
 			this.owlCarousel();
+		},
+		/**
+		 * Keep only safe options from data-plugin-options (security: prevent DOM XSS through Owl options).
+		 */
+		sanitizeOptions: function (options, isNested) {
+			var result = {};
+			if (!$.isPlainObject(options)) {
+				return result;
+			}
+			$.each(options, function (key, value) {
+				if ($.inArray(key, UNSAFE_KEYS) !== -1 || /Element$/.test(key)) {
+					return;
+				}
+				if ($.inArray(key, SELECTOR_KEYS) !== -1) {
+					if (value === false || (typeof value === 'string' && SAFE_SELECTOR.test(value))) {
+						result[key] = value;
+					}
+					return;
+				}
+				if (key === 'navText') {
+					if ($.isArray(value) && value.length === 2 &&
+						typeof value[0] === 'string' && SAFE_NAV_TEXT.test(value[0]) &&
+						typeof value[1] === 'string' && SAFE_NAV_TEXT.test(value[1])) {
+						result[key] = [value[0], value[1]];
+					}
+					return;
+				}
+				if (key === 'responsive') {
+					if (!isNested && $.isPlainObject(value)) {
+						var responsive = {};
+						$.each(value, function (breakpoint, breakpointOptions) {
+							if (/^\d+$/.test(breakpoint) && $.isPlainObject(breakpointOptions)) {
+								responsive[breakpoint] = ERE_Carousel.sanitizeOptions(breakpointOptions, true);
+							}
+						});
+						result[key] = responsive;
+					}
+					return;
+				}
+				if (isSafeScalar(value)) {
+					result[key] = value;
+					return;
+				}
+				if ($.isArray(value)) {
+					for (var i = 0; i < value.length; i++) {
+						if (!isSafeScalar(value[i])) {
+							return;
+						}
+					}
+					result[key] = value.slice(0);
+				}
+			});
+			return result;
 		},
 		owlCarousel: function () {
 			$('.ere__owl-carousel:not(.owl-loaded)').each(function () {
@@ -37,7 +104,7 @@ var ERE_Carousel = ERE_Carousel || {};
 						$(element).trigger('owlInitialized');
 					}
 				};
-				var config = $.extend({}, defaults, slider.data("plugin-options"));
+				var config = $.extend({}, defaults, ERE_Carousel.sanitizeOptions(slider.data("plugin-options")));
 				// Initialize Slider
 				slider.owlCarousel(config);
 			});

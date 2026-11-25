@@ -1,5 +1,43 @@
 Changelog
 =========
+### 5.3.8 - November 25, 2026
+* Security: Fix stored DOM-based Cross-Site Scripting via Owl Carousel options (data-plugin-options, e.g. navElement) injected into the front-end property description by users with the ere_customer role, reported via Wordfence
+* Security: HTML submitted from the front-end (property description, custom textarea fields, floor plans, other contact description, property reviews) no longer keeps data-* attributes or the class names used by plugin/theme scripts (ere__*, ere-*, g5plus__*, owl-*). Other HTML (text formatting, links, images, style, other classes) is kept as before. Editing from wp-admin is not affected
+* Security: Carousels (.ere__owl-carousel) ignore unsafe options read from data-plugin-options: navElement, itemElement, stageElement, responsiveBaseElement, dotsData. navContainer/dotsContainer only accept a simple selector (.class or #id), navText only accepts plain text or an empty `<i class="..."></i>` / `<span class="..."></span>` icon, other text options only accept letters, numbers and basic punctuation
+* Security: Review star rating ignores HTML options (filledStar, emptyStar, clearButton, captions, theme) read from data-options
+* Note: Existing properties are not modified. Administrators should check existing properties for injected markup (search property content and custom fields for "plugin-options", "ere__owl-carousel" or "onerror") and check the Users list for unknown administrator accounts
+* Note: If you customized carousel options through the ere_*_owl_options filters or template overrides, check that they still apply. Custom navText HTML (other than an icon tag), dotsData and the *Element options are now ignored
+* Note: Please clear your page cache / CDN cache after updating so visitors load the new ere-carousel.js and ere-main.js
+* Developer: New functions ere_kses_user_content(), ere_filter_user_content_kses(), ere_sanitize_filter_user_content_kses(), filters ere_user_content_allowed_html, ere_user_content_reserved_class_pattern and JS method ERE_Carousel.sanitizeOptions()
+
+### 5.3.7
+* Security: Fix stored Cross-Site Scripting via property title in property listing images and single property gallery (alt/title attributes), reported via Wordfence
+* Security: Escape property title in map popups, search map results and Google Maps directions
+* Note: Themes overriding loop/property-image.php or single-property/gallery.php should replace the_title() with the_title_attribute() in alt/title attributes
+
+### 5.3.6
+* Security: Fix incomplete patch for arbitrary email sending in contact agent form - the recipient is now resolved server-side from the property, agent or agency (CVE-2026-90964 bypass, reported by Aabideen Bangash via WPScan)
+* Security: Contact messages for properties using "Other contact" by non-privileged authors are sent to the author's account email. To keep sending to the "Other contact" email, use the filter ere_trust_property_other_contact_mail
+* Security: Changing the account email from the front-end profile now requires confirmation from the new address
+* Security: When "Enable password" is on, new accounts must be activated from the link sent to their email before they can log in. Administrators can activate accounts manually from Users list. Accounts never activated within 48 hours are removed when someone registers the same username or email
+* Security: Fix non-admin users overwriting any agent's details from the wp-admin profile page
+* Security: Rate limit contact form submissions (10 per 10 minutes per visitor IP and recipient, filter: ere_contact_agent_rate_limit)
+* Note: Themes overriding global/contact-form.php or single-property/contact-agent.php must replace the target_email hidden field with contact_type and contact_id
+* Note: Please clear your page cache after updating so contact forms use the new fields
+
+### 5.3.5
+* Security: Fix unauthenticated disclosure of unpublished properties in print property
+* Security: Fix unauthenticated disclosure of unpublished property images in gallery and compare
+* Security: Fix arbitrary email sending in contact agent form
+* Security: Fix free package activation for paid packages
+* Security: Fix missing authorization in print invoice
+* Security: Fix arbitrary attachment deletion in property form
+* Security: Fix missing authorization when editing property from front-end form
+
+### 5.3.4
+* Security: Fix authenticated PHP Object Injection in saved search (reported by Wordfence)
+* Security: Escape saved search parameters output
+
 ### 5.3.3 - June 01, 2026
 * Fix Missing Authorization in function property feature
 

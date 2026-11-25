@@ -377,7 +377,7 @@ if (!class_exists('ERE_Property')) {
             }
 
             if (isset($_POST['property_des'])) {
-                $new_property['post_content'] = wp_filter_post_kses($_POST['property_des']);
+                $new_property['post_content'] = ere_filter_user_content_kses($_POST['property_des']);
             }
 
             $submit_action = isset($_POST['property_form']) ? ere_clean(wp_unslash($_POST['property_form'])) : '';
@@ -532,7 +532,7 @@ if (!class_exists('ERE_Property')) {
                                 }
                                 update_post_meta($property_id, $field['id'], $arr);
                             } elseif ($field['type'] == 'textarea') {
-	                            update_post_meta($property_id, $field['id'], wp_filter_post_kses($_POST[$field['id']]));
+	                            update_post_meta($property_id, $field['id'], ere_filter_user_content_kses($_POST[$field['id']]));
                             } else {
                                 update_post_meta($property_id, $field['id'], ere_clean(wp_unslash($_POST[$field['id']])));
                             }
@@ -632,7 +632,7 @@ if (!class_exists('ERE_Property')) {
                 }
 
                 if (isset($_POST[ERE_METABOX_PREFIX . 'floors'])) {
-                    $floors_post = ere_sanitize_filter_post_kses($_POST[ERE_METABOX_PREFIX . 'floors']);
+                    $floors_post = ere_sanitize_filter_user_content_kses($_POST[ERE_METABOX_PREFIX . 'floors']);
                     if (!empty($floors_post)) {
                         update_post_meta($property_id, ERE_METABOX_PREFIX . 'floors', $floors_post);
                     }
@@ -652,7 +652,7 @@ if (!class_exists('ERE_Property')) {
                             update_post_meta($property_id, ERE_METABOX_PREFIX . 'property_other_contact_phone', ere_clean(wp_unslash($_POST['property_other_contact_phone'])));
                         }
                         if (isset($_POST['property_other_contact_description'])) {
-                            update_post_meta($property_id, ERE_METABOX_PREFIX . 'property_other_contact_description', wp_filter_post_kses($_POST['property_other_contact_description']));
+                            update_post_meta($property_id, ERE_METABOX_PREFIX . 'property_other_contact_description', ere_filter_user_content_kses($_POST['property_other_contact_description']));
                         }
                     } else {
                         update_post_meta($property_id, ERE_METABOX_PREFIX . 'property_author', $user_id);
@@ -1271,7 +1271,7 @@ if (!class_exists('ERE_Property')) {
                 $data = Array();
                 $user = $user->data;
                 $data['comment_post_ID'] = $property_id;
-                $data['comment_content'] = isset($_POST['message']) ?  wp_filter_post_kses($_POST['message']) : '';
+                $data['comment_content'] = isset($_POST['message']) ?  ere_filter_user_content_kses($_POST['message']) : '';
                 $data['comment_date'] = current_time('mysql');
                 $data['comment_approved'] = $comment_approved;
                 $data['comment_author'] = $user->user_login;
@@ -1288,7 +1288,7 @@ if (!class_exists('ERE_Property')) {
                 $data = Array();
                 $data['comment_ID'] = $my_review->comment_ID;
                 $data['comment_post_ID'] = $property_id;
-                $data['comment_content'] = isset($_POST['message']) ? wp_filter_post_kses($_POST['message']) : '';
+                $data['comment_content'] = isset($_POST['message']) ? ere_filter_user_content_kses($_POST['message']) : '';
                 $data['comment_date'] = current_time('mysql');
                 $data['comment_approved'] = $comment_approved;
 

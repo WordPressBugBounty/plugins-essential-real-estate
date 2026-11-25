@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: real estate, agency, agent, realtor, property
 Requires at least: 4.5
 Tested up to: 7.1
-Stable tag: 5.3.7
+Stable tag: 5.3.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -97,7 +97,22 @@ Yes! it's always will be free.
 9. My profile of user on frontend management
 10. Listing properties with features on frontend
 
+== Upgrade Notice ==
+
+= 5.3.8 =
+Security release (stored XSS via carousel options in front-end property submissions). Existing content is not changed: check existing properties and admin accounts. Custom carousel navText/dotsData options may be ignored. Clear page/CDN cache after updating.
+
 == Changelog ==
+= 5.3.8 =
+* Security: Fix stored DOM-based Cross-Site Scripting via Owl Carousel options (data-plugin-options, e.g. navElement) injected into the front-end property description by users with the ere_customer role, reported via Wordfence
+* Security: HTML submitted from the front-end (property description, custom textarea fields, floor plans, other contact description, property reviews) no longer keeps data-* attributes or the class names used by plugin/theme scripts (ere__*, ere-*, g5plus__*, owl-*). Other HTML (text formatting, links, images, style, other classes) is kept as before. Editing from wp-admin is not affected
+* Security: Carousels (.ere__owl-carousel) ignore unsafe options read from data-plugin-options: navElement, itemElement, stageElement, responsiveBaseElement, dotsData. navContainer/dotsContainer only accept a simple selector (.class or #id), navText only accepts plain text or an empty <i class="..."></i> / <span class="..."></span> icon, other text options only accept letters, numbers and basic punctuation
+* Security: Review star rating ignores HTML options (filledStar, emptyStar, clearButton, captions, theme) read from data-options
+* Note: Existing properties are not modified. Administrators should check existing properties for injected markup (search property content and custom fields for "plugin-options", "ere__owl-carousel" or "onerror") and check the Users list for unknown administrator accounts
+* Note: If you customized carousel options through the ere_*_owl_options filters or template overrides, check that they still apply. Custom navText HTML (other than an icon tag), dotsData and the *Element options are now ignored
+* Note: Please clear your page cache / CDN cache after updating so visitors load the new ere-carousel.js and ere-main.js
+* Developer: New functions ere_kses_user_content(), ere_filter_user_content_kses(), ere_sanitize_filter_user_content_kses(), filters ere_user_content_allowed_html, ere_user_content_reserved_class_pattern and JS method ERE_Carousel.sanitizeOptions()
+
 = 5.3.7 =
 * Security: Fix stored Cross-Site Scripting via property title in property listing images and single property gallery (alt/title attributes), reported via Wordfence
 * Security: Escape property title in map popups, search map results and Google Maps directions
